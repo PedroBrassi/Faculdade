@@ -1,0 +1,8 @@
+Linguagem SWI - Prolog:
+https://docplayer.com.br/25309297-Programacao-em-prolog.html
+
+SWISH - SWI Prolog for SHaring (Prolog on-line):
+https://swish.swi-prolog.org/
+
+Livro de Programação Prolog - Eloi Favero:
+https://campusvirtual.unifal-mg.edu.br/moodle/course/view.php?id=3962
