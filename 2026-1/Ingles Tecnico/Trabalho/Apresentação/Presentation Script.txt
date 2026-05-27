@@ -1,0 +1,114 @@
+================================================================================
+LINEAR TECHNICAL GLOSSARY — PRESENTATION SCRIPT & CONTENT
+================================================================================
+Target: 5 Slides
+Categories: Management, Execution & Flow, Technical Core
+Language: English (Presentation Content) / Portuguese (Presentation Script)
+
+--------------------------------------------------------------------------------
+SLIDE 1: TITLE SLIDE
+--------------------------------------------------------------------------------
+[Slide Content]
+TITLE: TECHNICAL GLOSSARY
+SUBTITLE: Pessoa 5 — Linear Official Documentation Guide
+DESCRIPTION: A comprehensive exploration of the core concepts, workflows, and technical integrations that power high-performance product teams.
+
+[Roteiro de Apresentação (Script)]
+"Olá a todos. Hoje vou apresentar o Glossário Técnico baseado na documentação oficial do Linear. O objetivo desta apresentação é esclarecer os principais termos que estruturam a plataforma, divididos em três pilares essenciais: Gestão (Management), Execução e Fluxo (Execution & Flow), e o Núcleo Técnico (Technical Core). Compreender esses conceitos ajuda o time a alinhar a metodologia de trabalho com a ferramenta, garantindo máxima eficiência."
+
+--------------------------------------------------------------------------------
+SLIDE 2: MANAGEMENT (CATEGORIA: GESTÃO)
+--------------------------------------------------------------------------------
+[Slide Content]
+TITLE: MANAGEMENT
+
+01. CYCLES
+- Official Doc Excerpt: "Cycles create a healthy routine and focus teams on what needs to happen next."
+- Definition: A recurring period of time (usually 2 weeks) for teams to plan and complete tasks.
+- Practical Example: The "Growth Team" starts Cycle 42 to focus on user onboarding.
+
+02. BACKLOG
+- Official Doc Excerpt: "Each team has its own backlog... issues that are not being actively kept."
+- Definition: A repository for all tasks that are identified but not yet prioritized for a specific cycle.
+- Practical Example: Moving a low-priority UI polish task to the Backlog for later review.
+
+03. PROJECTS
+- Official Doc Excerpt: "Projects group issues towards a specific, time-bound deliverable."
+- Definition: High-level initiatives with defined goals, leads, and target completion dates.
+- Practical Example: "Dark Mode Launch" project containing 15 technical issues.
+
+[Roteiro de Apresentação (Script)]
+"Passando para o nosso primeiro pilar, focado em Gestão (Management). Aqui temos três termos cruciais. Primeiro, os Cycles. No Linear, eles não são apenas sprints rígidos, mas uma rotina saudável de tempo fixo para manter o foco. Como exemplo, o time inicia o Cycle 42 focado estritamente em onboarding. Segundo, o Backlog, que funciona como nossa gaveta de ideias e tarefas mapeadas que ainda não têm prioridade imediata. Se surge um ajuste visual simples, jogamos no Backlog. E terceiro, os Projects, que organizam várias tarefas menores sob uma grande iniciativa com prazo definido, como o projeto de lançamento do Modo Escuro."
+
+--------------------------------------------------------------------------------
+SLIDE 3: EXECUTION & FLOW (CATEGORIA: FLUXO)
+--------------------------------------------------------------------------------
+[Slide Content]
+TITLE: EXECUTION & FLOW
+
+04. ISSUES
+- Official Doc Excerpt: "The most basic concept in Linear is the issue... represents a task."
+- Definition: Individual units of work identified by a unique ID (e.g., ENG-123) and a status.
+- Practical Example: Creating an issue titled "Fix broken checkout button on mobile."
+
+05. WORKFLOWS
+- Official Doc Excerpt: "Ordered issue statuses defined per-team... group issues on list views."
+- Definition: The progression of an issue through various states like Todo, In Progress, and Done.
+- Practical Example: Customizing a "Peer Review" status between Started and Completed.
+
+06. TRIAGE
+- Official Doc Excerpt: "Review issues before accepting them and moving them to backlog."
+- Definition: A special inbox for new issues, allowing leads to screen and categorize incoming requests.
+- Practical Example: Reviewing a community bug report before adding it to the Roadmap.
+
+[Roteiro de Apresentação (Script)]
+"O segundo pilar aborda a Execução e o Fluxo de trabalho. O bloco de construção fundamental aqui é a Issue. Toda tarefa, correção ou melhoria vira uma issue com ID único, como 'corrigir botão de checkout no mobile'. Essas issues caminham através do nosso Workflow, que são os estados ordenados que definimos por time — podemos incluir etapas customizadas como 'Peer Review' entre o desenvolvimento e a conclusão. Por fim, temos o Triage, que serve como uma caixa de entrada inteligente. Antes de um bug report externo poluir nosso backlog, ele cai na triagem para que os líderes o avaliem e organizem."
+
+--------------------------------------------------------------------------------
+SLIDE 4: TECHNICAL CORE (CATEGORIA: TÉCNICO)
+--------------------------------------------------------------------------------
+[Slide Content]
+TITLE: TECHNICAL CORE
+
+07. API
+- Official Doc Excerpt: "One API to sync permissioned issue tracking data... REST + JSON format."
+- Definition: The interface used to programmatically interact with Linear data models.
+- Practical Example: Using a Python script to auto-generate weekly performance reports via API.
+
+08. WEBHOOKS
+- Official Doc Excerpt: "Receive HTTP push notifications whenever data is created or updated."
+- Definition: Automated messages sent from Linear to other apps when specific events occur.
+- Practical Example: Triggering a Discord alert when a critical bug is moved to "Urgent."
+
+09. GIT INTEGRATION
+- Official Doc Excerpt: "Automate merge request workflows... issues update when MRs are merged."
+- Definition: The bidirectional link between code repositories (GitHub/GitLab) and Linear issues.
+- Practical Example: Using "Fixes ENG-45" in a PR title to auto-close the issue on merge.
+
+[Roteiro de Apresentação (Script)]
+"Agora, entrando na parte técnica (Technical Core), que é onde o Linear brilha em automação. A plataforma oferece uma API poderosa que permite ler e gravar dados programaticamente — permitindo, por exemplo, extrair relatórios semanais com scripts. Também utilizamos Webhooks, que notificam sistemas externos sobre atualizações em tempo real; um exemplo prático é disparar um alerta no Discord do time assim que uma falha ganha a tag 'Urgente'. Além disso, a Git Integration vincula nosso código diretamente às tarefas. Quando um desenvolvedor abre um Pull Request no GitHub com o texto 'Fixes ENG-45', o Linear move e fecha a issue automaticamente assim que o código é mergeado."
+
+--------------------------------------------------------------------------------
+SLIDE 5: KEY TAKEAWAYS (CONCLUSÃO E REVISÃO)
+--------------------------------------------------------------------------------
+[Slide Content]
+TITLE: KEY TAKEAWAYS
+
+10. MILESTONES
+- Official Doc Excerpt: "Organize issues inside an individual project into meaningful stages."
+- Definition: Crucial checkpoints for tracking progress within large projects.
+- Practical Example: Creating a "Beta Release" milestone for internal testing.
+
+WORKSPACE
+- Official Doc Excerpt: "Container for all issues, teams and concepts relating to a company."
+- Definition: The primary organization level representing the entire company.
+
+MOMENTUM OVER SPRINTS
+- Concept: Linear's philosophy emphasizes a healthy routine and automated cycles over high-pressure sprint planning.
+
+DOCUMENTATION REFERENCE
+- Official Link: linear.app/docs
+
+[Roteiro de Apresentação (Script)]
+"Para encerrar, temos nossos pontos-chave. Concluímos o glossário de 10 termos com Milestones, que dividem projetos grandes em marcos menores, como um marco de 'Versão Beta'. Tudo isso vive dentro do Workspace, que é o ambiente geral da empresa. O grande aprendizado aqui é a filosofia do Linear: 'Momentum Over Sprints'. A ferramenta foca em manter o ritmo contínuo e automatizado em vez de reuniões exaustivas de estimativa de pontos. Recomendo a todos explorarem mais detalhes no link oficial linear.app/docs. Obrigado, e abro espaço agora para dúvidas."
+================================================================================

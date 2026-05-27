@@ -1,0 +1,114 @@
+================================================================================
+GLOSSÁRIO TÉCNICO DO LINEAR — ROTEIRO DE APRESENTAÇÃO E CONTEÚDO (VERSÃO PT)
+================================================================================
+Alvo: 5 Slides
+Categorias: Gestão, Execução e Fluxo, Núcleo Técnico
+Idioma dos Slides e do Roteiro: Português
+
+--------------------------------------------------------------------------------
+SLIDE 1: SLIDE DE TÍTULO
+--------------------------------------------------------------------------------
+[Conteúdo do Slide]
+TÍTULO: GLOSSÁRIO TÉCNICO
+SUBTÍTULO: Pessoa 5 — Guia da Documentação Oficial do Linear
+DESCRIÇÃO: Uma exploração abrangente dos conceitos fundamentais, fluxos de trabalho e integrações técnicas que capacitam equipas de produto de alto desempenho.
+
+[Roteiro de Apresentação]
+"Olá a todos. Hoje vou apresentar o Glossário Técnico baseado na documentação oficial do Linear. O objetivo desta apresentação é esclarecer os principais termos que estruturam a plataforma, divididos em três pilares essenciais: Gestão, Execução e Fluxo, e o Núcleo Técnico. Compreender estes conceitos ajuda a equipa a alinhar a nossa metodologia de trabalho com a ferramenta, garantindo a máxima eficiência no dia a dia."
+
+--------------------------------------------------------------------------------
+SLIDE 2: MANAGEMENT (CATEGORIA: GESTÃO)
+--------------------------------------------------------------------------------
+[Conteúdo do Slide]
+TÍTULO: GESTÃO (MANAGEMENT)
+
+01. CYCLES (CICLOS)
+- Trecho da Doc Oficial: "Cycles create a healthy routine and focus teams on what needs to happen next."
+- Definição: Um período de tempo fixo e recorrente (geralmente 2 semanas) para as equipas planearem e concluírem tarefas. Semelhante ao conceito de Sprint.
+- Exemplo Prático: A "Equipa de Crescimento" inicia o Ciclo 42 focado estritamente na ativação de novos utilizadores.
+
+02. BACKLOG
+- Trecho da Doc Oficial: "Each team has its own backlog... issues that are not being actively kept."
+- Definição: Um repositório para todas as tarefas que foram identificadas, mas que ainda não foram priorizadas para um ciclo específico.
+- Exemplo Prático: Mover uma tarefa secundária de melhoria visual da interface para o Backlog para revisão futura.
+
+03. PROJECTS (PROJETOS)
+- Trecho da Doc Oficial: "Projects group issues towards a specific, time-bound deliverable."
+- Definição: Iniciativas de alto nível com objetivos claros, responsáveis definidos e datas-alvo de conclusão.
+- Exemplo Prático: O projeto "Lançamento do Modo Escuro" contendo 15 tarefas técnicas específicas.
+
+[Roteiro de Apresentação]
+"Passando para o nosso primeiro pilar, focado em Gestão. Aqui temos três termos cruciais. Primeiro, os Cycles. No Linear, eles não são apenas sprints rígidos, mas sim uma rotina saudável para manter o foco no que é mais importante. Como exemplo prático, a equipa inicia o Ciclo 42 focado na experiência inicial do utilizador. Segundo, o Backlog, que funciona como o nosso armazém de ideias e tarefas mapeadas que ainda não têm prioridade imediata. Se surge um ajuste visual simples que não urge, enviamos para o Backlog. E terceiro, os Projects, que organizam várias tarefas menores sob uma grande iniciativa com prazo definido, como o projeto de lançamento do Modo Escuro."
+
+--------------------------------------------------------------------------------
+SLIDE 3: EXECUTION & FLOW (CATEGORIA: FLUXO)
+--------------------------------------------------------------------------------
+[Conteúdo do Slide]
+TÍTULO: EXECUÇÃO E FLUXO (EXECUTION & FLOW)
+
+04. ISSUES (TAREFAS / ITENS)
+- Trecho da Doc Oficial: "The most basic concept in Linear is the issue... represents a task."
+- Definição: Unidades individuais de trabalho identificadas por um ID único (ex: ENG-123) e um estado.
+- Exemplo Prático: Criar uma issue intitulada "Corrigir quebra do botão de checkout em dispositivos móveis."
+
+05. WORKFLOWS (FLUXOS DE TRABALHO)
+- Trecho da Doc Oficial: "Ordered issue statuses defined per-team... group issues on list views."
+- Definição: A progressão sequencial de uma issue através de vários estados, como Por Fazer, Em Progresso e Concluído.
+- Exemplo Prático: Customizar um estado de "Revisão por Pares" (Peer Review) entre as etapas de desenvolvimento e conclusão.
+
+06. TRIAGE (TRIAGEM)
+- Trecho da Doc Oficial: "Review issues before accepting them and moving them to backlog."
+- Definição: Uma caixa de entrada especial para novas issues, permitindo aos líderes filtrar e categorizar pedidos recebidos antes de entrarem no fluxo principal.
+- Exemplo Prático: Analisar o relatório de um bug enviado pela comunidade antes de decidir se vai para o Roadmap.
+
+[Roteiro de Apresentação]
+"O segundo pilar aborda a Execução e o Fluxo de trabalho. O bloco de construção fundamental aqui é a Issue. Toda a tarefa, correção de bug ou melhoria transforma-se numa issue com um ID único, como por exemplo 'corrigir o botão de checkout no telemóvel'. Estas issues caminham através do nosso Workflow, que são os estados ordenados que definimos por equipa — podemos incluir etapas customizadas como 'Revisão por Pares' (Peer Review). Por fim, temos a Triage, que serve como uma caixa de entrada inteligente. Antes de um relatório de erro externo poluir o nosso fluxo, ele cai na triagem para que os responsáveis o avaliem e organizem com critério."
+
+--------------------------------------------------------------------------------
+SLIDE 4: TECHNICAL CORE (CATEGORIA: TÉCNICO)
+--------------------------------------------------------------------------------
+[Conteúdo do Slide]
+TÍTULO: NÚCLEO TÉCNICO (TECHNICAL CORE)
+
+07. API
+- Trecho da Doc Oficial: "One API to sync permissioned issue tracking data... REST + JSON format."
+- Definição: A interface utilizada para interagir programaticamente com os modelos de dados do Linear através de código.
+- Exemplo Prático: Desenvolver um script em Python para extrair relatórios semanais de desempenho automaticamente através da API.
+
+08. WEBHOOKS
+- Trecho da Doc Oficial: "Receive HTTP push notifications whenever data is created or updated."
+- Definição: Mensagens automatizadas enviadas pelo Linear para outras aplicações quando ocorrem eventos específicos.
+- Exemplo Prático: Disparar um alerta imediato no canal do Discord da equipa quando um bug crítico ganha a etiqueta "Urgente".
+
+09. GIT INTEGRATION (INTEGRAÇÃO COM GIT)
+- Trecho da Doc Oficial: "Automate merge request workflows... issues update when MRs are merged."
+- Definição: A ligação bidirecional entre repositórios de código (GitHub/GitLab) e as issues do Linear.
+- Exemplo Prático: Incluir "Fixes ENG-45" no título de um Pull Request para que o Linear feche a tarefa automaticamente quando o código for fundido (merged).
+
+[Roteiro de Apresentação]
+"Agora, entrando na parte técnica (Technical Core), que é onde o Linear brilha em termos de automação. A plataforma oferece uma API poderosa baseada em GraphQL/REST que permite ler e gravar dados de forma programática — permitindo extrair relatórios detalhados com scripts. Também utilizamos Webhooks, que notificam sistemas externos sobre atualizações em tempo real; um exemplo prático é disparar um alerta no Discord assim que uma falha ganha o estado de 'Urgente'. Além disso, a Integração com Git vincula o nosso código diretamente às tarefas. Quando um desenvolvedor abre um Pull Request no GitHub com o texto 'Fixes ENG-45', o Linear move e fecha a issue automaticamente assim que o código entra em produção."
+
+--------------------------------------------------------------------------------
+SLIDE 5: KEY TAKEAWAYS (CONCLUSÃO E REVISÃO)
+--------------------------------------------------------------------------------
+[Conteúdo do Slide]
+TÍTULO: PONTOS-CHAVE (KEY TAKEAWAYS)
+
+10. MILESTONES (MARCOS)
+- Trecho da Doc Oficial: "Organize issues inside an individual project into meaningful stages."
+- Definição: Pontos de controlo cruciais para acompanhar o progresso dentro de grandes projetos.
+- Exemplo Prático: Criar o marco "Lançamento da Versão Beta" para testes internos.
+
+WORKSPACE (ESPAÇO DE TRABALHO)
+- Trecho da Doc Oficial: "Container for all issues, teams and concepts relating to a company."
+- Definição: O nível de organização principal que representa toda a empresa dentro da plataforma.
+
+MOMENTUM OVER SPRINTS (RITMO SOBRE PRESSÃO)
+- Conceito: A filosofia do Linear enfatiza uma rotina saudável e ciclos automatizados em vez de planeamentos de sprint de alta pressão.
+
+REFERÊNCIA DA DOCUMENTAÇÃO
+- Link Oficial: linear.app/docs
+
+[Roteiro de Apresentação]
+"Para encerrar, temos os nossos pontos-chave. Concluímos o glossário de 10 termos com as Milestones, que dividem os projetos grandes em marcos menores, como a meta de uma 'Versão Beta'. Tudo isto vive dentro do Workspace, que é o ambiente geral da empresa. O grande ensinamento aqui é a filosofia do Linear: 'Momentum Over Sprints'. A ferramenta foca-se em manter o ritmo contínuo e automatizado em vez de reuniões exaustivas de estimativa de pontos. Recomendo a todos explorarem mais detalhes no link oficial linear.app/docs. Obrigado pela vossa atenção, e abro agora espaço para qualquer dúvida."
+================================================================================
