@@ -149,3 +149,23 @@ f3_aux :: [Int] -> [Int] -> Int -> Int -> Bool
 								- b = 4, bs = [6]
 								- x = 3, y = 4
 -}
+
+
+{- Corrigido pelo Eliseu -}
+f3E :: [Int] -> [Int] -> [(Int, Int)]
+f3E l m = [ (a,b) | a<-l, b<-m, f3_aux l m a b]
+
+f3_auxE :: [Int] -> [Int] -> Int -> Int -> Bool
+f3_auxE (a : as) (b : bs) x y = (a == x && b == y) || f3_auxE as bs x y
+f3_auxE _ _ _ _ = False
+
+{- Corrigido pelo Eliseu -}
+f3G :: (Eq t, Eq u) => [t] -> [u] -> [(t, u)]
+f3G l m = [ (a,b) | a<-l, b<-m, f3_auxG l m a b]
+
+f3_auxG :: (Eq t, Eq u) => [t] -> [u] -> t -> u -> Bool
+f3_auxG (a : as) (b : bs) x y = (a == x && b == y) || f3_auxG as bs x y
+f3_auxG _ _ _ _ = False
+
+{- Outra resolução da mesma questao: -}
+f3_Diferente 

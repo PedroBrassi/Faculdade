@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Folha de Cola STPA/STAMP — Final</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+@page{size:A4 landscape;margin:6mm}
+body{font-family:Arial,Helvetica,sans-serif;font-size:9.5px;line-height:1.4;color:#1a1a1a;background:#fff}
+.page{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:6px;padding:6px;width:100%}
+.col{display:flex;flex-direction:column;gap:5px}
+.card{background:#fff;border:0.5px solid #c8c5bc;border-radius:5px;padding:6px 8px;break-inside:avoid}
+.card-hdr{font-size:8.5px;font-weight:700;letter-spacing:.05em;padding:3px 8px 3px;margin:-6px -8px 5px;border-radius:5px 5px 0 0;border-bottom:0.5px solid #c8c5bc;text-transform:uppercase;display:flex;align-items:center;justify-content:space-between}
+.kw{font-size:7.5px;font-weight:700;letter-spacing:.08em;padding:1px 5px;border-radius:2px;background:rgba(0,0,0,0.12);color:inherit;text-transform:uppercase;opacity:.85}
+.hdr-purple{background:#EEEDFE;color:#26215C}
+.hdr-teal{background:#E1F5EE;color:#04342C}
+.hdr-coral{background:#FAECE7;color:#4A1B0C}
+.hdr-blue{background:#E6F1FB;color:#042C53}
+.hdr-amber{background:#FAEEDA;color:#412402}
+.hdr-pink{background:#FBEAF0;color:#4B1528}
+.hdr-green{background:#EAF3DE;color:#173404}
+.hdr-gray{background:#F1EFE8;color:#2C2C2A}
+.hdr-red{background:#FCEBEB;color:#501313}
+.kv{display:flex;gap:4px;margin-bottom:2px}
+.k{font-weight:700;min-width:20px;flex-shrink:0;color:#444}
+.v{color:#1a1a1a}
+.tag{display:inline-block;font-size:8px;font-weight:700;padding:1px 4px;border-radius:3px;margin-right:2px;margin-bottom:1px}
+.tag-p{background:#EEEDFE;color:#26215C}
+.tag-t{background:#E1F5EE;color:#04342C}
+.tag-c{background:#FAECE7;color:#4A1B0C}
+.tag-b{background:#E6F1FB;color:#042C53}
+.tag-a{background:#FAEEDA;color:#412402}
+.tag-g{background:#F1EFE8;color:#2C2C2A}
+.sep{height:0.5px;background:#ddd;margin:3px 0}
+.row{display:flex;gap:4px;align-items:flex-start;margin-bottom:2px}
+.dot{width:4px;height:4px;border-radius:50%;flex-shrink:0;margin-top:3px}
+.dot-p{background:#534AB7}
+.dot-t{background:#0F6E56}
+.dot-c{background:#993C1D}
+.dot-b{background:#185FA5}
+.dot-a{background:#854F0B}
+.dot-g{background:#5F5E5A}
+/* Grifos — destaque amarelo para frases-chave */
+.hl{background:#FFF176;padding:0 2px;border-radius:2px;font-weight:700;color:#1a1a1a}
+/* Grifos laranjas para alertas críticos */
+.hlr{background:#FFD0B0;padding:0 2px;border-radius:2px;font-weight:700;color:#6B2500}
+/* Grifos azuis para fórmulas/estruturas */
+.hlb{background:#BDE3FF;padding:0 2px;border-radius:2px;font-weight:700;color:#02345A}
+.formula{background:#f5f4f0;border-radius:3px;padding:3px 6px;font-size:9px;margin:3px 0;border-left:2px solid #534AB7}
+.formula-t{background:#f0faf5;border-radius:3px;padding:3px 6px;font-size:9px;margin:3px 0;border-left:2px solid #0F6E56}
+.formula-c{background:#fdf3ee;border-radius:3px;padding:3px 6px;font-size:9px;margin:3px 0;border-left:2px solid #993C1D}
+.warn{background:#fdf3ee;border-radius:3px;padding:3px 6px;font-size:8.5px;color:#712B13;margin:2px 0}
+.tip{background:#f0faf5;border-radius:3px;padding:3px 6px;font-size:8.5px;color:#085041;margin:2px 0}
+b{font-weight:700}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:3px}
+.mini{background:#f5f4f0;border-radius:3px;padding:3px 5px;font-size:8.5px}
+table{width:100%;border-collapse:collapse;font-size:8.5px}
+th{text-align:left;padding:2px 4px;background:#f0eeea;font-weight:700;border-bottom:0.5px solid #ccc}
+td{padding:2px 4px;border-top:0.5px solid #eee;vertical-align:top}
+.title-bar{text-align:center;font-size:10px;font-weight:700;letter-spacing:.06em;color:#3C3489;background:#EEEDFE;padding:4px 0;border-radius:3px;margin-bottom:4px;grid-column:1/-1;border:0.5px solid #AFA9EC}
+.idx{display:inline-block;background:#26215C;color:#fff;font-size:7.5px;font-weight:700;padding:1px 4px;border-radius:2px;margin-right:3px;letter-spacing:.04em}
+</style>
+</head>
+<body>
+<div class="page">
+<div class="title-bar">FOLHA DE COLA — STPA / STAMP &nbsp;·&nbsp; Modelos e Técnicas Computacionais para Análise de Requisitos de Segurança &nbsp;·&nbsp; Prof. Rodrigo Pagliares</div>
+
+<!-- ═══ COLUNA 1 ═══ -->
+<div class="col">
+
+<div class="card">
+<div class="card-hdr hdr-purple">STAMP — Fundamentos <span class="kw">→ finalidade / FTA vs STPA</span></div>
+<div class="row"><div class="dot dot-p"></div><div>Acidentes <span class="hl">NÃO são apenas cadeias de falhas</span> — surgem de <b>interações inseguras</b> entre componentes que <span class="hl">funcionam corretamente</span>.</div></div>
+<div class="row"><div class="dot dot-p"></div><div>Segurança = problema de <span class="hl">controle dinâmico</span> hierárquico, não prevenção de falhas isoladas.</div></div>
+<div class="formula"><b>STPA</b> (proativo, antes do acidente) · <b>CAST</b> (retroativo, pós-acidente)</div>
+<div class="sep"></div>
+<div class="grid2">
+<div class="mini"><b>FTA/FMEA</b><br>Bottom-up · causa=<span class="hlr">falha</span> · usa probabilidade · <span class="hlr">humano=falha</span> · pós-design</div>
+<div class="mini"><b>STPA</b><br>Top-down · causa=<span class="hl">controle inadequado</span> · sem prob. · <span class="hl">humano=controlador</span> · desde conceito</div>
+</div>
+<div class="warn">STPA encontra tudo que FTA/FMEA encontra <b>+</b> cenários <span class="hlr">sem falha</span> de componente.</div>
+</div>
+
+<div class="card">
+<div class="card-hdr hdr-purple">STPA — 4 Passos (sempre sequenciais) <span class="kw">→ passos / ordem</span></div>
+<div class="row"><div class="tag tag-p">1</div><div><b>Propósito:</b> <span class="hl">Perdas → Hazards → Restrições</span></div></div>
+<div class="row"><div class="tag tag-c">2</div><div><b>Estrutura de controle:</b> hierarquia + feedback</div></div>
+<div class="row"><div class="tag tag-b">3</div><div><b>UCAs:</b> ações de controle inseguras (4 tipos) — <span class="hl">O QUÊ</span></div></div>
+<div class="row"><div class="tag tag-a">4</div><div><b>Cenários:</b> causas das UCAs — <span class="hl">POR QUÊ</span></div></div>
+<div class="tip">Rastreabilidade: <span class="hlb">Cenário → UCA → Hazard → Perda → Requisito</span></div>
+</div>
+
+<div class="card">
+<div class="card-hdr hdr-teal">Passo 1a — Perdas (Losses) <span class="kw">→ perda / loss</span></div>
+<div class="row"><div class="dot dot-t"></div><div>Resultado <b>inaceitável</b> para qualquer stakeholder. Ex: L-1 morte, L-2 dano ao veículo, L-3 dano ambiental.</div></div>
+<div class="formula-t"><span class="hl">Perda = resultado final indesejado</span> (NÃO é causa, NÃO cita componente)</div>
+<div class="warn">"Falha de freio" <b>≠ perda</b>. Perda seria: "morte do passageiro".</div>
+</div>
+
+<div class="card">
+<div class="card-hdr hdr-teal">Passo 1b — Hazards (Perigos) <span class="kw">→ hazard / perigo</span></div>
+<div class="formula-t"><span class="hlb">Hazard = &lt;Sistema&gt; + &lt;Condição insegura&gt; + [→ Perdas]</span></div>
+<div class="row"><div class="dot dot-t"></div><div><span class="hl">Estado/condição do SISTEMA</span> que, no pior caso ambiental, leva a uma perda.</div></div>
+<div class="row"><div class="dot dot-t"></div><div><span class="hlr">NÃO é causa, NÃO é evento externo, NÃO é componente.</span></div></div>
+<div class="warn">Erros: usar "inseguro" na definição · mais de 10 hazards · citar componente específico</div>
+<div class="tip">Ex correto: "Veículo próximo a pedestre em <b>velocidade excessiva</b> → L-1, L-2"</div>
+</div>
+
+<div class="card">
+<div class="card-hdr hdr-teal">Passo 1c — Restrições de Segurança <span class="kw">→ restrição / constraint</span></div>
+<div class="formula-t"><span class="hl">Safety Constraint = inversão do Hazard</span>: o que o sistema DEVE garantir</div>
+<div class="row"><div class="dot dot-t"></div><div>H-1 → SC-1: inverte a condição. <b>Não especifica solução</b>, apenas restrição.</div></div>
+<div class="tip">H-1 "veículo rápido perto de pedestre" → SC-1 "manter velocidade segura próximo a pedestres"</div>
+</div>
+
+</div>
+
+<!-- ═══ COLUNA 2 ═══ -->
+<div class="col">
+
+<div class="card">
+<div class="card-hdr hdr-coral">Passo 2 — Estrutura de Controle <span class="kw">→ estrutura / controlador</span></div>
+<div class="row"><div class="dot dot-c"></div><div>Modelo <span class="hl">funcional</span> (<span class="hlr">NÃO físico</span>) do sistema como laços de feedback hierárquicos.</div></div>
+<div class="formula-c"><span class="hlb">Setas ↓ = ações de controle · Setas ↑ = feedback</span></div>
+<div class="sep"></div>
+<div class="row"><div class="tag tag-c">Controlador</div><div>Toma decisões; tem <span class="hl">modelo de processo</span> interno (<span class="hlr">crença — pode estar ERRADO</span>)</div></div>
+<div class="row"><div class="tag tag-c">Algoritmo</div><div>Lógica de decisão (código, regras, procedimentos)</div></div>
+<div class="row"><div class="tag tag-c">Atuador</div><div>Executa a ação no processo físico</div></div>
+<div class="row"><div class="tag tag-c">Sensor</div><div>Captura estado → envia feedback ao controlador</div></div>
+<div class="sep"></div>
+<div class="grid2">
+<div class="mini"><b>Sociotécnico</b><br>Reguladores → Empresa → Gestão → Operações → Sistema físico</div>
+<div class="mini"><b>Operacional</b><br>Foco nos componentes de controle em tempo real</div>
+</div>
+<div class="warn">Problemas: controlador sem feedback · controladores com comandos conflitantes · <span class="hlr">modelo de processo desatualizado</span></div>
+</div>
+
+<div class="card">
+<div class="card-hdr hdr-blue">Passo 3 — UCAs <span class="kw">→ UCA / ação insegura</span></div>
+<div class="formula"><span class="hlb">UCA = &lt;Controlador&gt; + &lt;Ação&gt; + &lt;Contexto&gt; + [→ Hazard]</span></div>
+<div class="sep"></div>
+<table>
+<thead><tr><th>Tipo</th><th>Definição</th><th>Exemplo</th></tr></thead>
+<tbody>
+<tr><td><b>T1</b></td><td><span class="hl">Não fornecida quando deveria</span></td><td>Freio não acionado com obstáculo</td></tr>
+<tr><td><b>T2</b></td><td><span class="hl">Fornecida quando não deveria</span></td><td>Freio acionado sem obstáculo</td></tr>
+<tr><td><b>T3</b></td><td><span class="hl">Cedo / tarde / ordem errada</span></td><td>Freio tarde demais para parar</td></tr>
+<tr><td><b>T4</b></td><td><span class="hl">Duração incorreta</span></td><td>Freio liberado antes de parar</td></tr>
+</tbody>
+</table>
+<div class="warn"><span class="hlr">Contexto é essencial:</span> mesma ação pode ser segura ou insegura conforme estado do sistema.</div>
+<div class="tip">UCAs = <span class="hl">O QUÊ</span> é inseguro. Passo 4 = <span class="hl">POR QUÊ</span>. UCAs geram Restrições de Controle.</div>
+</div>
+
+<div class="card">
+<div class="card-hdr hdr-amber">Passo 4 — Cenários de Perda <span class="kw">→ cenário / causa / execução</span></div>
+<div class="row"><div class="tag tag-a">Tipo 1</div><div><span class="hl">Por que o controlador emitiu a UCA</span> (falha no caminho de controle)</div></div>
+<div class="row"><div class="tag tag-a">Tipo 2</div><div><span class="hl">Ação correta, mas não executada</span> adequadamente (falha no atuador/canal)</div></div>
+<div class="sep"></div>
+<div style="margin-bottom:2px"><b>Fontes Tipo 1 (controlador errou):</b></div>
+<div class="row"><div class="dot dot-a"></div><div><span class="hlr">Modelo de processo errado</span> (crença ≠ realidade)</div></div>
+<div class="row"><div class="dot dot-a"></div><div>Feedback incorreto/atrasado/ausente</div></div>
+<div class="row"><div class="dot dot-a"></div><div>Lógica incorreta no algoritmo</div></div>
+<div class="row"><div class="dot dot-a"></div><div>Conflito entre controladores simultâneos</div></div>
+<div class="sep"></div>
+<div style="margin-bottom:2px"><b>Fontes Tipo 2 (execução falhou):</b></div>
+<div class="row"><div class="dot dot-a"></div><div>Falha mecânica/elétrica do atuador</div></div>
+<div class="row"><div class="dot dot-a"></div><div>Perturbação externa impede execução</div></div>
+<div class="row"><div class="dot dot-a"></div><div>Atraso no canal controlador→atuador</div></div>
+</div>
+
+</div>
+
+<!-- ═══ COLUNA 3 ═══ -->
+<div class="col">
+
+<div class="card">
+<div class="card-hdr hdr-pink">Definições — consulta rápida <span class="kw">→ definição / conceito</span></div>
+<div class="kv"><div class="k">Perda</div><div class="v">Resultado <span class="hl">inaceitável</span> para stakeholder. O QUE se quer evitar.</div></div>
+<div class="sep"></div>
+<div class="kv"><div class="k">Hazard</div><div class="v"><span class="hl">Estado/condição do SISTEMA</span> que, no pior caso, leva à perda. <span class="hlr">Não é causa.</span></div></div>
+<div class="sep"></div>
+<div class="kv"><div class="k">S. Constraint</div><div class="v"><span class="hl">Inversão do hazard</span>: o que o sistema DEVE satisfazer.</div></div>
+<div class="sep"></div>
+<div class="kv"><div class="k">UCA</div><div class="v">Ação de controle que, <span class="hl">em dado contexto</span>, contribui para hazard. 4 tipos.</div></div>
+<div class="sep"></div>
+<div class="kv"><div class="k">Mod. processo</div><div class="v"><span class="hlr">CRENÇA</span> do controlador sobre estado do sistema. <span class="hlr">Pode estar ERRADO</span>.</div></div>
+<div class="sep"></div>
+<div class="kv"><div class="k">Mod. mental</div><div class="v">Crença específica do controlador <span class="hl">humano</span>. Influencia percepção e decisão.</div></div>
+<div class="sep"></div>
+<div class="kv"><div class="k">Prop. emergente</div><div class="v">Surge <span class="hl">somente das interações</span> — não existe em componente isolado.</div></div>
+<div class="sep"></div>
+<div class="kv"><div class="k">Safety</div><div class="v">Perdas físicas/operacionais <span class="hl">NÃO intencionais</span>.</div></div>
+<div class="sep"></div>
+<div class="kv"><div class="k">Security</div><div class="v">Proteção contra ameaças <span class="hl">INTENCIONAIS</span>. Tríade <span class="hlb">CIA</span>: Confidencialidade, Integridade, Disponibilidade.</div></div>
+<div class="sep"></div>
+<div class="kv"><div class="k">Stakeholder</div><div class="v"><span class="hl">Qualquer</span> indivíduo/grupo/org. com <span class="hl">interesse legítimo</span> no sistema (direto ou indireto).</div></div>
+<div class="sep"></div>
+<div class="kv"><div class="k">Cenário perda</div><div class="v">Explicação <span class="hl">causal</span> de por que UCA ocorre (T1) ou por que ação correta falha (T2).</div></div>
+</div>
+
+<div class="card">
+<div class="card-hdr hdr-green">Engenharia de Requisitos <span class="kw">→ requisito / especificação</span></div>
+<div class="row"><div class="tag tag-t">Elicitação</div><div><span class="hl">Descoberta</span> com stakeholders (entrevistas, prototipagem, workshops)</div></div>
+<div class="row"><div class="tag tag-t">Especificação</div><div><span class="hl">Documentação clara e rastreável</span> — NÃO substitui elicitação</div></div>
+<div class="row"><div class="tag tag-t">Validação</div><div>Verificação de que req. refletem <span class="hl">necessidades reais</span></div></div>
+<div class="row"><div class="tag tag-t">Scrubbing</div><div><span class="hl">Seleção e refinamento</span> dos requisitos mais consistentes e viáveis</div></div>
+<div class="sep"></div>
+<div class="row"><div class="tag tag-b">Funcionais</div><div><span class="hl">O QUÊ</span> o sistema faz: funcionalidades e comportamentos</div></div>
+<div class="row"><div class="tag tag-b">Não-funcionais</div><div><span class="hl">COMO</span> opera: desempenho, segurança, usabilidade</div></div>
+<div class="row"><div class="tag tag-b">Ambíguos</div><div><span class="hlr">RISCO</span>: múltiplas interpretações → sistema pode não atender necessidades reais</div></div>
+<div class="sep"></div>
+<div class="kv"><div class="k">Capability Gap</div><div class="v">Diferença entre capacidade <span class="hl">ATUAL</span> e capacidade <span class="hl">NECESSÁRIA</span>. Base para priorização.</div></div>
+<div class="sep"></div>
+<div class="kv"><div class="k">Prototipagem</div><div class="v">Apoio VISUAL à <span class="hl">elicitação</span>. <span class="hlr">NÃO substitui documentação. NÃO elimina validação.</span></div></div>
+<div class="kv"><div class="k">Ferramentas</div><div class="v">Organização, <span class="hl">rastreamento</span> e controle de alterações ao longo do ciclo de vida.</div></div>
+</div>
+
+</div>
+
+<!-- ═══ COLUNA 4 ═══ -->
+<div class="col">
+
+<div class="card">
+<div class="card-hdr hdr-red">⚠ Pegadinhas — erro × correto ✓ <span class="kw">→ alternativas erradas</span></div>
+<div class="warn">× <span class="hlr">"Falha de freio"</span> é hazard → ✓ Hazard é <span class="hl">ESTADO</span>: "veículo não desacelera suficientemente"</div>
+<div class="warn">× <span class="hlr">Perda = Hazard</span> → ✓ Hazard <span class="hl">LEVA À</span> perda (causal, não sinônimos)</div>
+<div class="warn">× <span class="hlr">UCA sem contexto</span> → ✓ UCA: <span class="hlb">controlador + ação + contexto + hazard</span></div>
+<div class="warn">× Estrutura = <span class="hlr">diagrama físico</span> → ✓ É modelo <span class="hl">FUNCIONAL</span> hierárquico</div>
+<div class="warn">× Modelo de processo <span class="hlr">é confiável</span> → ✓ É <span class="hl">CRENÇA</span> — pode divergir da realidade</div>
+<div class="warn">× STPA só detecta <span class="hlr">falhas de componentes</span> → ✓ Detecta <span class="hl">interações inseguras SEM falhas</span></div>
+<div class="warn">× <span class="hlr">Safety = Security</span> → ✓ Safety=não-intencional · Security=<span class="hl">intencional (CIA)</span></div>
+<div class="warn">× Passo 3 = <span class="hlr">POR QUÊ</span> UCA ocorre → ✓ P3=<span class="hl">O QUÊ</span> · P4=<span class="hl">POR QUÊ</span></div>
+<div class="warn">× Prototipagem <span class="hlr">substitui</span> documentação → ✓ Apoio à <span class="hl">elicitação</span></div>
+<div class="warn">× Req. ambíguo é <span class="hlr">útil</span> → ✓ <span class="hlr">Aumenta risco</span> de produto errado</div>
+<div class="warn">× Stakeholders = <span class="hlr">só usuários finais</span> → ✓ <span class="hl">Qualquer</span> parte com interesse legítimo</div>
+</div>
+
+<div class="card">
+<div class="card-hdr hdr-gray">Controladores humanos na STPA <span class="kw">→ humano / controlador</span></div>
+<div class="row"><div class="dot dot-g"></div><div>Tratados como <span class="hl">controladores ativos</span> — têm responsabilidades, modelo mental e interações que influenciam o sistema.</div></div>
+<div class="row"><div class="dot dot-g"></div><div><span class="hlr">NÃO são ignorados</span> por dificultar modelagem.</div></div>
+<div class="row"><div class="dot dot-g"></div><div><span class="hlr">NÃO são apenas fontes de erro</span> como em FTA/FMEA.</div></div>
+</div>
+
+<div class="card">
+<div class="card-hdr hdr-gray">Cenários com adversários <span class="kw">→ adversário / security / spoofing</span></div>
+<div class="row"><div class="dot dot-g"></div><div>Extensão do STPA para <span class="hl">ameaças intencionais</span>. Mesmos 4 passos.</div></div>
+<div class="row"><div class="dot dot-g"></div><div><b>Spoofing:</b> falsificação de sinal de sensor → enganar modelo de processo.</div></div>
+<div class="row"><div class="dot dot-g"></div><div><b>Injeção de comando:</b> adversário insere ação de controle falsa.</div></div>
+<div class="tip">Adversarial ≠ acidental. Ambos geram UCAs.</div>
+</div>
+
+<div class="card">
+<div class="card-hdr hdr-blue">Resultados da STPA <span class="kw">→ resultado / uso / saída</span></div>
+<div class="row"><div class="dot dot-b"></div><div><span class="hl">Requisitos de segurança</span> derivados das restrições de controle</div></div>
+<div class="row"><div class="dot dot-b"></div><div><span class="hl">Orientações de arquitetura</span>: onde colocar redundância/monitores</div></div>
+<div class="row"><div class="dot dot-b"></div><div><span class="hl">Casos de teste</span>: cada cenário gera um caso de teste</div></div>
+<div class="row"><div class="dot dot-b"></div><div><span class="hl">Rastreabilidade total</span>: requisito → hazard → perda</div></div>
+<div class="tip"><b>MicroSTAMP:</b> ferramenta MIT. Modela estrutura graficamente + organiza tabelas rastreáveis.</div>
+</div>
+
+<div class="card">
+<div class="card-hdr hdr-purple">Gabarito — prova 26/05/2025 <span class="kw">→ gabarito</span></div>
+<table>
+<thead><tr><th>Q</th><th>R</th><th>Q</th><th>R</th><th>Q</th><th>R</th><th>Q</th><th>R</th><th>Q</th><th>R</th></tr></thead>
+<tbody>
+<tr><td>1</td><td><b>E</b></td><td>5</td><td><b>C</b></td><td>9</td><td><b>D</b></td><td>13</td><td><b>B</b></td><td>17</td><td><b>E</b></td></tr>
+<tr><td>2</td><td><b>D</b></td><td>6</td><td><b>C</b></td><td>10</td><td><b>B</b></td><td>14</td><td><b>C</b></td><td>18</td><td><b>B</b></td></tr>
+<tr><td>3</td><td><b>A</b></td><td>7</td><td><b>E</b></td><td>11</td><td><b>A</b></td><td>15</td><td><b>E</b></td><td>19</td><td><b>C</b></td></tr>
+<tr><td>4</td><td><b>D</b></td><td>8</td><td><b>C</b></td><td>12</td><td><b>A</b></td><td>16</td><td><b>D</b></td><td>20</td><td><b>E</b></td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="card">
+<div class="card-hdr hdr-amber">Legenda dos grifos</div>
+<div style="display:flex;flex-wrap:wrap;gap:4px;font-size:8.5px">
+<span style="background:#FFF176;padding:1px 5px;border-radius:2px;font-weight:700;color:#1a1a1a">Amarelo</span> conceito-chave para acertar &nbsp;
+<span style="background:#FFD0B0;padding:1px 5px;border-radius:2px;font-weight:700;color:#6B2500">Laranja</span> armadilha / negação &nbsp;
+<span style="background:#BDE3FF;padding:1px 5px;border-radius:2px;font-weight:700;color:#02345A">Azul</span> fórmula / estrutura
+</div>
+<div style="margin-top:4px;font-size:8px;color:#666"><b>Palavras-chave</b> nos cabeçalhos → usadas para ir direto ao cartão certo na prova.</div>
+</div>
+
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,213 @@
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font-sans)}
+.page{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;padding:8px;font-size:11px;line-height:1.45;color:var(--color-text-primary)}
+.col{display:flex;flex-direction:column;gap:6px}
+.card{background:var(--color-background-primary);border:0.5px solid var(--color-border-secondary);border-radius:6px;padding:7px 9px}
+.card-hdr{font-size:10px;font-weight:500;letter-spacing:.04em;padding:4px 9px 4px;margin:-7px -9px 6px;border-radius:6px 6px 0 0;border-bottom:0.5px solid var(--color-border-secondary)}
+.hdr-purple{background:#EEEDFE;color:#3C3489}
+.hdr-teal{background:#E1F5EE;color:#085041}
+.hdr-coral{background:#FAECE7;color:#712B13}
+.hdr-blue{background:#E6F1FB;color:#0C447C}
+.hdr-amber{background:#FAEEDA;color:#633806}
+.hdr-pink{background:#FBEAF0;color:#72243E}
+.hdr-green{background:#EAF3DE;color:#27500A}
+.hdr-gray{background:#F1EFE8;color:#444441}
+.kv{display:flex;gap:5px;margin-bottom:3px}
+.k{font-weight:500;min-width:22px;flex-shrink:0;color:var(--color-text-secondary)}
+.v{color:var(--color-text-primary)}
+.tag{display:inline-block;font-size:9.5px;font-weight:500;padding:1px 5px;border-radius:3px;margin-right:2px;margin-bottom:2px}
+.tag-p{background:#EEEDFE;color:#3C3489}
+.tag-t{background:#E1F5EE;color:#085041}
+.tag-c{background:#FAECE7;color:#712B13}
+.tag-b{background:#E6F1FB;color:#0C447C}
+.tag-a{background:#FAEEDA;color:#633806}
+.sep{height:0.5px;background:var(--color-border-tertiary);margin:5px 0}
+.row{display:flex;gap:6px;align-items:flex-start;margin-bottom:3px}
+.dot{width:5px;height:5px;border-radius:50%;flex-shrink:0;margin-top:4px}
+.dot-p{background:#534AB7}
+.dot-t{background:#0F6E56}
+.dot-c{background:#993C1D}
+.dot-b{background:#185FA5}
+.dot-a{background:#854F0B}
+.dot-g{background:#5F5E5A}
+.formula{background:var(--color-background-secondary);border-radius:4px;padding:4px 7px;font-size:10.5px;margin:4px 0;border-left:2px solid #534AB7}
+.formula2{background:var(--color-background-secondary);border-radius:4px;padding:4px 7px;font-size:10.5px;margin:4px 0;border-left:2px solid #0F6E56}
+.formula3{background:var(--color-background-secondary);border-radius:4px;padding:4px 7px;font-size:10.5px;margin:4px 0;border-left:2px solid #993C1D}
+.arrow{color:#534AB7;font-weight:500}
+b{font-weight:500}
+</style>
+
+<div class="page">
+
+<div class="col">
+
+<div class="card">
+<div class="card-hdr hdr-purple">STAMP — Modelo de causalidade</div>
+<div class="row"><div class="dot dot-p"></div><div>Acidentes NÃO são apenas cadeias de falhas de componentes — podem surgir de <b>interações inseguras</b> entre componentes que funcionam corretamente.</div></div>
+<div class="row"><div class="dot dot-p"></div><div>Segurança = problema de <b>controle dinâmico</b>, não de prevenção de falhas.</div></div>
+<div class="row"><div class="dot dot-p"></div><div>STAMP substitui "Swiss cheese / dominós" por hierarquia de controle com feedback.</div></div>
+<div class="sep"></div>
+<div class="row"><div class="dot dot-g"></div><div><b>Decomposição tradicional</b> (FTA, FMEA, HAZOP): divide em componentes, assume falhas são causas, combina probabilidades. Falha para software e humanos.</div></div>
+<div class="row"><div class="dot dot-g"></div><div><b>STAMP:</b> trata sistema como todo — propriedades emergem das interações. Inclui software, humanos, organizações sem tratamento especial.</div></div>
+<div class="sep"></div>
+<div style="font-size:10px;color:var(--color-text-secondary)">Ferramentas baseadas em STAMP: <b>STPA</b> (proativo, análise futura) · <b>CAST</b> (retroativo, análise de acidentes)</div>
+</div>
+
+<div class="card">
+<div class="card-hdr hdr-purple">STPA — Visão geral</div>
+<div class="row"><div class="dot dot-p"></div><div>Técnica de análise de hazards baseada em STAMP. Encontra causas de acidentes <b>antes</b> de ocorrerem.</div></div>
+<div class="row"><div class="dot dot-p"></div><div>Inclui falhas de componentes E interações inseguras E erros de requisitos E erros humanos — na mesma análise.</div></div>
+<div class="row"><div class="dot dot-p"></div><div>Pode ser aplicada desde o início do desenvolvimento. Rastreabilidade total: requisito → hazard → perda.</div></div>
+<div class="sep"></div>
+<div style="margin-bottom:4px"><b>4 passos sequenciais:</b></div>
+<div class="row"><div class="tag tag-p">1</div><div>Definir propósito (Perdas → Hazards → Restrições)</div></div>
+<div class="row"><div class="tag tag-t">2</div><div>Modelar estrutura de controle (hierarquia + feedback)</div></div>
+<div class="row"><div class="tag tag-c">3</div><div>Identificar UCAs (ações de controle inseguras)</div></div>
+<div class="row"><div class="tag tag-b">4</div><div>Identificar cenários de perda (causas das UCAs)</div></div>
+</div>
+
+<div class="card">
+<div class="card-hdr hdr-teal">Passo 1 — Definir o propósito</div>
+<div style="margin-bottom:4px"><b>1a · Perdas (Losses)</b></div>
+<div class="row"><div class="dot dot-t"></div><div>Algo de valor para stakeholders que não deve ocorrer. Ex: L-1 morte/lesão, L-2 dano ao veículo, L-5 perda de missão.</div></div>
+<div class="row"><div class="dot dot-g"></div><div>NÃO referenciar componentes individuais nem causas específicas ("falha de freio" não é perda).</div></div>
+<div class="sep"></div>
+<div style="margin-bottom:4px"><b>1b · Hazards (Perigos)</b></div>
+<div class="formula2">Hazard = &lt;Sistema&gt; + &lt;Condição insegura&gt; + [Link às perdas]</div>
+<div class="row"><div class="dot dot-t"></div><div>Estado ou condição do sistema que, em pior caso ambiental, leva a uma perda.</div></div>
+<div class="row"><div class="dot dot-t"></div><div>NÃO é causa (falha de freio) nem estado ambiental externo. É condição do sistema a ser prevenida.</div></div>
+<div class="row"><div class="dot dot-g"></div><div>Erros comuns: usar "inseguro" na definição · confundir com causas · detalhe excessivo (&gt;10 hazards).</div></div>
+<div class="sep"></div>
+<div style="margin-bottom:4px"><b>1c · Restrições de segurança (Safety Constraints)</b></div>
+<div class="formula2">SC = inversão do hazard: o que o sistema DEVE garantir</div>
+<div class="row"><div class="dot dot-t"></div><div>Derivadas diretamente: H-1 → SC-1 (inverte a condição). Não especificam solução, apenas a restrição.</div></div>
+<div style="margin-top:3px;font-size:10px;color:var(--color-text-secondary)">1d · Refinamento de hazards (opcional): sub-hazards para análises grandes</div>
+</div>
+
+</div>
+
+<div class="col">
+
+<div class="card">
+<div class="card-hdr hdr-coral">Passo 2 — Estrutura de controle</div>
+<div class="row"><div class="dot dot-c"></div><div>Modelo funcional (NÃO físico) do sistema como conjunto de laços de feedback hierárquicos.</div></div>
+<div class="formula3">Setas ↓ = ações de controle (comandos) · Setas ↑ = feedback</div>
+<div class="sep"></div>
+<div style="margin-bottom:4px"><b>Elementos do laço de controle:</b></div>
+<div class="row"><div class="tag tag-c">Controlador</div><div>toma decisões; tem <b>modelo de processo</b> interno (crença sobre o estado do sistema — pode estar ERRADO)</div></div>
+<div class="row"><div class="tag tag-c">Algoritmo</div><div>lógica de decisão do controlador (regras, código, procedimentos)</div></div>
+<div class="row"><div class="tag tag-c">Atuador</div><div>executa a ação de controle no processo físico</div></div>
+<div class="row"><div class="tag tag-c">Sensor</div><div>captura estado do processo e envia feedback ao controlador</div></div>
+<div class="row"><div class="tag tag-c">Processo</div><div>o que está sendo controlado (pode ser físico ou humano)</div></div>
+<div class="sep"></div>
+<div style="margin-bottom:4px"><b>Dois níveis de estrutura:</b></div>
+<div class="row"><div class="dot dot-c"></div><div><b>Alto nível (sociotécnica):</b> reguladores → empresa → gestão → operações → sistema físico. Inclui hierarquia de desenvolvimento E operações.</div></div>
+<div class="row"><div class="dot dot-c"></div><div><b>Detalhado (operacional):</b> foco nos componentes que executam o controle no tempo real.</div></div>
+<div class="sep"></div>
+<div style="margin-bottom:3px"><b>Problemas típicos detectados só ao desenhar a estrutura:</b></div>
+<div class="row"><div class="dot dot-g"></div><div>Controlador sem feedback suficiente para tomar decisão segura.</div></div>
+<div class="row"><div class="dot dot-g"></div><div>Dois controladores emitem comandos conflitantes ao mesmo componente.</div></div>
+<div class="row"><div class="dot dot-g"></div><div>Feedback vai a entidade que não pode agir sobre ele.</div></div>
+<div class="row"><div class="dot dot-g"></div><div>Modelo de processo desatualizado → ação baseada em estado falso.</div></div>
+</div>
+
+<div class="card">
+<div class="card-hdr hdr-blue">Passo 3 — UCAs (Unsafe Control Actions)</div>
+<div class="row"><div class="dot dot-b"></div><div>Para cada ação de controle na estrutura, verificar os <b>4 tipos</b> de UCA:</div></div>
+<div class="sep"></div>
+<div class="row"><div class="tag tag-b">Tipo 1</div><div><b>Não fornecida quando deveria ser</b> — ausência da ação causa hazard</div></div>
+<div class="row"><div class="tag tag-b">Tipo 2</div><div><b>Fornecida quando não deveria</b> — ação em contexto errado causa hazard</div></div>
+<div class="row"><div class="tag tag-b">Tipo 3</div><div><b>Cedo demais / tarde demais / na ordem errada</b> — temporização incorreta</div></div>
+<div class="row"><div class="tag tag-b">Tipo 4</div><div><b>Parada muito cedo / aplicada por tempo demais</b> — duração incorreta</div></div>
+<div class="sep"></div>
+<div class="formula">UCA = &lt;Controlador&gt; + &lt;Ação&gt; + &lt;Contexto&gt; + [Link ao Hazard]</div>
+<div class="row"><div class="dot dot-b"></div><div>Contexto é essencial: a mesma ação pode ser segura em um contexto e insegura em outro.</div></div>
+<div class="row"><div class="dot dot-b"></div><div>UCAs geram <b>restrições de controle</b>: o que o controlador DEVE ou NÃO DEVE fazer.</div></div>
+<div class="sep"></div>
+<div style="font-size:10px;color:var(--color-text-secondary)">Dica: UCAs não explicam POR QUÊ a ação insegura ocorre — isso é o Passo 4.</div>
+</div>
+
+<div class="card">
+<div class="card-hdr hdr-amber">Passo 4 — Cenários de perda</div>
+<div style="margin-bottom:4px"><b>Dois tipos de cenário:</b></div>
+<div class="row"><div class="tag tag-a">Tipo 1</div><div>Causas que levam o controlador a emitir a UCA (falha no caminho de controle).</div></div>
+<div class="row"><div class="tag tag-a">Tipo 2</div><div>Ação de controle foi correta, mas NÃO foi executada adequadamente (falha no atuador, no processo, no feedback).</div></div>
+<div class="sep"></div>
+<div style="margin-bottom:3px"><b>Fontes típicas de cenários Tipo 1:</b></div>
+<div class="row"><div class="dot dot-a"></div><div><b>Modelo de processo errado</b> do controlador (crença ≠ realidade)</div></div>
+<div class="row"><div class="dot dot-a"></div><div>Feedback incorreto, atrasado ou ausente do sensor</div></div>
+<div class="row"><div class="dot dot-a"></div><div>Erros de requisitos / lógica do algoritmo de controle</div></div>
+<div class="row"><div class="dot dot-a"></div><div>Conflito entre controladores (comandos simultâneos e incompatíveis)</div></div>
+<div class="sep"></div>
+<div style="margin-bottom:3px"><b>Fontes típicas de cenários Tipo 2:</b></div>
+<div class="row"><div class="dot dot-a"></div><div>Falha mecânica / elétrica do atuador</div></div>
+<div class="row"><div class="dot dot-a"></div><div>Perturbação externa impede execução da ação</div></div>
+<div class="row"><div class="dot dot-a"></div><div>Atraso no canal de comunicação controlador→atuador</div></div>
+<div class="sep"></div>
+<div style="font-size:10px;color:var(--color-text-secondary)">Saídas: requisitos adicionais · casos de teste · indicadores de risco · decisões de arquitetura</div>
+</div>
+
+</div>
+
+<div class="col">
+
+<div class="card">
+<div class="card-hdr hdr-pink">Definições-chave para prova</div>
+<div class="kv"><div class="k">Perda</div><div class="v">Resultado inaceitável para qualquer stakeholder (morte, dano, perda de missão, dano ambiental).</div></div>
+<div class="sep"></div>
+<div class="kv"><div class="k">Hazard</div><div class="v">Estado/condição do <b>sistema</b> que, em pior caso ambiental, leva a uma perda. Não é causa, não é evento externo.</div></div>
+<div class="sep"></div>
+<div class="kv"><div class="k">Safety Constraint</div><div class="v">Inversão do hazard: condição que o sistema deve satisfazer para evitar o hazard.</div></div>
+<div class="sep"></div>
+<div class="kv"><div class="k">UCA</div><div class="v">Ação de controle que, em determinado contexto, contribui para um hazard. Tem 4 tipos.</div></div>
+<div class="sep"></div>
+<div class="kv"><div class="k">Controlador</div><div class="v">Entidade que toma decisões e emite ações de controle. Possui modelo de processo interno.</div></div>
+<div class="sep"></div>
+<div class="kv"><div class="k">Modelo de processo</div><div class="v">Crença interna do controlador sobre o estado do sistema. Pode divergir da realidade → causa de acidentes.</div></div>
+<div class="sep"></div>
+<div class="kv"><div class="k">Estrutura de controle</div><div class="v">Modelo hierárquico funcional (não físico) do sistema como laços de feedback. ↓ = comandos, ↑ = feedback.</div></div>
+<div class="sep"></div>
+<div class="kv"><div class="k">Propriedade emergente</div><div class="v">Propriedade que não existe em componentes isolados, só surge da interação entre eles (ex: segurança, desempenho).</div></div>
+<div class="sep"></div>
+<div class="kv"><div class="k">Cenário de perda</div><div class="v">Explicação causal de como/por que uma UCA ocorre ou como uma ação correta deixa de ser executada.</div></div>
+</div>
+
+<div class="card">
+<div class="card-hdr hdr-green">Erros comuns (pegadinhas de prova)</div>
+<div class="row"><div class="dot dot-g" style="background:#3B6D11"></div><div>Escrever "falha de freio" como hazard → errado. Hazard é estado do sistema (ex: "veículo não desacelera suficientemente").</div></div>
+<div class="row"><div class="dot dot-g" style="background:#3B6D11"></div><div>Usar a palavra "inseguro" dentro da definição do hazard → recursivo e sem valor.</div></div>
+<div class="row"><div class="dot dot-g" style="background:#3B6D11"></div><div>Confundir estrutura de controle com diagrama físico/de bloco → é modelo funcional.</div></div>
+<div class="row"><div class="dot dot-g" style="background:#3B6D11"></div><div>Tratar Passo 3 como explicação causal → UCAs descrevem O QUÊ é inseguro, não POR QUÊ.</div></div>
+<div class="row"><div class="dot dot-g" style="background:#3B6D11"></div><div>Esquecer o contexto na UCA → a mesma ação pode ser segura ou insegura dependendo do estado do sistema.</div></div>
+<div class="row"><div class="dot dot-g" style="background:#3B6D11"></div><div>Achar que STPA só detecta falhas de componente → detecta também interações inseguras sem falhas.</div></div>
+<div class="row"><div class="dot dot-g" style="background:#3B6D11"></div><div>Tratar modelo de processo como confiável → é crença do controlador, pode estar desatualizado.</div></div>
+</div>
+
+<div class="card">
+<div class="card-hdr hdr-gray">STPA vs. métodos tradicionais</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;font-size:10.5px">
+<div style="padding:4px 0"><b>FTA / FMEA / HAZOP</b></div>
+<div style="padding:4px 0"><b>STPA</b></div>
+<div style="color:var(--color-text-secondary)">Bottom-up</div><div style="color:var(--color-text-secondary)">Top-down</div>
+<div style="color:var(--color-text-secondary)">Causas = falhas</div><div style="color:var(--color-text-secondary)">Causas = controle inadequado</div>
+<div style="color:var(--color-text-secondary)">Probabilidade estocástica</div><div style="color:var(--color-text-secondary)">Não depende de probabilidade</div>
+<div style="color:var(--color-text-secondary)">Software difícil de incluir</div><div style="color:var(--color-text-secondary)">Inclui software nativamente</div>
+<div style="color:var(--color-text-secondary)">Humanos como falha</div><div style="color:var(--color-text-secondary)">Humanos como controladores</div>
+<div style="color:var(--color-text-secondary)">Só após design definido</div><div style="color:var(--color-text-secondary)">Desde conceito inicial</div>
+</div>
+<div class="sep"></div>
+<div style="font-size:10px;color:var(--color-text-secondary)">STPA encontra todos os cenários dos métodos tradicionais + muitos cenários não-falha adicionais.</div>
+</div>
+
+<div class="card">
+<div class="card-hdr hdr-purple">MicroSTAMP — ferramenta de apoio</div>
+<div class="row"><div class="dot dot-p"></div><div>Ferramenta desenvolvida no MIT para apoiar a execução dos 4 passos do STPA.</div></div>
+<div class="row"><div class="dot dot-p"></div><div>Permite modelar a estrutura de controle graficamente (arrastar componentes, definir ações e feedback).</div></div>
+<div class="row"><div class="dot dot-p"></div><div>Organiza perdas, hazards, restrições e UCAs em tabelas rastreáveis entre si.</div></div>
+<div class="row"><div class="dot dot-p"></div><div>Rastreabilidade: cada UCA → hazard → perda. Cada cenário → UCA.</div></div>
+<div class="row"><div class="dot dot-p"></div><div>Exporta resultados para documento estruturado (base para requisitos do sistema).</div></div>
+</div>
+
+</div>
+</div>

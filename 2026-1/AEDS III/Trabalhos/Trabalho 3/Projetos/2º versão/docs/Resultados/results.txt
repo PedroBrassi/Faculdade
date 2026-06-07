@@ -1,0 +1,180 @@
+===== Teste 1 =====
+Arquivo: ./data/barabasi-10000-m3-1.txt
+Dijkstra: 658195.000000 0.418153
+Duan: 658195.000000 0.649542
+bellmanFord: 658195.000000 0.503650
+
+===== Teste 2 =====
+Arquivo: ./data/barabasi-10000-m3-2.txt
+Dijkstra: 693534.000000 0.371181
+Duan: 693534.000000 0.639157
+bellmanFord: 693534.000000 0.987179
+
+===== Teste 3 =====
+Arquivo: ./data/barabasi-1000-m3-1.txt
+Dijkstra: 57423.000000 0.005755
+Duan: 57423.000000 0.007943
+bellmanFord: 57423.000000 0.006964
+
+===== Teste 4 =====
+Arquivo: ./data/barabasi-1000-m3-2.txt
+Dijkstra: 64064.000000 0.007060
+Duan: 64064.000000 0.007961
+bellmanFord: 64064.000000 0.007990
+
+===== Teste 5 =====
+Arquivo: ./data/barabasi-2000-m3-1.txt
+Dijkstra: 123517.000000 0.016414
+Duan: 123517.000000 0.033375
+bellmanFord: 123517.000000 0.035387
+
+===== Teste 6 =====
+Arquivo: ./data/barabasi-2000-m3-2.txt
+Dijkstra: 137722.000000 0.015943
+Duan: 137722.000000 0.034600
+bellmanFord: 137722.000000 0.017801
+
+===== Teste 7 =====
+Arquivo: ./data/barabasi-5000-m3-1.txt
+Dijkstra: 371719.000000 0.073988
+Duan: 371719.000000 0.126377
+bellmanFord: 371719.000000 0.153007
+
+===== Teste 8 =====
+Arquivo: ./data/barabasi-5000-m3-2.txt
+Dijkstra: 313681.000000 0.061640
+Duan: 313681.000000 0.128207
+bellmanFord: 313681.000000 0.118948
+
+===== Teste 9 =====
+Arquivo: ./data/barabasi-500-m3-1.txt
+Dijkstra: 31283.000000 0.001568
+Duan: 31283.000000 0.003412
+bellmanFord: 31283.000000 0.002355
+
+===== Teste 10 =====
+Arquivo: ./data/barabasi-500-m3-2.txt
+Dijkstra: 29213.000000 0.000989
+Duan: 29213.000000 0.001269
+bellmanFord: 29213.000000 0.001030
+
+===== Teste 11 =====
+Arquivo: ./data/erdos-10000-p0.01-1.txt
+Dijkstra: 125492.000000 0.460934
+Duan: 125492.000000 0.759239
+bellmanFord: 125492.000000 0.900846
+
+===== Teste 12 =====
+Arquivo: ./data/erdos-10000-p0.01-2.txt
+Dijkstra: 146311.000000 0.456240
+Duan: 146311.000000 0.757893
+bellmanFord: 146311.000000 0.712218
+
+===== Teste 13 =====
+Arquivo: ./data/erdos-1000-p0.01-1.txt
+Dijkstra: 69654.000000 0.003046
+Duan: 69654.000000 0.006818
+bellmanFord: 69654.000000 0.006031
+
+===== Teste 14 =====
+Arquivo: ./data/erdos-1000-p0.01-2.txt
+Dijkstra: 68535.000000 0.003064
+Duan: 68535.000000 0.006330
+bellmanFord: 68535.000000 0.005731
+
+===== Teste 15 =====
+Arquivo: ./data/erdos-2000-p0.01-1.txt
+Dijkstra: 80689.000000 0.013981
+Duan: 80689.000000 0.046818
+bellmanFord: 80689.000000 0.033489
+
+===== Teste 16 =====
+Arquivo: ./data/erdos-2000-p0.01-2.txt
+Dijkstra: 97580.000000 0.015042
+Duan: 97580.000000 0.055892
+bellmanFord: 97580.000000 0.047371
+
+===== Teste 17 =====
+Arquivo: ./data/erdos-5000-p0.01-1.txt
+Dijkstra: 101700.000000 0.114212
+Duan: 101700.000000 0.226793
+bellmanFord: 101700.000000 0.182748
+
+===== Teste 18 =====
+Arquivo: ./data/erdos-5000-p0.01-2.txt
+Dijkstra: 114182.000000 0.079344
+Duan: 114182.000000 0.222395
+bellmanFord: 114182.000000 0.197339
+
+===== Teste 19 =====
+Arquivo: ./data/erdos-500-p0.01-1.txt
+Dijkstra: 76482.000000 0.001517
+Duan: 76482.000000 0.003574
+bellmanFord: 76482.000000 0.002436
+
+===== Teste 20 =====
+Arquivo: ./data/erdos-500-p0.01-2.txt
+Dijkstra: 62136.000000 0.000837
+Duan: 62136.000000 0.001653
+bellmanFord: 62136.000000 0.001455
+
+===== Teste 21 =====
+Arquivo: ./data/watts-10000-k4-p0.2-1.txt
+Dijkstra: 4355527.000000 0.275076
+Duan: 4355527.000000 1.206934
+bellmanFord: 4355527.000000 1.058559
+
+===== Teste 22 =====
+Arquivo: ./data/watts-10000-k4-p0.2-2.txt
+Dijkstra: 4643399.000000 0.283193
+Duan: 4643399.000000 1.091186
+bellmanFord: 4643399.000000 0.968614
+
+===== Teste 23 =====
+Arquivo: ./data/watts-1000-k4-p0.2-1.txt
+Dijkstra: 282664.000000 0.002815
+Duan: 282664.000000 0.007559
+bellmanFord: 282664.000000 0.006934
+
+===== Teste 24 =====
+Arquivo: ./data/watts-1000-k4-p0.2-2.txt
+Dijkstra: 276167.000000 0.002545
+Duan: 276167.000000 0.007281
+bellmanFord: 276167.000000 0.006959
+
+===== Teste 25 =====
+Arquivo: ./data/watts-2000-k4-p0.2-1.txt
+Dijkstra: 538593.000000 0.011104
+Duan: 538593.000000 0.052436
+bellmanFord: 538593.000000 0.037270
+
+===== Teste 26 =====
+Arquivo: ./data/watts-2000-k4-p0.2-2.txt
+Dijkstra: 619135.000000 0.011928
+Duan: 619135.000000 0.046144
+bellmanFord: 619135.000000 0.035071
+
+===== Teste 27 =====
+Arquivo: ./data/watts-5000-k4-p0.2-1.txt
+Dijkstra: 1655684.000000 0.059547
+Duan: 1655684.000000 0.250984
+bellmanFord: 1655684.000000 0.284481
+
+===== Teste 28 =====
+Arquivo: ./data/watts-5000-k4-p0.2-2.txt
+Dijkstra: 1696451.000000 0.105170
+Duan: 1696451.000000 0.254835
+bellmanFord: 1696451.000000 0.233261
+
+===== Teste 29 =====
+Arquivo: ./data/watts-500-k4-p0.2-1.txt
+Dijkstra: 118979.000000 0.001160
+Duan: 118979.000000 0.004984
+bellmanFord: 118979.000000 0.002511
+
+===== Teste 30 =====
+Arquivo: ./data/watts-500-k4-p0.2-2.txt
+Dijkstra: 96353.000000 0.001473
+Duan: 96353.000000 0.004309
+bellmanFord: 96353.000000 0.002167
+
