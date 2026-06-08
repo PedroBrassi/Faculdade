@@ -3,26 +3,17 @@
 
 #include <stdio.h>
 
-typedef long long (*AlgorithmFunction)(int values[],
-    int n,
-    int solution[]
-);
+typedef long long (*AlgorithmFunction)(int *, int, int *);
 
 typedef struct {
-
-    char name[100];
+    const char *name;
     AlgorithmFunction function;
-
 } Algorithm;
 
+void setResultsPath(const char *path);
 void createResultsFolder();
-
 FILE *openGeneralResults();
-
-FILE *openAlgorithmFile(
-    const char *algorithmName
-);
-
+FILE *openAlgorithmFile(const char *algorithmName);
 void runExecutions();
 
 #endif
