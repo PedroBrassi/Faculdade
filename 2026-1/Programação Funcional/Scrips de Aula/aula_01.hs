@@ -68,4 +68,12 @@ diaVenda01 dia v
 {-Exercício - inclua em suas funções um contador para informar quantos testes
   a função executa. Isso é o mesmo que comprovar a complexidade
   Considere, neste caso, contar os testes nas funções que são chamadas internamente
--}  
+-}
+
+{- Questão 3 da prova -}
+f4 :: [(Bool, String)] -> ([String], [String])
+f4 [] = ([] , [])
+f4 ((teste, s) : resto)
+	| teste		= (s:v, f)
+	| otherwise = (v, s:f)
+	where (v, f) = f4 resto
