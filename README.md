@@ -1,35 +1,33 @@
-# Faculdade — Ciência da Computação (UNIFAL)
+# College — Computer Science (UNIFAL)
 
-Repositório dedicado ao curso de **Ciência da Computação da UNIFAL**, criado com o objetivo de centralizar materiais, anotações, códigos, projetos, exercícios, resumos e ferramentas de estudo utilizadas ao longo da graduação.
+Repository dedicated to the **Computer Science program at UNIFAL**, created with the purpose of centralizing materials, notes, code, projects, exercises, summaries, and study tools used throughout my undergraduate journey.
 
-A proposta deste repositório é servir como uma base de apoio acadêmico, reunindo conteúdos das disciplinas cursadas e recursos que auxiliem no aprendizado, organização e desenvolvimento durante a faculdade.
+The goal of this repository is to serve as an **academic support base**, gathering course-related content and resources that assist with learning, organization, and development during university.
 
-## Objetivos do Repositório
+## Repository Goals
 
-- Organizar conteúdos por disciplina;
-- Armazenar exercícios, trabalhos e projetos;
-- Disponibilizar resumos e materiais de estudo;
-- Registrar implementações e experimentos em programação;
-- Facilitar revisões para provas e atividades;
-- Manter um histórico da evolução acadêmica ao longo do curso.
+* Organize content by subject/course;
+* Store exercises, assignments, and projects;
+* Provide summaries and study materials;
+* Document programming implementations and experiments;
+* Facilitate exam reviews and coursework preparation;
+* Maintain a record of academic progress throughout the degree.
 
-## Organização
+## Organization
 
-O conteúdo será organizado por disciplinas, podendo incluir:
+The content will be organized by subjects/courses and may include:
 
-- Resumos teóricos;
-- Códigos-fonte e implementações;
-- Trabalhos e relatórios;
-- Exercícios resolvidos;
-- Projetos acadêmicos;
-- Materiais complementares e referências;
-- Além de provas anteriores usadas como ferramentas de estudos.
+* Theoretical summaries and notes;
+* Source code and implementations;
+* Assignments and reports;
+* Solved exercises;
+* Academic projects;
+* Supplementary materials and references;
+* Previous exams used as study resources.
 
-## Objetivo Pessoal
+## Personal Goal
 
-Este repositório também funciona como uma forma de documentar minha trajetória acadêmica, consolidando conhecimentos adquiridos durante o curso e facilitando consultas futuras.
+This repository also serves as a way to document my academic journey, consolidating the knowledge acquired throughout the program and making future reference easier.
 
----
-
-**Universidade:** Universidade Federal de Alfenas (UNIFAL-MG)
-**Curso:** Ciência da Computação
+**University:** Federal University of Alfenas (UNIFAL-MG)
+**Program:** Computer Science
