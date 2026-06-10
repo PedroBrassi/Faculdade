@@ -31,3 +31,4 @@ This repository also serves as a way to document my academic journey, consolidat
 
 **University:** Federal University of Alfenas (UNIFAL-MG)
 **Program:** Computer Science
+
