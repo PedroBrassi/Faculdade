@@ -323,14 +323,10 @@ Esse comportamento sugere que, em grandes conjuntos, a densidade de soluções p
 
 ---
 
-## 9. Autores
+## 9. Autor
 
 Projeto desenvolvido por:
-
-* Isabela M. Andrade
-* Júlia A. da Rocha
-* Otávio de Oliveira
-* Pedro B. Luccas
+* Pedro Brassi Luccas
 
 **Universidade Federal de Alfenas (UNIFAL-MG)**
 **Departamento de Ciência da Computação – AEDS III**

@@ -52,3 +52,4 @@ The integration of multiple data sources with advanced Artificial Intelligence t
 | **Sentiment Scores** | **Pontuações de Sentimento** | Numerical values assigned to text (like financial news) indicating whether the context is positive, negative, or neutral. |
 | **Technical Indicators** | **Indicadores Técnicos** | Mathematical calculations based on historical price, volume, or open interest of a security to predict market directions. |
 | **continuous action spaces** | **Espaços de ação contínuos** | Systems in RL where the available actions are represented by infinite, continuous numerical values rather than discrete choices. |
+
