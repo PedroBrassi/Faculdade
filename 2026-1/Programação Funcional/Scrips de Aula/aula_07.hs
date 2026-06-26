@@ -120,7 +120,6 @@ f2 :: Char -> [Int] -> Int
 f2 c []
 	|isDigit c	= 0
 	|otherwise	= 1
-
 f2 c (a : b)
 	|isDigit c	= a + f2 c b
 	|otherwise	= a * f2 c b

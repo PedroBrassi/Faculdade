@@ -56,7 +56,6 @@ f3_newListofList   (a:x)   = (f3_newList (fst a) (a:x)):f3_newListofList (f3_new
 
 {- função que gera o filtro no produto cartesiano 
    -------aqui, tem algo a ser ajustado---------}
-   
 f3_filtra :: Int->[[(u,t)]] -> [(u,t)]
 f3_filtra   _   [] = []
 f3_filtra     i (a:b)= busca i a:f3_filtra (i+1) b

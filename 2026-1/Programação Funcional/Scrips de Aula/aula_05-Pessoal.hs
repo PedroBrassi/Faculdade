@@ -168,4 +168,4 @@ f3_auxG (a : as) (b : bs) x y = (a == x && b == y) || f3_auxG as bs x y
 f3_auxG _ _ _ _ = False
 
 {- Outra resolução da mesma questao: -}
-f3_Diferente 
+

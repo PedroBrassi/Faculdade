@@ -5,7 +5,6 @@
 -}
 
 --01- Operador que defina o menor entre dois inteiros
-
 infix 7 &<&
 (&<&) :: Int->Int->Int
 x &<& y
