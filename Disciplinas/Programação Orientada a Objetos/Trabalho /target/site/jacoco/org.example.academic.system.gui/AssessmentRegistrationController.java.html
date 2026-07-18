@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AssessmentRegistrationController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">academic-system</a> &gt; <a href="index.source.html" class="el_package">org.example.academic.system.gui</a> &gt; <span class="el_source">AssessmentRegistrationController.java</span></div><h1>AssessmentRegistrationController.java</h1><pre class="source lang-java linenums">package org.example.academic.system.gui;
+
+import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextField;
+import org.example.academic.system.exception.InvalidNumericInputException;
+
+/**
+ * Tela de cadastro de avaliações (US-2410).
+ *
+ * &lt;p&gt;Delega o registro ao {@code AcademicSystemController}, que cria a avaliação
+ * do tipo escolhido e a associa à turma informada. Acessível por ADMIN e
+ * PROFESSOR.&lt;/p&gt;
+ */
+<span class="nc" id="L16">public class AssessmentRegistrationController {</span>
+
+    @FXML private TextField txtClassCode;
+    @FXML private ComboBox&lt;String&gt; cbType;
+    @FXML private TextField txtName;
+    @FXML private TextField txtWeight;
+    @FXML private TextField txtMaximumScore;
+
+    @FXML
+    public void initialize() {
+<span class="nc" id="L26">        cbType.getItems().addAll(</span>
+                &quot;Exam&quot;,
+                &quot;Practical Assignment&quot;,
+                &quot;Seminar&quot;,
+                &quot;Assignment&quot;
+        );
+<span class="nc" id="L32">        cbType.getSelectionModel().selectFirst();</span>
+<span class="nc" id="L33">    }</span>
+
+    @FXML
+    private void registerAssessment() {
+        try {
+<span class="nc bnc" id="L38" title="All 2 branches missed.">            String classCode = txtClassCode.getText() == null ? &quot;&quot; : txtClassCode.getText().trim();</span>
+<span class="nc" id="L39">            int type = typeIndexOf(cbType.getValue());</span>
+<span class="nc" id="L40">            double value = parseDouble(txtMaximumScore.getText(), &quot;Nota&quot;);</span>
+<span class="nc" id="L41">            double weight = parseDouble(txtWeight.getText(), &quot;Peso&quot;);</span>
+
+<span class="nc" id="L43">            AppContext.academic().registerAssessment(classCode, type, value, weight);</span>
+
+<span class="nc" id="L45">            Alert alert = new Alert(Alert.AlertType.INFORMATION);</span>
+<span class="nc" id="L46">            alert.setHeaderText(null);</span>
+<span class="nc" id="L47">            alert.setContentText(&quot;Avaliação cadastrada na turma '&quot; + classCode + &quot;'!&quot;);</span>
+<span class="nc" id="L48">            alert.showAndWait();</span>
+
+<span class="nc" id="L50">            txtName.clear();</span>
+<span class="nc" id="L51">            txtWeight.clear();</span>
+<span class="nc" id="L52">            txtMaximumScore.clear();</span>
+<span class="nc" id="L53">        } catch (Exception e) {</span>
+<span class="nc" id="L54">            Alert alert = new Alert(Alert.AlertType.ERROR);</span>
+<span class="nc" id="L55">            alert.setHeaderText(null);</span>
+<span class="nc" id="L56">            alert.setContentText(e.getMessage());</span>
+<span class="nc" id="L57">            alert.showAndWait();</span>
+<span class="nc" id="L58">        }</span>
+<span class="nc" id="L59">    }</span>
+
+    /** Mapeia o tipo selecionado para o código esperado pelo backend (1=Exam ... 4=Assignment). */
+    private int typeIndexOf(String type) {
+<span class="nc bnc" id="L63" title="All 2 branches missed.">        if (type == null) return 0;</span>
+<span class="nc bnc" id="L64" title="All 5 branches missed.">        return switch (type) {</span>
+<span class="nc" id="L65">            case &quot;Exam&quot; -&gt; 1;</span>
+<span class="nc" id="L66">            case &quot;Practical Assignment&quot; -&gt; 2;</span>
+<span class="nc" id="L67">            case &quot;Seminar&quot; -&gt; 3;</span>
+<span class="nc" id="L68">            case &quot;Assignment&quot; -&gt; 4;</span>
+<span class="nc" id="L69">            default -&gt; 0;</span>
+        };
+    }
+
+    private double parseDouble(String input, String fieldName) {
+        try {
+<span class="nc bnc" id="L75" title="All 2 branches missed.">            return Double.parseDouble(input == null ? &quot;&quot; : input.trim());</span>
+<span class="nc" id="L76">        } catch (NumberFormatException e) {</span>
+<span class="nc" id="L77">            throw new InvalidNumericInputException(fieldName + &quot;: &quot; + input);</span>
+        }
+    }
+
+    @FXML
+    private void goBack() {
+<span class="nc" id="L83">        SceneManager.switchScene(&quot;MainScreen.fxml&quot;, &quot;Sistema Acadêmico&quot;);</span>
+<span class="nc" id="L84">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

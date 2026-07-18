@@ -1,0 +1,12 @@
+org/example/academic/system/EqualityTest.class
+org/example/academic/system/PersistenceRepositoryTest.class
+org/example/academic/system/ReportGenerationTest.class
+org/example/academic/system/AuthenticationTest.class
+org/example/academic/system/AssessmentServiceTest.class
+org/example/academic/system/ClassServiceTest.class
+org/example/academic/system/ReportServiceTest.class
+org/example/academic/system/DomainValidationTest.class
+org/example/academic/system/AcademicSystemControllerTest.class
+org/example/academic/system/AuthorizationTest.class
+org/example/academic/system/LoggingInfrastructureTest.class
+org/example/academic/system/PersistenceServiceTest.class

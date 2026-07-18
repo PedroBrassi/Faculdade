@@ -1,0 +1,12 @@
+/home/pedro/Área de trabalho/Final/src/test/java/org/example/academic/system/AcademicSystemControllerTest.java
+/home/pedro/Área de trabalho/Final/src/test/java/org/example/academic/system/AssessmentServiceTest.java
+/home/pedro/Área de trabalho/Final/src/test/java/org/example/academic/system/AuthenticationTest.java
+/home/pedro/Área de trabalho/Final/src/test/java/org/example/academic/system/AuthorizationTest.java
+/home/pedro/Área de trabalho/Final/src/test/java/org/example/academic/system/ClassServiceTest.java
+/home/pedro/Área de trabalho/Final/src/test/java/org/example/academic/system/DomainValidationTest.java
+/home/pedro/Área de trabalho/Final/src/test/java/org/example/academic/system/EqualityTest.java
+/home/pedro/Área de trabalho/Final/src/test/java/org/example/academic/system/LoggingInfrastructureTest.java
+/home/pedro/Área de trabalho/Final/src/test/java/org/example/academic/system/PersistenceRepositoryTest.java
+/home/pedro/Área de trabalho/Final/src/test/java/org/example/academic/system/PersistenceServiceTest.java
+/home/pedro/Área de trabalho/Final/src/test/java/org/example/academic/system/ReportGenerationTest.java
+/home/pedro/Área de trabalho/Final/src/test/java/org/example/academic/system/ReportServiceTest.java

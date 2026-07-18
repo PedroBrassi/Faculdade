@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AppLogger.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">academic-system</a> &gt; <a href="index.source.html" class="el_package">org.example.academic.system.logging</a> &gt; <span class="el_source">AppLogger.java</span></div><h1>AppLogger.java</h1><pre class="source lang-java linenums">package org.example.academic.system.logging;
+
+import java.util.logging.Logger;
+
+/**
+ * TUS-2390 - ponto único para pegar um Logger no sistema.
+ * Garante que a configuração foi carregada antes de devolver o logger.
+ */
+public final class AppLogger {
+
+    static {
+<span class="fc" id="L12">        LoggingConfig.init();</span>
+<span class="fc" id="L13">    }</span>
+
+    private AppLogger() {
+    }
+
+    public static Logger get(Class&lt;?&gt; type) {
+<span class="fc" id="L19">        return Logger.getLogger(type.getName());</span>
+    }
+
+    public static Logger get(String name) {
+<span class="nc" id="L23">        return Logger.getLogger(name);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

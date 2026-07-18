@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>JavaFXMain.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">academic-system</a> &gt; <a href="index.source.html" class="el_package">org.example.academic.system.gui</a> &gt; <span class="el_source">JavaFXMain.java</span></div><h1>JavaFXMain.java</h1><pre class="source lang-java linenums">package org.example.academic.system.gui;
+
+import javafx.application.Application;
+import javafx.stage.Stage;
+import org.example.academic.system.controller.AcademicSystemController;
+import org.example.academic.system.controller.AuthenticationController;
+import org.example.academic.system.repository.InMemoryAcademicClassRepository;
+import org.example.academic.system.repository.TxtUserRepository;
+import org.example.academic.system.security.AuthenticationService;
+import org.example.academic.system.service.AcademicService;
+import org.example.academic.system.service.PersistenceService;
+import org.example.academic.system.service.ReportService;
+
+/**
+ * Ponto de entrada da interface gráfica JavaFX (TUS-2406).
+ *
+ * &lt;p&gt;Reutiliza exatamente o mesmo wiring de services/controllers da aplicação
+ * de linha de comando ({@code org.example.academic.system.Main}), que continua
+ * funcionando de forma independente. A GUI não contém regra de negócio: as
+ * telas delegam ao {@link AcademicSystemController} e ao
+ * {@link AuthenticationController} via {@link AppContext}.&lt;/p&gt;
+ */
+<span class="nc" id="L23">public class JavaFXMain extends Application {</span>
+
+    @Override
+    public void init() {
+        // Infraestrutura (mesmo wiring de AcademicSystem.run()).
+<span class="nc" id="L28">        InMemoryAcademicClassRepository memoryRepo = new InMemoryAcademicClassRepository();</span>
+<span class="nc" id="L29">        TxtUserRepository userRepository = new TxtUserRepository(&quot;users.txt&quot;);</span>
+
+        // Segurança.
+<span class="nc" id="L32">        AuthenticationService authService = new AuthenticationService(userRepository);</span>
+
+        // Serviços.
+<span class="nc" id="L35">        PersistenceService persistenceService = new PersistenceService(memoryRepo);</span>
+<span class="nc" id="L36">        AcademicService academicService = new AcademicService(memoryRepo);</span>
+<span class="nc" id="L37">        ReportService reportService = new ReportService();</span>
+
+        // Controllers reutilizados pela GUI.
+<span class="nc" id="L40">        AcademicSystemController academicSystemController = new AcademicSystemController(</span>
+                academicService, authService, persistenceService, reportService);
+<span class="nc" id="L42">        AuthenticationController authenticationController = new AuthenticationController(authService);</span>
+
+<span class="nc" id="L44">        AppContext.init(academicSystemController, authenticationController);</span>
+<span class="nc" id="L45">    }</span>
+
+    @Override
+    public void start(Stage stage) {
+<span class="nc" id="L49">        SceneManager.setStage(stage);</span>
+<span class="nc" id="L50">        SceneManager.switchScene(&quot;Login.fxml&quot;, &quot;Sistema Acadêmico - Login&quot;);</span>
+<span class="nc" id="L51">        stage.show();</span>
+<span class="nc" id="L52">    }</span>
+
+    public static void main(String[] args) {
+<span class="nc" id="L55">        launch(args);</span>
+<span class="nc" id="L56">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

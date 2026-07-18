@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="org.example.academic.system.gui.PersistenceConfigController">
+
+    <top>
+        <Label text="Configuração de Persistência"
+               style="-fx-font-size:22px;-fx-font-weight:bold;"
+               BorderPane.alignment="CENTER"/>
+    </top>
+
+    <center>
+
+        <VBox alignment="CENTER" spacing="20">
+
+            <padding>
+                <Insets top="30" right="30" bottom="30" left="30"/>
+            </padding>
+
+            <Label text="Selecione o formato de persistência"/>
+
+            <ComboBox fx:id="cbPersistence"
+                      prefWidth="250"/>
+
+            <HBox spacing="15"
+                  alignment="CENTER">
+
+                <Button text="Salvar"
+                        onAction="#saveConfiguration"/>
+
+                <Button text="Voltar"
+                        onAction="#goBack"/>
+
+            </HBox>
+
+        </VBox>
+
+    </center>
+
+</BorderPane>
