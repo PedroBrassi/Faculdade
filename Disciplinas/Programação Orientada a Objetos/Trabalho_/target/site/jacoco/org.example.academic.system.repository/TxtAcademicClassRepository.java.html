@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TxtAcademicClassRepository.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">academic-system</a> &gt; <a href="index.source.html" class="el_package">org.example.academic.system.repository</a> &gt; <span class="el_source">TxtAcademicClassRepository.java</span></div><h1>TxtAcademicClassRepository.java</h1><pre class="source lang-java linenums">package org.example.academic.system.repository;
+
+import org.example.academic.system.exception.AcademicSystemException;
+import org.example.academic.system.logging.PersistenceAuditLogger;
+import org.example.academic.system.model.AcademicClass;
+import org.example.academic.system.model.Assessment;
+import org.example.academic.system.model.PersistenceType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.List;
+import java.util.Optional;
+
+/**
+ * Persistência em arquivo TXT para turmas e avaliações (TUS-2362).
+ *
+ * Formato por linha:
+ *   Class Code: &amp;lt;code&amp;gt;
+ *   Class Title: &amp;lt;title&amp;gt;
+ *   Assessment: &amp;lt;type&amp;gt; | value=&amp;lt;v&amp;gt; | weight=&amp;lt;w&amp;gt;
+ *   (linha em branco entre turmas)
+ */
+public class TxtAcademicClassRepository implements AcademicClassRepository {
+
+<span class="fc" id="L27">    private static final Logger log = LoggerFactory.getLogger(TxtAcademicClassRepository.class);</span>
+
+    private final InMemoryAcademicClassRepository memoryDelegate;
+
+<span class="fc" id="L31">    public TxtAcademicClassRepository(InMemoryAcademicClassRepository memoryDelegate) {</span>
+<span class="fc" id="L32">        this.memoryDelegate = memoryDelegate;</span>
+<span class="fc" id="L33">    }</span>
+
+    @Override
+    public void save(AcademicClass academicClass) {
+<span class="nc" id="L37">        memoryDelegate.save(academicClass);</span>
+<span class="nc" id="L38">    }</span>
+
+    @Override
+    public Optional&lt;AcademicClass&gt; findByCode(String code) {
+<span class="nc" id="L42">        return memoryDelegate.findByCode(code);</span>
+    }
+
+    @Override
+    public List&lt;AcademicClass&gt; findAll() {
+<span class="nc" id="L47">        return memoryDelegate.findAll();</span>
+    }
+
+    @Override
+    public void persistAll(List&lt;AcademicClass&gt; classes, String fileName) {
+<span class="fc" id="L52">        log.info(&quot;Persisting {} class(es) to TXT file: {}&quot;, classes.size(), fileName);</span>
+<span class="fc" id="L53">        try (FileWriter writer = new FileWriter(fileName)) {</span>
+<span class="fc bfc" id="L54" title="All 2 branches covered.">            for (AcademicClass cls : classes) {</span>
+<span class="fc" id="L55">                writer.write(&quot;Class Code: &quot; + cls.getCode() + &quot;\n&quot;);</span>
+<span class="fc" id="L56">                writer.write(&quot;Class Title: &quot; + cls.getTitle() + &quot;\n&quot;);</span>
+<span class="fc bfc" id="L57" title="All 2 branches covered.">                for (Assessment a : cls.getAssessments()) {</span>
+<span class="fc" id="L58">                    writer.write(&quot;Assessment: &quot; + a.getType()</span>
+<span class="fc" id="L59">                            + &quot; | value=&quot; + a.getValue()</span>
+<span class="fc" id="L60">                            + &quot; | weight=&quot; + a.getWeight() + &quot;\n&quot;);</span>
+<span class="fc" id="L61">                }</span>
+<span class="fc" id="L62">                writer.write(&quot;\n&quot;);</span>
+<span class="fc" id="L63">            }</span>
+<span class="fc" id="L64">            log.info(&quot;TXT persistence completed successfully.&quot;);</span>
+<span class="nc" id="L65">        } catch (IOException e) {</span>
+<span class="nc" id="L66">            log.error(&quot;Failed to persist classes to TXT file: {}&quot;, fileName, e);</span>
+<span class="nc" id="L67">            throw new AcademicSystemException(&quot;Failed to save data to TXT file: &quot; + e.getMessage(), e);</span>
+<span class="fc" id="L68">        }</span>
+<span class="fc" id="L69">        PersistenceAuditLogger.saved(PersistenceType.TXT, fileName);</span>
+<span class="fc" id="L70">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

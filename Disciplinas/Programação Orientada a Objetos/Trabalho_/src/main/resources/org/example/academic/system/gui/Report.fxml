@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="org.example.academic.system.gui.ReportController">
+
+    <top>
+
+        <Label text="Relatórios"
+               style="-fx-font-size:22px;-fx-font-weight:bold;"
+               BorderPane.alignment="CENTER"/>
+
+    </top>
+
+    <center>
+
+        <VBox spacing="15"
+              alignment="CENTER">
+
+            <padding>
+
+                <Insets top="25"
+                        right="25"
+                        bottom="25"
+                        left="25"/>
+
+            </padding>
+
+            <Button text="Gerar Relatório"
+                    onAction="#generateReport"/>
+
+            <TextArea fx:id="txtReport"
+                      prefHeight="350"
+                      prefWidth="600"
+                      editable="false"/>
+
+            <Button text="Voltar"
+                    onAction="#goBack"/>
+
+        </VBox>
+
+    </center>
+
+</BorderPane>
