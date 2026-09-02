@@ -4,6 +4,8 @@ Repository dedicated to the **Computer Science program at UNIFAL**, created with
 
 The goal of this repository is to serve as an **academic support base**, gathering course-related content and resources that assist with learning, organization, and development during university.
 
+## 
+
 ## Repository Goals
 
 * Organize content by subject/course;
@@ -12,6 +14,8 @@ The goal of this repository is to serve as an **academic support base**, gatheri
 * Document programming implementations and experiments;
 * Facilitate exam reviews and coursework preparation;
 * Maintain a record of academic progress throughout the degree.
+
+## 
 
 ## Organization
 
@@ -24,6 +28,8 @@ The content will be organized by subjects/courses and may include:
 * Academic projects;
 * Supplementary materials and references;
 * Previous exams used as study resources.
+
+## 
 
 ## Personal Goal
 
