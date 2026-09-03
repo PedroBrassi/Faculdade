@@ -1,0 +1,14 @@
+%%
+[0-9]+ ECHO;
+. ;
+\n ;
+%%
+
+int yywrap (void){
+    return 1;
+}
+
+int main (void) {
+    yylex();
+    return 0;
+}

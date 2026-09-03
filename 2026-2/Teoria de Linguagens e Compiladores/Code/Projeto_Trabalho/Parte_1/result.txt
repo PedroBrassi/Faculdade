@@ -1,0 +1,30 @@
+   programa: palavra reservada
+      teste: identificador
+ERRO = SIMBOLO NAO RECONHECIDO!
+    inteiro: tipo
+          a: identificador
+          b: identificador
+ERRO = SIMBOLO NAO RECONHECIDO!
+     inicio: palavra reservada
+ERRO = SIMBOLO NAO RECONHECIDO!
+       leia: palavra reservada
+          a: identificador
+ERRO = SIMBOLO NAO RECONHECIDO!
+   enquanto: palavra reservada
+          a: identificador
+          >: operador maior
+          0: numero
+       faca: palavra reservada
+ERRO = SIMBOLO NAO RECONHECIDO!
+    escreva: palavra reservada
+          a: identificador
+ERRO = SIMBOLO NAO RECONHECIDO!
+          a: identificador
+         <-: operador de atribuicao
+          a: identificador
+          -: operador de subtracao
+          1: numero
+ERRO = SIMBOLO NAO RECONHECIDO!
+fimenquanto: palavra reservada
+ERRO = SIMBOLO NAO RECONHECIDO!
+fimprograma: palavra reservada
