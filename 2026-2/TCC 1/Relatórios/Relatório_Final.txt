@@ -38,3 +38,4 @@ Comando utilizado:
 python -m pip freeze > requirements.txt
 
 Status: CONCLUÍDO
+[X] Criar ambiente virtual Python e instalar pillow, imagehash, pandas, networkx, matplotlib.

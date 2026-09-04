@@ -1,0 +1,8 @@
+Nome: Pedro Brassi Luccas  
+R.A.: 2022.2.08.009
+
+Durante o LAB 02, compreendi como o Sistema Operacional organiza o uso da CPU entre diferentes processos. No FCFS, observei que um processo longo pode atrasar todos os seguintes, causando o efeito comboio. Já no Round Robin, os processos compartilham a CPU através de um quantum, melhorando a responsividade, mas valores muito pequenos aumentam as trocas de contexto e o overhead. No escalonamento por prioridade, percebi também o risco de starvation para processos menos prioritários.
+
+Na parte de concorrência, observei que duas threads alterando `contador++` simultaneamente podem perder atualizações, caracterizando uma condição de corrida. Para proteger essa seção crítica, foram estudados Peterson e mutex. Também utilizei semáforos para controlar uma quantidade limitada de recursos e variáveis de condição para permitir que threads esperem sem consumir CPU desnecessariamente. Por fim, os monitores em Java mostraram uma forma de abstrair e facilitar esses mecanismos de sincronização.
+
+Com o laboratório, compreendi que diferentes situações exigem diferentes formas de escalonamento e sincronização, buscando utilizar a CPU de maneira eficiente e compartilhar recursos de forma segura.
