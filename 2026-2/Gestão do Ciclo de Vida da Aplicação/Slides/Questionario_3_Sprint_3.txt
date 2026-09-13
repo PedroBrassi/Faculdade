@@ -1,0 +1,283 @@
+Questão 1
+Completo
+Marcar questão
+Texto da questão
+Uma startup pretende criar um aplicativo para auxiliar pessoas a organizar despesas compartilhadas durante viagens.
+
+Antes da implementação, existem duas propostas:
+
+Proposta A: desenvolver autenticação, banco de dados, cadastro de grupos, divisão de despesas e notificações e, depois, apresentar o sistema completo aos usuários.
+
+Proposta B: representar inicialmente apenas o fluxo principal — criar uma viagem, registrar uma despesa, dividir o valor e visualizar quanto cada pessoa deve — e testá-lo com potenciais usuários antes de implementar o restante.
+
+Compare as duas estratégias e indique qual você adotaria nesse momento.
+
+Sua justificativa deve discutir risco, custo de mudança, aprendizado e escopo do protótipo.
+
+Texto de resposta Questão 1
+A Proposta A exige mais tempo e investimento antes de obter feedback. Isso aumenta o risco de criar funcionalidades que os usuários não valorizam e torna mudanças posteriores mais caras.
+
+Eu adotaria a Proposta B, pois permite validar rapidamente o fluxo principal com baixo custo. O protótipo deve abranger somente criar a viagem, registrar e dividir despesas e consultar os valores devidos. Autenticação, notificações e infraestrutura completa podem ser apenas simuladas.
+
+Feedback
+Resposta esperada:
+
+Espera-se preferência pela Proposta B, especialmente enquanto existem incertezas sobre a solução e a experiência do usuário.
+
+A resposta deve reconhecer que:
+
+um protótipo não precisa representar o sistema inteiro;
+pode utilizar dados fictícios;
+deve concentrar-se naquilo que a equipe precisa aprender ou validar;
+permite descobrir problemas antes de investir na implementação completa;
+facilita experimentar alternativas com menor custo;
+mudanças realizadas antes da implementação tendem a ser mais baratas.
+Não basta afirmar que a Proposta B é melhor apenas por ser “mais rápida”. O aluno deve relacionar o investimento realizado ao risco e ao aprendizado desejado.
+
+Questão 2
+Completo
+Marcar questão
+Texto da questão
+Um protótipo de sistema acadêmico foi testado com cinco estudantes. A tarefa era cancelar uma matrícula em uma disciplina.
+
+Participante	Resultado
+P1	Concluiu, mas inicialmente procurou a opção em “Disciplinas”.
+P2	Não concluiu e perguntou onde estavam suas matrículas.
+P3	Concluiu sem dificuldades.
+P4	Clicou três vezes em “Disciplinas” antes de encontrar “Matrículas” em outro menu.
+P5	Concluiu, mas afirmou que esperava encontrar a função em “Disciplinas”.
+A equipe concluiu:
+
+“Três dos cinco participantes concluíram a tarefa. Portanto, o protótipo está suficientemente claro e podemos seguir para implementação.”
+
+Avalie essa conclusão.
+
+Que interpretação alternativa os dados permitem? Que decisão você recomendaria antes da implementação?
+
+Texto de resposta Questão 2
+A conclusão da equipe é precipitada, pois a taxa de conclusão não mostra sozinha que o protótipo está claro. Apesar de três participantes concluírem a tarefa, somente P3 não apresentou dificuldades. P1, P4 e P5 procuraram inicialmente a função em “Disciplinas”, enquanto P2 não conseguiu localizar suas matrículas. Isso indica um possível problema na organização e na nomenclatura dos menus. Antes da implementação, seria recomendável revisar a navegação, aproximando a opção de cancelamento do menu “Disciplinas”, e testar novamente o protótipo com outros participantes. Dessa forma, a equipe reduz o risco e o custo de corrigir o problema depois que o sistema estiver implementado.
+
+Feedback
+Resposta esperada:
+
+A conclusão é inadequada porque considera apenas o resultado final da tarefa e ignora outras evidências importantes.
+
+Embora P1, P3 e P5 tenham concluído, P1 e P5 apresentaram evidências de que sua expectativa não corresponde à organização da interface.
+
+P4 também procurou repetidamente a função em “Disciplinas”, e P2 não conseguiu localizar suas matrículas.
+
+Assim, quatro dos cinco participantes apresentaram algum sinal de problema relacionado à navegação ou arquitetura da informação.
+
+Uma interpretação plausível é que os usuários esperam encontrar a funcionalidade relacionada à matrícula dentro de “Disciplinas”, e não na organização atual.
+
+Antes da implementação, seria recomendável revisar a organização, os rótulos ou a navegação e realizar uma nova rodada de testes.
+
+Uma resposta de qualidade deve reconhecer que cliques errados, hesitações, perguntas, tentativas repetidas e interpretações equivocadas também são dados importantes, mesmo quando a tarefa acaba sendo concluída.
+
+Questão 3
+Completo
+Marcar questão
+Texto da questão
+Uma equipe criou um protótipo de um aplicativo que permite aos alunos consultar e reservar salas de estudo da universidade.
+
+Ela deseja descobrir se um estudante consegue:
+
+encontrar uma sala disponível para determinada data e horário;
+identificar sua capacidade;
+concluir a reserva.
+Elabore:
+
+a) um cenário de teste que contextualize a necessidade sem indicar o caminho que deve ser seguido na interface;
+
+b) uma tarefa que o participante deverá realizar;
+
+c) pelo menos três evidências ou comportamentos que você observaria durante a execução para avaliar se existem problemas no protótipo.
+
+Texto de resposta Questão 3
+a) Você precisa realizar um trabalho em grupo com quatro colegas na próxima terça-feira, das 14h às 16h. Como precisam conversar durante a atividade, o grupo deseja reservar uma sala de estudos com capacidade para pelo menos cinco pessoas.
+
+b) Encontre uma sala adequada para o grupo, confirme sua capacidade e realize a reserva para a data e o horário informados.
+
+c) Durante o teste, eu observaria se o participante encontra facilmente a busca de salas, se compreende como informar a data e o horário, se consegue identificar a capacidade da sala e se percebe quais espaços estão disponíveis. Também verificaria hesitações, retornos a telas anteriores, cliques repetidos, pedidos de ajuda e se o participante reconhece claramente que a reserva foi concluída.
+
+Feedback
+Orientação de correção: não existe uma única resposta correta.
+
+Exemplo de cenário adequado:
+
+“Você e quatro colegas precisam se reunir amanhã entre 14h e 16h para preparar uma apresentação. Utilize o sistema para encontrar uma sala adequada e realizar a reserva.”
+
+O cenário não deve informar diretamente o caminho pela interface, como “clique em Salas, depois em Disponibilidade...”, pois isso impediria observar se o participante compreende a solução.
+
+Entre as evidências possíveis:
+
+hesitações;
+cliques incorretos;
+dificuldade para localizar a capacidade da sala;
+tentativas repetidas;
+interpretações equivocadas;
+perguntas feitas durante a tarefa;
+abandono da tarefa;
+caminhos inesperados;
+conclusão ou não da reserva.
+O critério principal é a coerência entre cenário, tarefa e objetivo do teste.
+
+Questão 4
+Completo
+Marcar questão
+Texto da questão
+Uma empresa está desenvolvendo um sistema para que profissionais de enfermagem registrem a administração de medicamentos durante seus plantões.
+
+A equipe precisa realizar um primeiro teste do fluxo principal e possui acesso imediato a três grupos:
+
+Grupo A: cinco desenvolvedores da própria equipe;
+Grupo B: dez funcionários administrativos da empresa;
+Grupo C: quatro profissionais de enfermagem que não participaram da criação do sistema.
+A equipe considera utilizar exclusivamente o Grupo A, argumentando que possui mais conhecimento sobre sistemas e, portanto, será capaz de fornecer feedback tecnicamente mais detalhado.
+
+Avalie essa decisão. Qual grupo você priorizaria e por quê?
+
+Os demais grupos seriam completamente inúteis? Justifique.
+
+Texto de resposta Questão 4
+A decisão de utilizar exclusivamente o Grupo A não é adequada. Os desenvolvedores conhecem o funcionamento e as decisões do sistema, o que pode fazer com que não percebam dificuldades enfrentadas por usuários reais.
+Eu priorizaria o Grupo C, pois os profissionais de enfermagem representam o público-alvo. Eles conhecem a rotina do plantão, os termos utilizados, as restrições de tempo e os riscos envolvidos no registro de medicamentos. Assim, podem avaliar se o fluxo principal é claro, rápido e compatível com o trabalho real.
+Os demais grupos não são inúteis. O Grupo A pode identificar erros técnicos e realizar testes internos iniciais. O Grupo B pode apontar problemas gerais de clareza e navegação. Porém, nenhum deles substitui os profissionais de enfermagem na validação das necessidades e do contexto de uso do sistema.
+
+Feedback
+Resposta esperada:
+
+O grupo que deveria ser priorizado é o Grupo C, pois seus integrantes possuem características, experiência e contexto mais próximos do público-alvo real.
+
+O argumento de que desenvolvedores seriam melhores participantes por conhecerem mais tecnologia é inadequado. Esse conhecimento pode inclusive fazer com que eles compreendam elementos que seriam confusos para usuários reais.
+
+Os demais grupos não são necessariamente inúteis. Podem contribuir em avaliações preliminares ou em tipos específicos de feedback, mas não substituem participantes representativos quando o objetivo é compreender como o público-alvo utilizará a solução.
+
+Uma boa resposta deve considerar aspectos como:
+
+relação com o perfil de usuário;
+familiaridade com o problema abordado;
+experiência semelhante à do público real;
+ausência de envolvimento direto na criação do protótipo.
+Questão 5
+Completo
+Marcar questão
+Texto da questão
+Uma equipe pretende descobrir se estudantes conseguem compreender o fluxo de solicitação de atendimento acadêmico em um novo sistema.
+
+Um integrante afirma:
+
+“Antes de testar com estudantes, deveríamos transformar o protótipo em alta fidelidade. Quanto mais parecido com o sistema final, mais confiável será o resultado do teste.”
+
+Você concorda com essa decisão?
+
+Avalie a proposta e recomende o nível de fidelidade que utilizaria nesse momento, justificando sua resposta.
+
+Texto de resposta Questão 5
+Não concordo. Como a equipe deseja avaliar se os estudantes compreendem o fluxo, não é necessário investir imediatamente em um protótipo de alta fidelidade. Esse nível exige mais tempo e pode aumentar o custo de alterações, além de desviar a atenção para detalhes visuais que ainda não são importantes.
+Nesse momento, eu utilizaria um protótipo de baixa ou média fidelidade, mas interativo o suficiente para representar as principais etapas da solicitação de atendimento. Assim, seria possível identificar problemas de navegação, organização e entendimento com rapidez e baixo custo. A alta fidelidade seria mais adequada posteriormente, para testar aspectos visuais, interações detalhadas e a experiência próxima do sistema final.
+
+Feedback
+Resposta esperada:
+
+Não é correto assumir que um protótipo de alta fidelidade produzirá necessariamente um teste melhor.
+
+Se a principal pergunta é verificar a compreensão do fluxo, um protótipo de baixa ou média fidelidade pode ser suficiente.
+
+A baixa fidelidade é adequada para avaliar conceito, organização e fluxo. A média fidelidade permite avaliar navegação e comportamento mais detalhado. A alta fidelidade é mais adequada quando a pergunta depende de conteúdo, identidade visual ou detalhes específicos de interação.
+
+Também é importante reconhecer que aumentar a fidelidade sem necessidade pode elevar o custo, consumir mais tempo e gerar maior apego à solução, reduzindo a disposição da equipe para modificá-la.
+
+O critério principal é relacionar o nível de fidelidade ao objetivo do teste.
+
+Questão 6
+Completo
+Marcar questão
+Texto da questão
+Uma equipe deseja avaliar o protótipo de um aplicativo de reservas. Durante uma sessão de teste, ocorre a seguinte situação:
+
+O facilitador apresenta todas as telas e explica como o aplicativo funciona.
+Em seguida, pede ao participante que faça uma reserva.
+Quando o participante hesita, o facilitador diz: “O calendário fica naquele botão no canto superior”.
+O participante conclui a reserva.
+A equipe registra: “100% de sucesso — participante conseguiu concluir a tarefa.”
+Analise a sessão e identifique pelo menos três problemas metodológicos que tornam essa conclusão pouco confiável.
+
+Para cada problema identificado, explique como a sessão poderia ser conduzida de forma mais adequada.
+
+Texto de resposta Questão 6
+A conclusão é pouco confiável por três motivos. Primeiro, o facilitador explicou o sistema antes do teste, influenciando o participante; deveria apresentar apenas o cenário e a tarefa. Segundo, ele indicou onde estava o calendário; o correto seria observar a dificuldade sem fornecer a resposta. Terceiro, apenas um participante não representa os usuários do aplicativo; seria necessário testar com mais pessoas do público-alvo. Além disso, o resultado deveria ser registrado como “concluído com ajuda”, e não como sucesso completo.
+
+Feedback
+Orientação de correção:
+
+Entre os problemas que podem ser identificados estão:
+
+a equipe apresentou e explicou previamente a solução, transformando parte do teste em demonstração;
+o facilitador indicou o caminho correto quando o participante hesitou;
+a hesitação deveria ter sido registrada como evidência, e não eliminada com uma instrução;
+concluir a tarefa após receber ajuda não deve ser interpretado da mesma forma que concluí-la de maneira autônoma;
+o teste deveria utilizar um cenário orientado ao objetivo, sem indicar elementos específicos da interface;
+a equipe deveria registrar cliques errados, hesitações, perguntas, tentativas repetidas e interpretações equivocadas.
+Uma boa resposta deve demonstrar que o aluno compreende a diferença entre apresentar uma solução e testar um protótipo.
+
+Questão 7
+Completo
+Marcar questão
+Texto da questão
+Uma equipe está desenvolvendo um aplicativo para agendamento de consultas médicas. Antes de iniciar a implementação, surgiram três dúvidas:
+
+I. A equipe ainda não decidiu como organizar os elementos da tela de agendamento e deseja experimentar rapidamente diferentes alternativas.
+
+II. A organização da tela já foi definida, mas é necessário avaliar com o cliente cores, tipografia, ícones e aparência visual antes do desenvolvimento.
+
+III. A equipe quer descobrir se os usuários conseguem selecionar uma especialidade, escolher um médico, encontrar um horário e concluir o agendamento sem receber instruções.
+
+Para cada situação, indique qual artefato seria mais adequado entre sketch, wireframe, mockup e protótipo, justificando sua escolha.
+
+Texto de resposta Questão 7
+ 
+ 
+I. Sketch: permite desenhar e comparar rapidamente diferentes organizações da tela, com baixo custo de alteração.
+II. Mockup: representa com detalhes a aparência visual, incluindo cores, tipografia e ícones, sendo adequado para validação com o cliente.
+III. Protótipo interativo: permite simular o fluxo de agendamento e observar se os usuários conseguem concluir a tarefa sem instruções.
+O wireframe seria mais adequado para documentar a estrutura da tela depois dos sketches, sem detalhar a aparência visual.
+
+Feedback
+Resposta esperada:
+
+I — Sketch ou wireframe. Sketch é especialmente adequado quando a intenção é explorar rapidamente diferentes ideias. Wireframe também pode ser aceito caso a justificativa esteja relacionada à organização estrutural dos elementos.
+
+II — Mockup. O problema envolve aparência visual. O mockup permite representar cores, tipografia, imagens, ícones, espaçamentos e outros aspectos próximos do produto final.
+
+III — Protótipo. Nesse caso, é necessário simular interação ou navegação e observar a execução de um fluxo pelo usuário.
+
+O principal critério de correção é a coerência entre o artefato escolhido e a pergunta que a equipe deseja responder.
+
+Questão 8
+Completo
+Marcar questão
+Texto da questão
+Uma universidade pretende criar um sistema para que estudantes solicitem revisão de notas. A equipe já possui um protótipo navegável, mas ainda não sabe se o processo de solicitação é suficientemente claro para os alunos.
+
+Você será responsável por planejar uma pequena sessão de teste desse protótipo.
+
+Elabore um plano contendo:
+
+uma pergunta ou objetivo específico que o teste deverá responder;
+o perfil dos participantes que deveriam ser selecionados;
+um cenário de uso;
+uma tarefa que deverá ser realizada;
+pelo menos quatro dados ou evidências que deverão ser registrados durante a sessão;
+um comportamento que o facilitador deve evitar e explique por quê;
+um critério que ajude a equipe a decidir, depois dos testes, se o protótipo precisa ser modificado.
+As escolhas devem ser coerentes entre si. Não basta listar conceitos isoladamente.
+
+Texto de resposta Questão 8
+Objetivo: verificar se os estudantes conseguem solicitar a revisão de uma nota sem ajuda.
+Participantes: cinco estudantes de cursos e períodos diferentes, preferencialmente familiarizados com o sistema acadêmico, mas que não conheçam o protótipo.
+Cenário: você recebeu uma nota abaixo do esperado e deseja solicitar sua revisão antes do fim do prazo.
+Tarefa: localize a disciplina, informe o motivo da revisão, anexe um documento e envie a solicitação.
+Dados registrados: conclusão sem ajuda, tempo gasto, erros ou retornos, momentos de hesitação, pedidos de ajuda e compreensão da confirmação final.
+Comportamento a evitar: o facilitador não deve indicar botões ou explicar o caminho, pois isso influencia a execução e esconde problemas do protótipo.
+Critério: o protótipo deverá ser revisado se menos de 80% concluírem a tarefa sem ajuda ou se a mesma dificuldade aparecer com dois ou mais participantes.

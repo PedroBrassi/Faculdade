@@ -1,0 +1,196 @@
+Questão 1
+Completo
+Marcar questão
+Texto da questão
+Considere um sistema de comércio eletrônico. Na versão atual (versão A), o botão utilizado para adicionar um produto ao carrinho apresenta a mensagem “Adicionar ao Carrinho”.
+
+Deseja-se realizar um teste A/B comparando essa versão com uma nova alternativa (versão B), na qual o texto do botão será “Compre Já”.
+
+a) Defina uma métrica adequada para representar a taxa de conversão desse experimento. Indique claramente qual evento será considerado uma conversão e qual será a população utilizada no denominador.
+
+b) Considere que a versão A apresenta taxa de conversão de 5% e que se deseja detectar um aumento para 6% na versão B, isto é, um ganho de 1 ponto percentual.
+
+Utilize uma calculadora de tamanho de amostra para testes A/B considerando:
+
+nível de confiança de 95%;
+poder estatístico de 80%;
+teste bicaudal;
+divisão de tráfego 50/50.
+Informe o tamanho de amostra necessário por versão e o total aproximado de participantes do experimento.
+
+Texto de resposta Questão 1
+a) Uma métrica adequada é a taxa de adição ao carrinho:
+- Taxa de conversão = (usuários únicos que adicionaram um produto ao carrinho ÷ usuários únicos expostos à versão) × 100.
+- A conversão acontece quando o produto é adicionado ao carrinho. Cada usuário é contado apenas uma vez e participa de uma única versão.
+
+b) Tamanho da Amostra: considerando 5% -> 6%, confiança de 95%, poder de 80%, teste bicaudal e divisão 50/50, o resultado foi:
+- Versão A: 8.158 participantes.
+- Versão B: 8.158 participantes.
+- Total: 16.316 participantes - aproximadamente 16,4 mil.
+O aumento de 1 ponto percentual equivale a um ganho relativo de 20%, valor utilizado na calculadora.
+
+Questão 2
+Completo
+Marcar questão
+Texto da questão
+Qual é a diferença entre um Produto Mínimo Viável (MVP) e o produto ou incremento obtido ao final da primeira iteração de um processo ágil, como XP ou Scrum?
+
+Em sua resposta, considere principalmente o objetivo de cada um.
+
+Texto de resposta Questão 2
+O MVP tem como objetivo testar hipóteses sobre o produto com usuários reais, usando o mínimo necessário para aprender e validar se a ideia atende a uma necessidade. Já o incremento da primeira iteração ágil busca entregar uma parte funcional do produto, permitindo receber feedback e orientar as próximas etapas. Ele não precisa, por si só, validar a ideia do negócio. Os dois podem coincidir, mas MVP é definido pelo aprendizado que se busca; o incremento, pela evolução do produto naquela iteração.
+
+Questão 3
+Completo
+Marcar questão
+Texto da questão
+Considere as seguintes técnicas de especificação e/ou validação de requisitos:
+
+Histórias de Usuário
+Casos de Uso
+MVP (Minimum Viable Product)
+Para cada uma delas, descreva um exemplo de sistema ou situação de desenvolvimento em que seu uso seria especialmente adequado e justifique sua escolha.
+
+Não basta definir cada técnica. Relacione as características do contexto apresentado às vantagens da técnica escolhida.
+
+Texto de resposta Questão 3
+1- Histórias de Usuário: desenvolvimento de um aplicativo de delivery, com melhorias frequentes conforme o feedback dos clientes. Exemplo: “Como cliente, quero acompanhar meu pedido para saber quando ele chegará”. São adequadas porque permitem organizar pequenas entregas e ajustar prioridades conforme as necessidades mudam.
+
+2- Casos de Uso: desenvolvimento de um sistema de matrícula universitária, com regras de pré-requisitos, limite de vagas e conflitos de horário. São adequados para detalhar a interação do aluno com o sistema, incluindo o fluxo principal e as exceções, ajudando a esclarecer regras e orientar testes.
+
+3- MVP: criação de uma plataforma para contratar professores particulares, quando ainda não se sabe se haverá demanda. Uma versão simples pode permitir solicitar aulas, com a seleção dos professores feita manualmente. Isso permite testar o interesse real antes de investir em agendamento e seleção automatizados.
+
+Questão 4
+Completo
+Marcar questão
+Texto da questão
+Em Engenharia de Software, um anti-pattern representa uma solução ou prática recorrente que parece adequada, mas tende a produzir resultados indesejáveis.
+
+Descreva pelo menos cinco anti-patterns relacionados à escrita de histórias de usuário.
+
+Em outras palavras, apresente características ou formatos de histórias que devem ser evitados e explique brevemente o problema de cada um.
+
+Texto de resposta Questão 4
+Histórias grandes demais: “Como cliente, quero realizar todo o processo de compra”. Reúnem muitas funcionalidades, dificultando estimativas, testes e conclusão em uma iteração.
+
+Histórias vagas: “Como usuário, quero um sistema fácil de usar”. Não deixam claro o comportamento esperado nem como verificar se a necessidade foi atendida.
+
+Tarefas técnicas disfarçadas de histórias: “Como desenvolvedor, quero criar uma tabela no banco”. Descrevem uma implementação sem explicar o benefício para o usuário. Podem ser tarefas necessárias, mas não substituem histórias de valor.
+
+Histórias sem propósito: “Como cliente, quero filtrar produtos”. Sem explicar a necessidade atendida, fica mais difícil avaliar a importância da funcionalidade e escolher uma solução adequada.
+
+Histórias sem critérios de aceitação: não apresentam condições verificáveis para considerar a entrega correta. Isso abre espaço para interpretações diferentes entre equipe e cliente.
+
+Histórias que impõem uma solução sem necessidade: “Como cliente, quero um botão azul no canto direito”. Fixam detalhes da interface antes de esclarecer o problema, limitando alternativas que poderiam atender melhor ao usuário.
+
+Questão 5
+Completo
+Marcar questão
+Texto da questão
+Considere uma rede social semelhante ao Facebook.
+
+Assumindo o papel de um usuário comum da rede social, escreva cinco histórias de usuário.
+Identifique outro papel de usuário que interaja com o sistema e escreva duas histórias de usuário para esse papel.
+Utilize preferencialmente o seguinte formato:
+
+Como [papel], quero [objetivo ou funcionalidade], para [benefício ou motivação].
+
+As histórias devem representar necessidades dos usuários, e não apenas tarefas técnicas de desenvolvimento.
+
+Texto de resposta Questão 5
+1. Usuário comum:
+    1. Como usuário, quero publicar fotos e textos, para compartilhar momentos com meus amigos.
+    2. Como usuário, quero encontrar amigos pelo nome, para me conectar com pessoas que conheço.
+    3. Como usuário, quero escolher quem pode visualizar minhas publicações, para proteger minha privacidade.
+    4. Como usuário, quero enviar mensagens privadas, para conversar diretamente com meus contatos.
+    5. Como usuário, quero denunciar publicações ofensivas, para contribuir para um ambiente mais seguro.
+2. Outro papel: moderador
+    1. Como moderador, quero analisar publicações denunciadas, para verificar se violam as regras da comunidade.
+    2. Como moderador, quero suspender contas com violações recorrentes, para proteger os demais usuários de novos abusos.
+
+Questão 6
+Completo
+Marcar questão
+Texto da questão
+Considere o seguinte caso de uso, no qual foi apresentado apenas o fluxo normal.
+
+Comprar Livro
+
+Ator: Usuário da loja virtual
+
+Fluxo normal:
+
+Usuário pesquisa o catálogo de livros.
+Usuário seleciona livros e os adiciona ao carrinho de compras.
+Usuário decide fechar a compra.
+Usuário seleciona o endereço de entrega.
+Usuário seleciona o tipo de entrega.
+Usuário seleciona o modo de pagamento.
+Usuário confirma o pedido.
+Escreva pelo menos quatro extensões (fluxos alternativos ou de exceção) que poderiam ocorrer durante a execução desse caso de uso.
+
+Para cada extensão, indique em qual passo do fluxo normal ela pode ocorrer e descreva o comportamento esperado do sistema.
+
+Texto de resposta Questão 6
+Passo 1 - Nenhum livro encontrado: o sistema informa que não há resultados e permite ao usuário alterar os termos da pesquisa.
+
+Passo 2 - Livro sem estoque: o sistema informa a indisponibilidade, impede a adição do livro ao carrinho e permite continuar buscando outros títulos.
+
+Passo 4 - Endereço não cadastrado: o sistema permite cadastrar um endereço, valida os dados e retoma a seleção do endereço de entrega.
+
+Passo 5 - Entrega indisponível para o endereço: o sistema informa a restrição e permite escolher outro endereço ou cancelar a compra.
+
+Passo 7 - Pagamento recusado ao confirmar: o sistema informa que o pagamento não foi aprovado, mantém o carrinho e permite escolher outra forma de pagamento, sem confirmar a compra.
+
+Questão 7
+Completo
+Marcar questão
+Texto da questão
+[POSCOMP 2010, adaptado] Sobre Engenharia de Requisitos, marque cada afirmação como Verdadeira (V) ou Falsa (F).
+
+I. A Engenharia de Requisitos, assim como outras atividades de Engenharia de Software, precisa ser adaptada às características do processo, do projeto, do produto e das pessoas envolvidas no trabalho.
+
+Resposta 1 Questão 7
+V
+
+II. Durante o levantamento e a análise de requisitos, membros da equipe de desenvolvimento trabalham com clientes e usuários para obter informações sobre o domínio da aplicação, os serviços esperados do sistema, requisitos de desempenho, restrições de hardware e outras informações relevantes.
+
+Resposta 2 Questão 7
+V
+
+III. À medida que informações provenientes de diferentes pontos de vista são coletadas, os requisitos resultantes tornam-se naturalmente consistentes, dispensando atividades específicas para identificação e resolução de conflitos.
+
+Resposta 3 Questão 7
+F
+
+IV. A validação de requisitos procura verificar se os requisitos definem o sistema que os clientes e usuários necessitam. Essa atividade é importante porque erros nos requisitos podem resultar em custos elevados de retrabalho.
+
+Resposta 4 Questão 7
+V
+
+Questão 8
+Completo
+Marcar questão
+Texto da questão
+Leia a primeira seção (páginas 2–3) do artigo Development and Deployment at Facebook, observando especialmente a Figura 2, que compara diferentes abordagens de desenvolvimento pela frequência com que novas versões do software são disponibilizadas.
+
+Development and Deployment at Facebook
+
+Com base na figura e no texto, descreva a frequência de disponibilização de novas versões associada a cada um dos seguintes casos:
+
+Waterfall
+Desenvolvimento evolucionário
+Desenvolvimento ágil
+Facebook
+Continuous Deployment
+Além de informar a frequência aproximada, organize-os do processo com releases menos frequentes para aquele com releases mais frequentes.
+
+Texto de resposta Questão 8
+Do processo com releases menos frequentes para o mais frequente:
+
+1. Waterfall: uma entrega ao final do projeto.
+2. Desenvolvimento evolucionário: novas versões a cada poucos meses, como o Linux, citado com intervalos de 2 a 3 meses.
+3. Desenvolvimento ágil: novas versões a cada poucas semanas.
+4. Facebook: atualizações diárias, combinadas com entregas semanais.
+5. Continuous Deployment: atualizações em intervalos menores que uma hora, disponibilizando pequenas mudanças assim que ficam prontas.
+

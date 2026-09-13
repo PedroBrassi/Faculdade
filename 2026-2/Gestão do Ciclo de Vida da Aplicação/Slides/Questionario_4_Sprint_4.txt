@@ -1,0 +1,275 @@
+Questão 1
+Completo
+Marcar questão
+Texto da questão
+Considere a seguinte classe:
+
+class A extends B {
+
+    C f1, f2, f3;
+
+    void m1(D p) {
+        // usa f1 e f2
+    }
+
+    void m2(E p) {
+        // usa f2 e f3
+    }
+
+    void m3(F p) {
+        // usa f3
+    }
+}
+Calcule o CBO e o LCOM1 da classe A.
+
+Para o LCOM1, considere:
+
+LCOM1 = max(P - Q, 0)
+
+em que:
+
+P é o número de pares de métodos que não compartilham atributos;
+Q é o número de pares de métodos que compartilham pelo menos um atributo.
+Mostre o raciocínio utilizado e interprete brevemente os resultados.
+
+Texto de resposta Questão 1
+O CBO da classe A é 5, pois ela está relacionada com cinco classes diferentes: B pela herança, C pelo tipo dos atributos e D, E e F pelos parâmetros dos métodos. Para calcular o LCOM1, analisam-se os três pares de métodos. Os métodos m1 e m2 compartilham o atributo f2; m1 e m3 não compartilham atributos; e m2 e m3 compartilham o atributo f3. Portanto, P é igual a 1 e Q é igual a 2. Aplicando a fórmula, LCOM1 = max(1 − 2, 0) = 0. Assim, CBO = 5 indica que a classe possui dependência com cinco outras classes, enquanto LCOM1 = 0 indica boa coesão entre seus métodos. Esse cálculo considera a herança como acoplamento.
+
+Questão 2
+Completo
+Marcar questão
+Texto da questão
+Considere o seguinte código:
+
+void sendMail(ContaBancaria conta, String msg) {
+    Cliente cliente = conta.getCliente();
+    String endereco = cliente.getMailAddress();
+    // envia e-mail
+}
+Qual princípio de projeto é violado?
+
+Explique o problema e proponha uma alteração no código que reduza o conhecimento desse método sobre a estrutura interna de ContaBancaria.
+
+Texto de resposta Questão 2
+O código viola a Lei de Demeter, também chamada de Princípio do Menor Conhecimento. O método conhece detalhes demais da estrutura interna de ContaBancaria, pois acessa a conta, depois o cliente e, por fim, o endereço de e-mail. Isso aumenta o acoplamento e faz com que alterações nessas classes possam afetar o método. Uma solução seria delegar essa responsabilidade para a própria conta:
+
+
+void sendMail(ContaBancaria conta, String msg) {
+    conta.enviarEmailAoCliente(msg);
+} 
+
+
+Assim, o método conhece apenas ContaBancaria, enquanto o acesso ao cliente e ao endereço permanece encapsulado.
+
+Questão 3
+Completo
+Marcar questão
+Texto da questão
+Considere as duas classes a seguir:
+
+class A {
+
+    X x = new X();
+
+    void f() {
+        x.m1();
+    }
+
+    void g() {
+        x.m2();
+    }
+
+    void h() {
+        x.m3();
+    }
+}
+class B {
+
+    X x = new X();
+    Y y = new Y();
+    Z z = new Z();
+
+    void f() {
+        x.m();
+    }
+
+    void g() {
+        y.m();
+    }
+
+    void h() {
+        z.m();
+    }
+}
+Qual das duas classes é mais coesa?
+
+Justifique calculando o LCOM1 de cada classe, utilizando:
+
+LCOM1 = max(P - Q, 0)
+
+Interprete também o significado dos valores encontrados.
+
+Texto de resposta Questão 3
+A classe A é mais coesa. Existem três pares de métodos: f–g, f–h e g–h. Todos compartilham o atributo x. Portanto, P = 0 e Q = 3. Assim, LCOM1 = max(0 − 3, 0) = 0. Na classe B, nenhum par de métodos compartilha atributos, pois f usa x, g usa y e h usa z. Portanto, P = 3 e Q = 0. Assim, LCOM1 = max(3 − 0, 0) = 3. Logo, a classe A, com LCOM1 = 0, possui alta coesão, pois seus métodos trabalham sobre o mesmo estado. A classe B, com LCOM1 = 3, possui baixa coesão e pode estar reunindo responsabilidades que deveriam ser separadas.
+
+Questão 4
+Completo
+Marcar questão
+Texto da questão
+Considere um programa no qual praticamente todo o código foi implementado dentro do método main.
+
+O principal problema de projeto está relacionado a coesão, acoplamento ou a ambos?
+
+Justifique sua resposta e explique como você reorganizaria esse programa.
+
+Texto de resposta Questão 4
+O problema está relacionado principalmente à baixa coesão, pois o método main concentra várias responsabilidades diferentes. Também pode gerar alto acoplamento, já que ele passa a depender diretamente de muitos detalhes do sistema. Eu reorganizaria o programa separando as responsabilidades em classes e métodos específicos, como leitura de dados, regras de negócio, persistência e apresentação. O main ficaria responsável apenas por criar os componentes necessários e iniciar o fluxo principal. Isso melhora a organização, os testes e a manutenção do código.
+
+ 
+Questão 5
+Completo
+Marcar questão
+Texto da questão
+É possível que uma classe A esteja acoplada a uma classe B mesmo que o código de A não possua uma referência explícita para B?
+
+Se considerar que isso é possível, apresente uma situação em que esse acoplamento poderia ocorrer e explique por que esse tipo de dependência pode ser mais difícil de identificar e manter.
+
+Texto de resposta Questão 5
+Sim. Isso pode ocorrer por meio de um acoplamento indireto. Por exemplo, a classe A grava dados em uma tabela do banco e a classe B lê essa mesma tabela, embora A não faça referência direta a B. Se A alterar o formato ou o significado dos dados, B poderá deixar de funcionar. Essa dependência é mais difícil de identificar porque não aparece claramente em chamadas, atributos ou importações no código. Por isso, mudanças podem causar efeitos inesperados e exigir análise de banco de dados, eventos, configurações ou outros recursos compartilhados.
+
+Questão 6
+Completo
+Marcar questão
+Texto da questão
+Classitis é o nome dado por John Ousterhout à proliferação excessiva de pequenas classes em um sistema.
+
+Individualmente, essas classes podem parecer simples e possuir responsabilidades muito específicas. Mesmo assim, o sistema como um todo pode se tornar mais difícil de compreender e modificar.
+
+Explique esse fenômeno utilizando os conceitos de coesão e acoplamento.
+
+Por que maximizar a coesão de cada classe isoladamente não significa necessariamente minimizar a complexidade total do sistema?
+
+Texto de resposta Questão 6
+Na Classitis, cada classe pode ter alta coesão por executar uma responsabilidade muito específica. Porém, a divisão excessiva faz com que uma tarefa dependa da interação entre muitas classes, aumentando o acoplamento, a quantidade de interfaces e a necessidade de navegar pelo código. Assim, alta coesão local não garante baixa complexidade global. Quando uma responsabilidade é fragmentada demais, compreender ou modificar uma funcionalidade exige conhecer várias classes e suas relações. O melhor projeto busca equilíbrio: classes coesas, mas com responsabilidades suficientemente completas para reduzir dependências e dispersão da lógica.
+
+Questão 7
+Completo
+Marcar questão
+Texto da questão
+Considere o seguinte código:
+
+void onclick() {
+    num1 = textfield1.value();
+    c1 = BD.getConta(num1);
+
+    num2 = textfield2.value();
+    c2 = BD.getConta(num2);
+
+    valor = textfield3.value();
+
+    beginTransaction();
+
+    try {
+        c1.retira(valor);
+        c2.deposita(valor);
+        commit();
+    }
+    catch() {
+        rollback();
+    }
+}
+Qual princípio de projeto está sendo violado?
+
+Analise as diferentes responsabilidades presentes no método e proponha uma organização melhor para esse código.
+
+Texto de resposta Questão 7
+O código viola o Princípio da Responsabilidade Única e a separação entre camadas. O método onclick realiza leitura da interface, acesso ao banco de dados, execução da regra de transferência e controle da transação. Uma organização melhor seria deixar onclick apenas coletar e validar os dados, delegando a operação para um serviço, como TransferenciaService.transferir(num1, num2, valor). Esse serviço buscaria as contas por meio de um repositório, realizaria o saque e o depósito e controlaria commit ou rollback. A interface ficaria responsável somente por iniciar a operação e apresentar o resultado ao usuário.
+
+Questão 8
+Completo
+Marcar questão
+Texto da questão
+Considere o seguinte código:
+
+class A {
+    int f(int x) { // pre: x > 0
+        ...
+        return exp;
+    }              // pos: exp > 0
+}
+
+class B extends A {
+    int f(int x) { // pre: x > 10
+        ...
+        return exp;
+    }              // pos: exp > -50
+}
+Considerando pré-condições e pós-condições, qual princípio de projeto é violado?
+
+Analise separadamente a alteração da pré-condição e da pós-condição em B.
+
+Texto de resposta Questão 8
+O código viola o Princípio da Substituição de Liskov. Um objeto de B deveria poder substituir um objeto de A sem alterar o comportamento esperado. Em B, a pré-condição foi fortalecida de x > 0 para x > 10. Assim, valores entre 1 e 10, aceitos por A, deixam de ser aceitos por B. A pós-condição foi enfraquecida de exp > 0 para exp > -50. B pode retornar valores negativos, contrariando a garantia oferecida por A. Uma subclasse pode enfraquecer a pré-condição e fortalecer a pós-condição, mas não fazer o contrário.
+
+Questão 9
+Completo
+Marcar questão
+Texto da questão
+Um programador adota a seguinte estratégia: sempre que a implementação de uma funcionalidade ou correção de um bug exige alterações em duas classes A e B, localizadas em arquivos diferentes, ao final da tarefa ele move B para o mesmo arquivo de A.
+
+Analise essa estratégia considerando coesão e acoplamento.
+
+Qual propriedade de projeto o programador procura melhorar? Que problema essa estratégia pode introduzir? Justifique por que simplesmente colocar classes no mesmo arquivo não garante um melhor projeto.
+
+Texto de resposta Questão 9
+O programador procura melhorar a coesão do módulo, mantendo próximas as classes que costumam mudar juntas. Isso também facilita localizar alterações relacionadas. Porém, a estratégia pode criar arquivos grandes, com classes de responsabilidades diferentes, reduzindo a coesão e dificultando a manutenção. Além disso, colocar A e B no mesmo arquivo não elimina o acoplamento entre elas, pois suas dependências continuam existindo. Um bom projeto deve agrupar classes por responsabilidade e motivo de mudança, não apenas porque foram alteradas juntas em algumas tarefas. A proximidade física do código não garante proximidade conceitual.
+
+Questão 10
+Completo
+Marcar questão
+Texto da questão
+Costuma-se afirmar que três conceitos importantes da orientação a objetos são encapsulamento, polimorfismo e herança.
+
+Suponha que você esteja projetando uma nova linguagem orientada a objetos e, por uma restrição de projeto, possa oferecer diretamente apenas dois desses três mecanismos.
+
+Qual deles você eliminaria?
+
+Defenda sua decisão e explique como os dois conceitos mantidos poderiam compensar, ao menos parcialmente, a ausência daquele que foi eliminado.
+
+Texto de resposta Questão 10
+Eu eliminaria a herança e manteria o encapsulamento e o polimorfismo. O encapsulamento protege o estado interno e reduz dependências, enquanto o polimorfismo permite que diferentes objetos respondam à mesma operação de formas distintas. A ausência da herança poderia ser compensada com composição e delegação. Em vez de herdar comportamentos, uma classe utilizaria outros objetos internamente e delegaria tarefas a eles. Interfaces ou tipagem estrutural permitiriam o polimorfismo sem exigir uma hierarquia de classes. Essa escolha também evita problemas comuns da herança, como hierarquias rígidas, forte acoplamento entre superclasses e subclasses e reutilização inadequada de código.
+
+Questão 11
+Completo
+Marcar questão
+Texto da questão
+Defina e apresente um exemplo de:
+
+a) acoplamento estrutural aceitável;
+
+b) acoplamento estrutural ruim.
+
+Em cada exemplo, explique por que o acoplamento pode ser considerado adequado ou problemático.
+
+Texto de resposta Questão 11
+a) Acoplamento estrutural aceitável: ocorre quando uma classe depende de uma interface pequena e estável. Por exemplo, PedidoService utiliza a interface Pagamento, sem conhecer a implementação concreta. É adequado porque a dependência é explícita, necessária e permite trocar a forma de pagamento com pouco impacto.
+
+b) Acoplamento estrutural ruim: ocorre quando uma classe depende de muitos detalhes internos de outra. Por exemplo, PedidoService acessa diretamente atributos, banco de dados e métodos internos de Cliente. É problemático porque qualquer alteração em Cliente pode exigir mudanças em PedidoService, dificultando testes, manutenção e evolução do sistema.
+
+Questão 12
+Completo
+Marcar questão
+Texto da questão
+Considere o seguinte código:
+
+void imprimeDataContratacao(Funcionario func) {
+    Date data = func.getDataContratacao();
+    String msg = data.format();
+    System.out.println(msg);
+}
+Qual princípio de projeto pode ser melhor atendido nesse exemplo?
+
+Como você alteraria o código para reduzir o conhecimento externo sobre os detalhes utilizados para apresentar a data de contratação?
+
+Texto de resposta Questão 12
+O exemplo pode atender melhor à Lei de Demeter, também chamada de Princípio do Menor Conhecimento. O método conhece Funcionario, obtém sua data e ainda chama uma operação sobre esse objeto interno. Uma alteração seria solicitar diretamente a informação já formatada: System.out.println(func.getDataContratacaoFormatada()); Assim, Funcionario encapsula o acesso e a formatação da data, enquanto o método externo conhece apenas a informação necessária para apresentá-la. Se houver diferentes formatos de exibição, essa formatação também pode ser delegada a uma classe específica.
