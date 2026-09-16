@@ -1,7 +1,8 @@
 identificador [a-zA-Z]([a-zA-Z]|[0-9])*
 numero [0-9]+
 espaco [ \t]+
-novalinha[\n]
+novalinha [\n]
+retornolinha [\r]
 
 %%
 programa         { printf ("%11s: palavra reservada\n", yytext); }
@@ -40,6 +41,16 @@ NAO              { printf ("%11s: operador de negacao\n", yytext); }
 {numero}         { printf ("%11s: numero\n", yytext); }
 {espaco}         {  }
 {novalinha}      {  }
+{retornolinha}   {  }
+
+    /* Correção: arquivos de texto salvos no Windows (ou editados por
+       ferramentas configuradas para CRLF) terminam cada linha com os
+       caracteres \r\n, e nao apenas \n. Sem esta regra, o caractere \r
+       nao era reconhecido por nenhuma regra e caia na regra de erro
+       "." abaixo, gerando falsos "SIMBOLO NAO RECONHECIDO" ao final de
+       cada linha. Esta regra descarta o \r silenciosamente, do mesmo
+       modo que a regra {novalinha} descarta o \n. */
+
 
 .                { printf ("ERRO = SIMBOLO NAO RECONHECIDO!%s\n", yytext); }
 %%
