@@ -1,0 +1,143 @@
+% Compilar com XeLaTeX (duas vezes) ou Tectonic.
+% Arquivo independente: os grafos são desenhados em TikZ.
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=1.8cm,top=1.5cm,bottom=1.7cm]{geometry}
+\usepackage{fontspec}
+\setmainfont{texgyretermes}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\usepackage[brazil]{babel}
+\usepackage{microtype}
+\usepackage{array,tabularx,booktabs,colortbl}
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+\hypersetup{hidelinks,pdftitle={Relatório Final Laboratório 03 Sincronização e Deadlocks},pdfauthor={Pedro Brassi Luccas}}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt}
+\setlength{\emergencystretch}{2em}
+\renewcommand{\baselinestretch}{1.06}
+\titleformat{\section}{\large\bfseries}{}{0pt}{}
+\titleformat{\subsection}{\normalsize\bfseries}{}{0pt}{}
+\titlespacing*{\section}{0pt}{10pt}{5pt}
+\titlespacing*{\subsection}{0pt}{8pt}{4pt}
+\pagestyle{fancy}\fancyhf{}
+\fancyfoot[L]{\footnotesize Sistemas Operacionais | Laboratório 03}
+\fancyfoot[R]{\footnotesize\thepage}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0.3pt}
+\definecolor{tablehead}{HTML}{E8EDF2}
+\arrayrulecolor{gray!45}
+\setlength{\tabcolsep}{5pt}
+\renewcommand{\arraystretch}{1.2}
+\newcommand{\code}[1]{{\small\ttfamily #1}}
+\begin{document}
+
+{\centering\LARGE\bfseries Relatório Final do Laboratório 03: Sincronização e Deadlocks\par}\vspace{7pt}
+\textbf{Discente: Pedro Brassi Luccas}\par
+\textbf{RA: 2022.2.08.009}\par
+\section*{1. Introdução}
+Este laboratório comparou quatro experimentos: produtor-consumidor, leitores-escritores, jantar dos filósofos e deadlock entre duas threads. A ideia foi ver como o controle de acesso a recursos compartilhados afeta a consistência dos dados, o paralelismo e o progresso das tarefas, relacionando os resultados com os conceitos vistos nas Aulas 10 e 11.
+
+\section*{2. Produtor-consumidor}
+{\small\textbf{Tabela 2.1. Resultados registrados para o buffer de capacidade 5.}\par}\nopagebreak
+{\small\begin{tabularx}{\textwidth}{|>{\centering\arraybackslash}p{1.6cm}|Y|Y|Y|>{\centering\arraybackslash}p{1.7cm}|}\hline
+\rowcolor{tablehead}\textbf{Execução} & \textbf{Versão} & \textbf{Total produzido} & \textbf{Total consumido} & \textbf{Buffer final}\\\hline
+1 & Sem controle & 6032 & 6315 & 0\\\hline
+2 & Sem controle & 6125 & 6242 & 0\\\hline
+3 & Sem controle & 6353 & 6361 & 0\\\hline
+4 & Sem controle & 5829 & 6119 & 0\\\hline
+1 & Com semáforos & 10000 & 10000 & 0\\\hline
+2 & Com semáforos & 10000 & 10000 & 0\\\hline
+3 & Com semáforos & 10000 & 10000 & 0\\\hline
+4 & Com semáforos & 10000 & 10000 & 0\\\hline
+\end{tabularx}}\par\vspace{3pt}
+\subsection*{Questão 1: Comparação e causa dos resultados}
+Sem controle, os totais variaram nas quatro execuções, mesmo com o buffer final sempre zerado. A relação esperada (buffer final = total produzido \(-\) total consumido) não se sustentou: as diferenças foram \(-\)283, \(-\)117, \(-\)8 e \(-\)290. Ou seja, dar zero no buffer e não registrar violações da faixa [0, 5] não prova que a execução foi correta.
+
+Em \code{Produtor\allowbreak{}Consumidor\allowbreak{}Sem\allowbreak{}Controle.\allowbreak{}java}, a sequência \code{int atual = itens\allowbreak{}No\allowbreak{}Buffer}, teste do limite e escrita de \code{atual + 1} ou \code{atual - 1} acontece sem exclusão mútua. Duas threads podem ler o mesmo valor e sobrescrever a alteração uma da outra; por exemplo, dois produtores lendo 2 e ambos gravando 3, perdendo um incremento. O \code{Thread.\allowbreak{}yield(\allowbreak{})} ajuda a intercalar as execuções, mas não sincroniza nada. Os totais também usam incrementos sem proteção, então também podem perder atualizações.
+
+Já em \code{Produtor\allowbreak{}Consumidor\allowbreak{}Com\allowbreak{}Semaforo.\allowbreak{}java}, o \code{mutex} protege o contador e os totais; \code{espacos} bloqueia produtores quando não há vaga; \code{itens} bloqueia consumidores quando não há item. A espera por vaga ou item acontece antes de pegar o \code{mutex}. Assim, cada operação é concluída com segurança: 10000 \code{itens} produzidos e consumidos, saldo final zero em todas as rodadas. Essa coordenação bate com os três requisitos da Aula 10, slide 7.
+
+\clearpage
+\section*{3. Leitores-escritores}
+{\small\textbf{Tabela 3.1. Comparação das duas formas de controle de acesso.}\par}\nopagebreak
+{\small\begin{tabularx}{\textwidth}{|Y|Y|Y|Y|>{\centering\arraybackslash}p{1.65cm}|}\hline
+\rowcolor{tablehead}\textbf{Versão} & \textbf{Máx. leitores simultâneos} & \textbf{Espera do escritor} & \textbf{Leituras durante a espera} & \textbf{Tempo total}\\\hline
+Mutex simples & 1 & 358 ms & 7 & 1205 ms\\\hline
+\code{Read\allowbreak{}Write\allowbreak{}Lock} & 8 & 32 ms & 0 & 512 ms\\\hline
+\end{tabularx}}\par\vspace{3pt}
+\subsection*{Questão 2: Paralelismo e exclusividade}
+A versão \code{Leitores\allowbreak{}Escritores\allowbreak{}Mutex\allowbreak{}Simples.\allowbreak{}java} usa \code{new Semaphore(\allowbreak{}1, true)}. Leitores e escritor disputam o mesmo semáforo, que só libera uma permissão. Por isso, só um leitor acessa o recurso por vez, e a escrita também é exclusiva. A fila justa organiza a ordem de atendimento, mas não dá prioridade imediata ao escritor. Na execução registrada, ele esperou 358 ms e sete leitores entraram durante essa espera.
+
+A versão \code{Leitores\allowbreak{}Escritores\allowbreak{}Com\allowbreak{}Prioridade.\allowbreak{}java} usa \code{new Reentrant\allowbreak{}Read\allowbreak{}Write\allowbreak{}Lock(\allowbreak{})}. O \code{read\allowbreak{}Lock(\allowbreak{})} permite vários leitores ao mesmo tempo, e o \code{write\allowbreak{}Lock(\allowbreak{})} só é liberado quando não há leitor nem outro escritor usando o recurso. Isso explica os oito leitores simultâneos, sem sobreposição entre leitura e escrita. Essa exclusividade vem do próprio código; as saídas não mostram individualmente todos os intervalos de leitura.
+
+Com \code{Read\allowbreak{}Write\allowbreak{}Lock}, a espera do escritor caiu de 358 para 32 ms (redução de cerca de 91,1\%) e o tempo total foi de 1205 para 512 ms, quase 57,5\% menor. Esses números valem para essa execução específica, não são garantia de desempenho para qualquer carga de trabalho. Como as leituras simuladas podem se sobrepor, a solução evita a serialização desnecessária discutida na Aula 10, slide 12.
+
+Apesar do nome "\code{Com\allowbreak{}Prioridade}", o construtor usado não ativa nenhuma política formal de preferência para leitores; o lock funciona no modo padrão, não justo. Não há garantia de ordem FIFO. Nessa execução o escritor conseguiu acesso e terminou a escrita, então não houve inanição (starvation) observada. Mas uma única execução não é suficiente para garantir um limite fixo de espera para toda thread.
+
+\subsection*{Interpretação do contador de leituras}
+O programa imprime "leituras concluídas durante a espera", mas na verdade incrementa \code{leituras\allowbreak{}Durante\allowbreak{}Espera\allowbreak{}Escritor} logo depois de pegar o bloqueio, antes do \code{sleep(\allowbreak{}50)}. Ou seja, a métrica conta entradas na leitura enquanto \code{escritor\allowbreak{}Aguardando} estava verdadeiro; não conta quantos leitores já ativos terminaram durante a espera. Por isso, o zero na versão \code{Read\allowbreak{}Write\allowbreak{}Lock} não quer dizer que nenhum leitor terminou enquanto o escritor esperava; só quer dizer que nenhuma nova entrada foi contada nesse intervalo.
+
+O ponto central é que as duas soluções protegem a escrita, mas só o \code{Read\allowbreak{}Write\allowbreak{}Lock} preserva o compartilhamento seguro entre leitores. Sincronizar direito significa escolher a granularidade certa para cada operação, e não bloquear todo acesso concorrente.
+
+\clearpage
+\section*{4. Jantar dos filósofos}
+{\small\textbf{Tabela 4.1. Comportamento registrado com cinco filósofos.}\par}\nopagebreak
+{\small\begin{tabularx}{\textwidth}{|L{1.75cm}|Y|Y|L{2cm}|}\hline
+\rowcolor{tablehead}\textbf{Versão} & \textbf{O que aconteceu} & \textbf{Garfos presos no início} & \textbf{Refeições em 8 s}\\\hline
+Sem controle & Avisos de possível deadlock; nenhum filósofo chegou a comer. & 5 filósofos segurando um garfo cada. & Não informado\\\hline
+Com saleiro & Os filósofos conseguiram realizar refeições. & Não informado & 158\\\hline
+\end{tabularx}}\par\vspace{3pt}
+\subsection*{Questão 3: As quatro condições de Coffman}
+{\small\begin{tabularx}{\textwidth}{|L{2.1cm}|Y|Y|}\hline
+\rowcolor{tablehead}\textbf{Condição} & \textbf{Sem controle} & \textbf{Com saleiro}\\\hline
+Exclusão mútua & Presente. \code{synchronized(\allowbreak{}garfos[\allowbreak{}esquerda])} e \code{synchronized(\allowbreak{}garfos[\allowbreak{}direita])} reservam cada garfo para um único filósofo. & Presente. Os mesmos blocos \code{synchronized} protegem os garfos; o \code{Semaphore(\allowbreak{}1)} também deixa o saleiro exclusivo.\\\hline
+Posse e espera & Presente. Dentro do bloco do garfo esquerdo, o filósofo pede o outro garfo sem soltar o primeiro. & Presente. Depois de \code{saleiro.\allowbreak{}acquire(\allowbreak{})}, o filósofo pode esperar por um garfo segurando o saleiro, ou pelo segundo garfo segurando o primeiro.\\\hline
+Não preempção & Presente. Os monitores dos garfos são liberados só ao saírem dos blocos \code{synchronized}; ninguém tira o garfo de quem já o pegou. & Presente. Os garfos continuam sendo liberados só ao saírem dos blocos, e o saleiro volta com \code{saleiro.\allowbreak{}release(\allowbreak{})}.\\\hline
+Espera circular & Presente no estado observado. Cada filósofo segura o garfo \code{i} e espera o garfo \code{(\allowbreak{}i + 1) \% 5}, formando um ciclo entre os cinco. & Eliminada. \code{saleiro.\allowbreak{}acquire(\allowbreak{})} deixa só um filósofo por vez tentando pegar os garfos na fase de aquisição. \code{saleiro.\allowbreak{}release(\allowbreak{})} só acontece depois de conseguir os dois.\\\hline
+\end{tabularx}}\par\vspace{3pt}
+Na versão sem controle, as quatro condições aparecem juntas: F0 espera o garfo de F1, F1 espera o de F2, e assim por diante até F4 esperar o de F0. O registro mostra todos os garfos esquerdos pegos e nenhum direito, seguido de avisos sem progresso. A barreira do código sincroniza a largada antes da aquisição dos garfos, e o estado descrito bate com o que foi observado.
+
+Na solução do saleiro, quem já tem os dois garfos come e os solta sem pedir mais nada. Quem ainda está tentando pegar os garfos é o único nessa fase; os outros esperam o saleiro sem estar com nenhum garfo na mão. Por isso não se forma a cadeia circular de aquisições parciais. Como o saleiro é devolvido antes de comer, filósofos com garfos diferentes podem comer ao mesmo tempo. A solução resolve a espera circular sem abrir mão das outras condições, como mostra a Aula 10, slide 28.
+
+O total positivo mostra que houve progresso, mas não prova equidade entre os filósofos. Além disso, \code{refeicoes\allowbreak{}Totais++} é incrementado antes de terminar a refeição e usa um inteiro \code{volatile}, cujo incremento não é atômico. Então o 158 deve ser lido como o contador que o programa reportou, não como uma medição exata de refeições concluídas.
+
+\clearpage
+\section*{5. Deadlock dirigido e ordenação global}
+{\small\textbf{Tabela 5.1. Ordem de aquisição dos recursos por thread.}\par}\nopagebreak
+{\small\begin{tabularx}{\textwidth}{|L{4.1cm}|Y|L{2.6cm}|L{2.8cm}|}\hline
+\rowcolor{tablehead}\textbf{Versão} & \textbf{Resultado} & \textbf{Ordem A / B} & \textbf{Tempo registrado}\\\hline
+\code{Deadlock\allowbreak{}Duas\allowbreak{}Threads} & Threads travaram; encerramento forçado pelo programa. & A: R1 \(\rightarrow\) R2\newline B: R2 \(\rightarrow\) R1 & 5 s\\\hline
+\code{Deadlock\allowbreak{}Prevenido\allowbreak{}Por\allowbreak{}Ordenacao} & Ambas terminaram. & A: R1 \(\rightarrow\) R2\newline B: R1 \(\rightarrow\) R2 & 1,023 s (81593 - 80570)\\\hline
+\end{tabularx}}\par\vspace{3pt}
+\subsection*{Questão 4: Grafos de alocação de recursos}
+Círculos representam os processos (threads A e B); retângulos representam os recursos R1 e R2, cada um com uma instância. Setas de posse vão do recurso para o processo; setas de requisição vão do processo para o recurso.
+
+
+\begin{center}
+\begin{tikzpicture}[>=Stealth,process/.style={circle,draw,minimum size=9mm},resource/.style={rectangle,draw,minimum width=12mm,minimum height=8mm},every node/.style={font=\small}]
+\node[font=\small\bfseries] at (2,1) {Com deadlock: estado de bloqueio};
+\node[process] (a) at (0,0) {A};\node[resource] (r2) at (4,0) {R2};
+\node[resource] (r1) at (0,-1.8) {R1};\node[process] (b) at (4,-1.8) {B};
+\draw[->] (a) -- node[above,font=\scriptsize]{requisição} (r2);
+\draw[->] (r2) -- node[right,font=\scriptsize]{posse} (b);
+\draw[->] (b) -- node[below,font=\scriptsize]{requisição} (r1);
+\draw[->] (r1) -- node[left,font=\scriptsize]{posse} (a);
+\node[font=\small\bfseries] at (10,1) {Ordenado: estado final};
+\node[process] at (8,0) {A};\node[resource] at (12,0) {R2};
+\node[resource] at (8,-1.8) {R1};\node[process] at (12,-1.8) {B};
+\node[font=\scriptsize,align=center] at (10,-2.65) {Sem arestas: recursos livres; threads concluídas.};
+\end{tikzpicture}
+\end{center}
+
+No bloqueio, as arestas são R1 \(\rightarrow\) A e R2 \(\rightarrow\) B (posse), e A \(\rightarrow\) R2 e B \(\rightarrow\) R1 (requisição). O ciclo A \(\rightarrow\) R2 \(\rightarrow\) B \(\rightarrow\) R1 \(\rightarrow\) A é o deadlock nesse cenário de recursos com instância única. O grafo representa o travamento antes do \code{System.\allowbreak{}exit(\allowbreak{}0)}, que só encerra a JVM e não resolve a disputa entre as threads.
+
+Na versão ordenada, as duas threads fazem \code{synchronized(\allowbreak{}recurso1)} antes de \code{synchronized(\allowbreak{}recurso2)}. Enquanto A tem R1, B espera por R1 sem estar com R2; A consegue pegar R2, termina e libera os dois recursos. Só depois B segue. No final, os recursos estão livres e não sobra nenhuma aresta. A ordem global R1 antes de R2 elimina a espera circular, a estratégia de prevenção vista na Aula 11.
+
+\section*{6. Conclusão}
+Ignorar a sincronização pode gerar contagens inconsistentes ou travar completamente o progresso. Sincronizar corretamente tem um custo: no produtor-consumidor, as execuções foram de 2-3 ms sem controle para 130-140 ms com semáforos, mas a versão sem controle rejeita tentativas e perde atualizações, então não é uma comparação de desempenho equivalente. Por outro lado, o \code{Read\allowbreak{}Write\allowbreak{}Lock} mostra que sincronizar com a granularidade certa preserva o paralelismo. O saleiro e a ordenação global mostram que controlar a ordem de aquisição dos recursos evita deadlocks ao quebrar a espera circular.
+
+\end{document}
