@@ -1,0 +1,34 @@
+Pacote de codigo - Laboratorio de Sincronizacao e Deadlocks
+==============================================================
+
+Como usar (veja tambem a Etapa 1 do roteiro em .docx):
+
+1) Compilar tudo de uma vez:
+   javac -encoding UTF-8 *.java
+
+2) Rodar qualquer experimento:
+   java -Dstdout.encoding=UTF-8 NomeDaClasse
+
+Experimentos disponiveis:
+  Etapa 2 - Produtor-Consumidor (buffer representado por um contador simplificado)
+    ProdutorConsumidorSemControle.java   (com problema: condicao de corrida)
+    ProdutorConsumidorComSemaforo.java   (solucao: 3 semaforos)
+
+  Etapa 3 - Leitores-Escritores (com leitores E escritor de verdade)
+    LeitoresEscritoresMutexSimples.java  (com problema: mutex simples/fila justa)
+    LeitoresEscritoresComPrioridade.java (solucao: ReadWriteLock -- leitura
+                                           paralela / escrita exclusiva; NAO
+                                           eh uma politica formal de reader-
+                                           preference, apenas nao garante FIFO)
+
+  Etapa 4 - Jantar dos Filosofos
+    FilosofosSemControle.java            (com problema: deadlock reproduzivel)
+    FilosofosComSaleiro.java             (solucao: token/saleiro)
+
+  Etapa 5 - Deadlock dirigido (2 recursos)
+    DeadlockDuasThreads.java             (com problema: deadlock deterministico)
+    DeadlockPrevenidoPorOrdenacao.java   (solucao: ordenacao global de recursos)
+
+Todos os programas foram testados e reproduzem o comportamento
+esperado de forma confiavel. Veja o Guia_do_Professor.docx para
+explicacoes tecnicas detalhadas, duvidas frequentes e gabarito.

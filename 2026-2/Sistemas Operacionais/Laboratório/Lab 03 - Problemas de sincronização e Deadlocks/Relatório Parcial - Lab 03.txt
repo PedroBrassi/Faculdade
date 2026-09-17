@@ -1,0 +1,164 @@
+Relatório Parcial - Lab 03
+
+Etapa 2/6 - Produtor-Consumidor: condição de corrida vs. semáforos
+
+Parte A - Sem controle
+
+=== EXPERIMENTO 1.a.1: Produtor-Consumidor SEM controle ===
+(O buffer limitado é representado, de forma simplificada, por um contador inteiro: 'itensNoBuffer'.)
+Capacidade do buffer: 5
+
+--- RESULTADO FINAL ---
+Total produzido (aceito)  : 6032 (tentativas: 10000)
+Total consumido (aceito)  : 6315 (tentativas: 10000)
+Valor final de itensNoBuffer: 0  (esperado teoricamente: -283)
+Violações de faixa [0, 5] detectadas: 0
+Tempo total: 3 ms
+
+=== EXPERIMENTO 1.a.2 Produtor-Consumidor SEM controle ===
+(O buffer limitado é representado, de forma simplificada, por um contador inteiro: 'itensNoBuffer'.)
+Capacidade do buffer: 5
+
+--- RESULTADO FINAL ---
+Total produzido (aceito)  : 6125 (tentativas: 10000)
+Total consumido (aceito)  : 6242 (tentativas: 10000)
+Valor final de itensNoBuffer: 0  (esperado teoricamente: -117)
+Violações de faixa [0, 5] detectadas: 0
+Tempo total: 2 ms
+
+
+=== EXPERIMENTO 1.a.3: Produtor-Consumidor SEM controle ===
+(O buffer limitado é representado, de forma simplificada, por um contador inteiro: 'itensNoBuffer'.)
+Capacidade do buffer: 5
+
+--- RESULTADO FINAL ---
+Total produzido (aceito)  : 6353 (tentativas: 10000)
+Total consumido (aceito)  : 6361 (tentativas: 10000)
+Valor final de itensNoBuffer: 0  (esperado teoricamente: -8)
+Violações de faixa [0, 5] detectadas: 0
+Tempo total: 2 ms
+
+=== EXPERIMENTO 1.a.4: Produtor-Consumidor SEM controle ===
+(O buffer limitado é representado, de forma simplificada, por um contador inteiro: 'itensNoBuffer'.)
+Capacidade do buffer: 5
+
+--- RESULTADO FINAL ---
+Total produzido (aceito)  : 5829 (tentativas: 10000)
+Total consumido (aceito)  : 6119 (tentativas: 10000)
+Valor final de itensNoBuffer: 0  (esperado teoricamente: -290)
+Violações de faixa [0, 5] detectadas: 0
+Tempo total: 3 ms
+
+Parte B - Com semáforo
+
+=== EXPERIMENTO 1.b.1: Produtor-Consumidor COM semáforos ===
+(O buffer limitado é representado, de forma simplificada, por um contador inteiro: 'itensNoBuffer'.)
+Capacidade do buffer: 5
+
+--- RESULTADO FINAL ---
+Total produzido : 10000 (esperado: 10000)
+Total consumido : 10000 (esperado: 10000)
+Valor final de itensNoBuffer: 0 (esperado: 0)
+Tempo total: 140 ms
+
+=== EXPERIMENTO 1.b.2: Produtor-Consumidor COM semáforos ===
+(O buffer limitado é representado, de forma simplificada, por um contador inteiro: 'itensNoBuffer'.)
+Capacidade do buffer: 5
+
+--- RESULTADO FINAL ---
+Total produzido : 10000 (esperado: 10000)
+Total consumido : 10000 (esperado: 10000)
+Valor final de itensNoBuffer: 0 (esperado: 0)
+Tempo total: 133 ms
+
+=== EXPERIMENTO 1.b.3: Produtor-Consumidor COM semáforos ===
+(O buffer limitado é representado, de forma simplificada, por um contador inteiro: 'itensNoBuffer'.)
+Capacidade do buffer: 5
+
+--- RESULTADO FINAL ---
+Total produzido : 10000 (esperado: 10000)
+Total consumido : 10000 (esperado: 10000)
+Valor final de itensNoBuffer: 0 (esperado: 0)
+Tempo total: 130 ms
+
+
+=== EXPERIMENTO 1.b.4: Produtor-Consumidor COM semáforos ===
+(O buffer limitado é representado, de forma simplificada, por um contador inteiro: 'itensNoBuffer'.)
+Capacidade do buffer: 5
+
+--- RESULTADO FINAL ---
+Total produzido : 10000 (esperado: 10000)
+Total consumido : 10000 (esperado: 10000)
+Valor final de itensNoBuffer: 0 (esperado: 0)
+Tempo total: 133 ms
+
+ETAPA 3/6   Leitores-Escritores: mutex simples vs. ReadWriteLock
+
+=== EXPERIMENTO 2a: Leitores-Escritores com mutex simples (fila justa) ===
+[2333 ms] Escritor-0 SOLICITOU acesso exclusivo
+[2691 ms] Escritor-0 OBTEVE acesso exclusivo (esperou 358 ms)
+Escritor-0 concluiu a escrita.
+
+--- IMPACTO DA ESPERA DO ESCRITOR ---
+Tempo de espera do escritor: 358 ms
+Leituras concluídas ENQUANTO o escritor esperava: 7
+
+--- RESULTADO FINAL ---
+Máximo de leitores simultâneos observado: 1 (de 8)
+Leituras totais concluídas: 21
+Tempo total do experimento: 1205 ms
+
+=== EXPERIMENTO 2b: Leitores-Escritores com ReadWriteLock ===
+[10933 ms] Escritor-0 SOLICITOU acesso exclusivo
+[10965 ms] Escritor-0 OBTEVE acesso exclusivo (esperou 32 ms)
+Escritor-0 concluiu a escrita.
+
+--- IMPACTO DA ESPERA DO ESCRITOR ---
+Tempo de espera do escritor: 32 ms
+Leituras concluídas ENQUANTO o escritor esperava: 0
+
+--- RESULTADO FINAL ---
+Máximo de leitores simultâneos observado: 8 (de 8)
+Leituras totais concluídas: 48
+
+ETAPA 4/6   Jantar dos Filósofos: deadlock vs. solução do saleiro
+
+=== EXPERIMENTO 3a: Jantar dos Filósofos SEM controle ===
+Filosofo-3 pegou o garfo 3 (esquerda)
+Filosofo-0 pegou o garfo 0 (esquerda)
+Filosofo-4 pegou o garfo 4 (esquerda)
+Filosofo-1 pegou o garfo 1 (esquerda)
+Filosofo-2 pegou o garfo 2 (esquerda)
+
+*** POSSÍVEL DEADLOCK DETECTADO: nenhum filósofo come há 5017 ms ***
+*** (interrompa o programa com Ctrl+C e registre esta observação) ***
+
+*** POSSÍVEL DEADLOCK DETECTADO: nenhum filósofo come há 6034 ms ***
+*** (interrompa o programa com Ctrl+C e registre esta observação) ***
+
+*** POSSÍVEL DEADLOCK DETECTADO: nenhum filósofo come há 7035 ms ***
+*** (interrompa o programa com Ctrl+C e registre esta observação) ***
+
+*** POSSÍVEL DEADLOCK DETECTADO: nenhum filósofo come há 8036 ms ***
+*** (interrompa o programa com Ctrl+C e registre esta observação) ***
+
+
+ETAPA 5/6   Deadlock dirigido: ocorrência vs. prevenção por ordenação
+=== EXPERIMENTO 4a: Deadlock com 2 recursos (A e B) ===
+[46216 ms] Thread-A: obteve recurso1
+[46216 ms] Thread-B: obteve recurso2
+[46740 ms] Thread-A: tentando obter recurso2...
+[46740 ms] Thread-B: tentando obter recurso1...
+
+*** DEADLOCK CONFIRMADO: as threads não terminaram em 5s. ***
+*** Estado: A segura recurso1 e espera recurso2; B segura recurso2 e espera recurso1. ***
+
+=== EXPERIMENTO 4b: Prevenção por ordenação global de recursos ===
+[80570 ms] Thread-A: obteve recurso1
+[81091 ms] Thread-A: tentando obter recurso2...
+[81091 ms] Thread-A: obteve recurso2 -> concluiu
+[81092 ms] Thread-B: obteve recurso1
+[81592 ms] Thread-B: tentando obter recurso2...
+[81593 ms] Thread-B: obteve recurso2 -> concluiu
+
+Ambas as threads terminaram SEM deadlock -- a ordenação global funcionou.
