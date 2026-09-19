@@ -8,111 +8,28 @@
  * Evolua esse código em 5 etapas, seguindo os TODOs abaixo.
  */
 
-
-// ===================== PARTE 1 e 2 — Encapsulamento e Construtores =====================
 class Console {
-    private String nome;
-    private String tipo;   // "nintendo", "playstation" ou "portatil"
-    private double preco;
-
-    public Console(String nome, String tipo, double preco) {
-        this.nome = nome;
-        this.tipo = tipo;
-        this.preco = preco;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public String getTipo() {
-        return tipo;
-    }
-
-    public double getPreco() {
-        return preco;
-    }
-}
-
-// ===================== PARTE 3 — Interface e Composição =====================
-interface IConsole {
-    void ligar();
-    double calcularPreco();
-    String getNome();
-}
-
-class DadosConsole {
-    private String nome;
-    private double precoBase;
-
-    public DadosConsole(String nome, double precoBase) {
-        this.nome = nome;
-        this.precoBase = precoBase;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public double getPrecoBase() {
-        return precoBase;
-    }
-}
-
-class Nintendo implements IConsole {
-    protected DadosConsole dados;
-
-    public Nintendo(String nome, double precoBase) {
-        this.dados = new DadosConsole(nome, precoBase);
-    }
-
-    @Override
-    public void ligar() {
-        System.out.println("Nintendo ligado.");
-    }
-
-    @Override
-    public double calcularPreco() {
-        return dados.getPrecoBase() * 1.10;
-    }
-
-    @Override
-    public String getNome() {
-        return dados.getNome();
-    }
-}
-
-class Playstation implements IConsole {
-    protected DadosConsole dados;
-
-    public Playstation(String nome, double precoBase) {
-        this.dados = new DadosConsole(nome, precoBase);
-    }
-
-    @Override
-    public void ligar() {
-        System.out.println("Playstation ligado.");
-    }
-
-    @Override
-    public double calcularPreco() {
-        return dados.getPrecoBase() * 1.20;
-    }
-
-    @Override
-    public String getNome() {
-        return dados.getNome();
-    }
+    public String nome;
+    public String tipo;   // "nintendo", "playstation" ou "portatil"
+    public double preco;
 }
 
 class Loja {
 
-    public void venderConsole(IConsole console) {
+    public void venderConsole(Console console) {
 
-        console.ligar();
-        double precoFinal = console.calcularPreco();
+        if (console.tipo.equals("nintendo")) {
+            console.preco = console.preco * 1.10;
+            System.out.println("Nintendo ligado.");
+        } else if (console.tipo.equals("playstation")) {
+            console.preco = console.preco * 1.20;
+            System.out.println("Playstation ligado.");
+        } else if (console.tipo.equals("portatil")) {
+            console.preco = console.preco * 1.20;
+            System.out.println("Playstation Portátil ligado.");
+        }
 
-        System.out.println(console.getNome() + " -> Preço final: R$ " + precoFinal);
+        System.out.println(console.nome + " -> Preço final: R$ " + console.preco);
     }
 }
 
@@ -120,9 +37,20 @@ public class Atividade_POO_Problema {
 
     public static void main(String[] args) {
 
-        IConsole nintendo = new Nintendo("Nintendo Switch", 2000);
-        IConsole playstation = new Playstation("Playstation 5", 3000);
-        IConsole portatil = new PlaystationPortatil("Playstation Portátil", 2500);
+        Console nintendo = new Console();
+        nintendo.nome = "Nintendo Switch";
+        nintendo.tipo = "nintendo";
+        nintendo.preco = 2000;
+
+        Console playstation = new Console();
+        playstation.nome = "Playstation 5";
+        playstation.tipo = "playstation";
+        playstation.preco = 3000;
+
+        Console portatil = new Console();
+        portatil.nome = "Playstation Portátil";
+        portatil.tipo = "portatil";
+        portatil.preco = 2500;
 
         Loja loja = new Loja();
         loja.venderConsole(nintendo);
@@ -130,6 +58,39 @@ public class Atividade_POO_Problema {
         loja.venderConsole(portatil);
     }
 }
+
+// ===================== PARTE 1 — Encapsulamento =====================
+// TODO (1.1): os atributos de Console estão públicos, permitindo que
+// qualquer código altere nome/tipo/preco livremente (inclusive para
+// valores inválidos, como um preco negativo). Torne os atributos privados.
+// TODO (1.2): como os atributos agora são privados, crie métodos getters
+// para nome, tipo e preco (pense: por que não criar também setters aqui?).
+
+// ===================== PARTE 2 — Construtores =====================
+// TODO (2.1): hoje um Console pode ser criado "pela metade" (por exemplo,
+// esquecendo de definir o preco, que ficaria 0.0). Crie um construtor em
+// Console que exija nome, tipo e preco, garantindo que todo objeto nasça
+// em um estado válido.
+// TODO (2.2): atualize o Main para criar os consoles usando o novo
+// construtor, em vez de criar o objeto vazio e preencher os atributos um
+// a um.
+
+// ===================== PARTE 3 — Interface e Composição =====================
+// TODO (3.1): crie uma interface IConsole com três métodos: void ligar(),
+// double calcularPreco() e String getNome().
+// TODO (3.2): crie uma classe DadosConsole com os atributos privados nome
+// e precoBase, um construtor que os receba, e getters para os dois. Essa
+// classe vai representar os dados que todo console tem em comum.
+// TODO (3.3): crie as classes Nintendo e Playstation, cada uma implementando
+// IConsole. Em vez de repetir nome/precoBase dentro delas, cada uma deve
+// ter um atributo do tipo DadosConsole e delegar a ele as chamadas de
+// getNome() e getPrecoBase() (isso é composição: "ter um" DadosConsole, em
+// vez de repetir os mesmos atributos em cada classe).
+// TODO (3.4): mova para Nintendo e Playstation a lógica que hoje está no
+// if/else da Loja: a mensagem de ligar() e o percentual usado em
+// calcularPreco() de cada uma (10% para Nintendo, 20% para Playstation).
+// REFLEXÃO: por que usar uma classe separada (DadosConsole) em vez de
+// colocar nome/precoBase diretamente dentro de Nintendo e Playstation?
 
 // ===================== PARTE 4 — Herança (usada de forma apropriada) =====================
 // TODO (4.1): a classe Console original também previa um console

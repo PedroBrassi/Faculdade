@@ -9,9 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 // ===================== PARTE 1 e 2 — Encapsulamento e Construtores =====================
-// Console original, agora com atributos privados, construtor obrigatório
-// e getters (sem setters: um console não deveria trocar de nome/tipo/preço
-// depois de criado, só nasce em um estado válido e permanece assim).
 class Console {
     private String nome;
     private String tipo;
@@ -125,8 +122,7 @@ class PlaystationPortatil extends Playstation {
     }
 }
 
-// ===================== PARTE 5 — Polimorfismo e Extensibilidade (OCP) =====================
-// Nova classe adicionada sem alterar nenhuma linha de Loja.
+// ===================== PARTE 5 — Polimorfismo e Extensibilidade =====================
 class Xbox implements IConsole {
     protected DadosConsole dados;
 
