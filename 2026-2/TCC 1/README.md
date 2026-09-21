@@ -13,7 +13,7 @@ O objetivo do trabalho é realizar a classificação de tumores cerebrais em ima
 O desenvolvimento foi dividido em diferentes etapas para facilitar a organização, validação e documentação dos experimentos.
 
 ```text
-TCC 1/
+Projeto do TCC/
 │
 ├── Artigos/
 │
@@ -29,11 +29,14 @@ TCC 1/
 │   │   └── _PoC/
 │   │       └── poc_auditoria.py
 │   │
-│   ├── Etapa 1 - Auditoria_Deduplicação/
-│   │   ├── Plano_1ª_Etapa.md
+│   ├── Etapa 1 - Auditoria da Base/
 │   │   ├── auditoria.py
 │   │   └── resultados/  (manifesto_base_dados.csv, relatorio_erros.csv, etc. -- gerados na execução)
 │   │
+│   ├── Etapa 2 - Deduplicacao e Sensibilidade/
+│   │   ├── deduplicacao_exata.py
+│   │   └── resultados/
+│   ├── Etapa 3 - Curadoria Visual e Decisao/  # planejada
 │   └── Relatório Diário/
 │
 ├── Material de Apoio - TCC/
@@ -43,9 +46,9 @@ TCC 1/
 └── Pre-Projeto_TCC.pdf
 ```
 
-## Etapa 1 — Auditoria e Deduplicação da Base
+## Fluxo de auditoria e deduplicação
 
-A primeira etapa do projeto tem como objetivo verificar a integridade da base de imagens antes do treinamento dos modelos.
+O conjunto das Etapas 0 a 3 tem como objetivo verificar a integridade da base de imagens antes do treinamento dos modelos.
 
 Entre as atividades previstas estão:
 
@@ -119,22 +122,44 @@ O conjunto de validação será criado posteriormente durante a etapa de prepara
 
 ## Desenvolvimento Atual
 
-Atualmente o projeto encontra-se na:
+- Etapa 0 - Ambiente e PoC: executada com 100 imagens; CSV e hashes conferidos.
+- Etapa 1 - Auditoria da Base: 7.200 registros, 17 colunas; nenhuma falha capturada. Quatro arquivos PNG nomeados como .jpg foram documentados.
+- Etapa 2 - Deduplicacao e Sensibilidade: 153 grupos SHA-256, 340 arquivos envolvidos e 187 cópias excedentes teóricas. Sensibilidade e candidatos T=0 exportados.
+- Etapa 3 - Curadoria Visual e Decisao: inspeção e decisões pendentes. T final e componentes conexos ainda não implementados.
 
-**Etapa 1 — Auditoria e Deduplicação da Base**
+## Como ler as saídas
 
-Situação atual:
+**Par candidato sem repetição não significa imagem sem duplicação.** Significa que a combinação A-B aparece uma única vez na lista de suspeitas, mesmo se os dois hashes a sinalizam.
 
-- [x] Configuração do ambiente Python
-- [x] Criação do ambiente virtual
-- [x] Instalação das dependências iniciais
-- [x] Geração do `requirements.txt`
-- [x] Prova de Conceito com 100 imagens (validada: arquivo inválido tratado, SHA-256 determinístico, pHash robusto a redimensionamento — distância 0 vs. 28 no controle)
-- [x] Auditoria da base completa (script `auditoria.py` escrito, extraindo metadados, SHA-256, pHash/dHash e relatórios de erro/divergência para `Training` + `Testing`; falta rodar na base completa e conferir a saída)
-- [ ] Deduplicação
-- [ ] Análise de vazamento de dados
-- [ ] Curadoria visual
-- [ ] Geração do manifesto higienizado
+| Termo | Significado |
+|---|---|
+| Split | Divisão do dataset: train (treino) ou test (teste). Val é posterior. |
+| Classe | Rótulo da imagem: glioma, meningioma, notumor ou pituitary. |
+| Grupo SHA-256 | Arquivos com o mesmo hash exato. |
+| Par candidato | Duas imagens selecionadas pelo critério perceptual, ainda sem confirmação visual. |
+| Imagens distintas envolvidas | Quantidade de caminhos diferentes nos pares; uma imagem pode participar de muitos pares. |
+| T | Máximo de bits diferentes aceito. T=0 exige hash perceptual igual, não arquivo idêntico. |
+| is_valid | Processamento sem falha capturada; não garante rótulo correto ou ausência de duplicação. |
+
+Exemplo: A-B, A-C e A-D são três pares e quatro imagens distintas. Se pHash e dHash sinalizam A-B, a fila registra esse par uma vez.
+
+As linhas de sensibilidade são cumulativas. O percentual de classes diferentes usa o total de pares sinalizados como denominador e não é uma taxa comprovada de falsos positivos.
+
+A fila T=0 seleciona `(pHash igual OU dHash igual) E (split diferente OU classe diferente)`. Seus 1.236 pares incluem 1.230 só entre splits, 3 só entre classes e 3 com ambas as condições. Nenhuma exclusão é realizada.
+
+## Uso do pacote revisado
+
+Este ZIP contém uma cópia de trabalho, não o dataset nem o ambiente virtual. Para aplicar, copie os arquivos listados em `ALTERACOES.md` para os locais correspondentes do projeto, preservando a estrutura atual das etapas dentro de `Desenvolvimento`.
+
+A Etapa 2 pode ser executada diretamente na cópia extraída: ela busca o manifesto na pasta irmã da Etapa 1. O nome `deduplicacao_exata.py` foi mantido por compatibilidade, mas ele executa também a análise perceptual e a sensibilidade.
+
+```powershell
+python ".\Etapa 2 - Deduplicacao e Sensibilidade\deduplicacao_exata.py"
+```
+
+Esse comando pressupõe o terminal na raiz extraída do pacote e dependências instaladas. A PoC e a auditoria precisam do dataset na estrutura do projeto; não executá-las diretamente na cópia sem dataset.
+
+Veja `Etapa 2 - Deduplicacao e Sensibilidade/resultados/LEIA_OS_RESULTADOS.md` para interpretar cada CSV.
 
 ## Autor
 

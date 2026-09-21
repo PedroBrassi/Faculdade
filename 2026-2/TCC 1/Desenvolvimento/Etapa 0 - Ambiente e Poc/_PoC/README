@@ -1,0 +1,84 @@
+# Etapa 0 — Ambiente e Prova de Conceito (PoC)
+
+## Objetivo
+
+Validar o pipeline de auditoria (leitura de imagem, metadados, SHA-256, pHash,
+dHash, exportação e reabertura do CSV) em uma amostra pequena e controlada
+— 100 imagens de uma única classe — antes de aplicar na base completa
+(Etapa 1 — Auditoria da Base).
+
+## Conteúdo desta pasta
+
+```
+Etapa 0 - Ambiente e Poc/
+└── _PoC/
+    ├── poc_auditoria.py
+    └── resultados/
+        └── manifesto_poc.csv
+```
+
+- `_PoC/poc_auditoria.py`: script da prova de conceito.
+- `_PoC/resultados/manifesto_poc.csv`: manifesto gerado pela última execução (100 registros).
+
+## Como executar
+
+```bash
+python "_PoC/poc_auditoria.py"
+```
+
+Pré-requisitos: ambiente virtual com `pillow`, `imagehash` e `pandas`
+instalados (ver `requirements.txt` do projeto). O script localiza a raiz do
+projeto a partir de si mesmo (`Path(__file__).resolve().parents[3]`) e espera
+encontrar o dataset em `<raiz do projeto>/Brain Tumor MRI Dataset/Training/meningioma`.
+Se o script for movido para outra profundidade de pastas, esse índice
+(`parents[3]`) precisa ser ajustado.
+
+## O que o script faz
+
+1. Lista os arquivos de imagem (`.jpg`, `.jpeg`, `.png`) da classe `meningioma`
+   em `Training`, ordenados por nome, e seleciona os 100 primeiros (seleção
+   determinística, não aleatória).
+2. Para cada imagem, calcula: tamanho em bytes, SHA-256 do arquivo, largura,
+   altura, modo de cor, canais, aspect ratio, pHash e dHash.
+3. Erros de leitura (arquivo corrompido ou não reconhecido como imagem) são
+   registrados em `error_flag`, sem interromper o processamento das demais
+   imagens.
+4. Exporta `manifesto_poc.csv` e reabre o arquivo para conferir se os hashes
+   foram preservados na volta (evita perda de precisão ou de zeros à
+   esquerda ao serem salvos como texto).
+5. Interrompe a execução (`raise`) se a pasta da classe não tiver as 100
+   imagens esperadas, ou se os hashes não baterem depois de reabrir o CSV.
+
+## Colunas do manifesto
+
+| Coluna | Significado |
+|---|---|
+| `file_path` | Caminho absoluto do arquivo no momento da execução — muda conforme a máquina/pasta do projeto. |
+| `class_label` | Classe da imagem (fixa em `meningioma` nesta PoC). |
+| `file_extension` | Extensão original do arquivo. |
+| `split_assigned` | Fixo em `train` — a PoC usa apenas `Training`. |
+| `file_size_bytes` | Tamanho do arquivo em disco. |
+| `sha256_hash` | Hash exato do conteúdo do arquivo (duplicata exata). |
+| `width`, `height` | Dimensões em pixels. |
+| `color_mode`, `channels` | Modo de cor do Pillow e número de canais correspondente. |
+| `aspect_ratio` | `width / height`. |
+| `phash`, `dhash` | Hashes perceptuais (16 caracteres hexadecimais = 64 bits cada). |
+| `is_valid` | `True` se a leitura e os hashes terminaram sem erro. **Não** indica ausência de duplicatas nem rótulo correto — só sucesso de processamento. |
+| `error_flag` | Mensagem de erro capturada, quando houver. |
+
+## Resultado da última execução registrada
+
+100 imagens processadas, 100 válidas, nenhum hash ausente, hashes
+preservados após salvar e reabrir o CSV (`True`).
+
+> **Nota:** o `file_path` deste manifesto foi gravado com a raiz
+> `C:\Users\pedro\Desktop\Projeto do TCC\...`, de uma execução feita em outra
+> cópia/pasta do projeto. É só o caminho absoluto de onde o script rodou
+> naquela vez — não afeta a lógica do script, e o valor muda para o caminho
+> real assim que ele for executado de novo na pasta atual.
+
+## Escopo
+
+Esta etapa não deduplica nem decide exclusões — isso é feito na Etapa 1
+(auditoria completa da base) e na Etapa 2 (deduplicação exata e análise de
+sensibilidade dos hashes perceptuais).

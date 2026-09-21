@@ -1,0 +1,2 @@
+﻿component_id,relative_path_a,relative_path_b,same_rgb_shape,identical_rgb_pixels,max_channel_difference,mean_absolute_difference,visual_assessment,review_basis,decision
+t0_0134,Testing/notumor/Te-no_271.jpg,Training/notumor/Tr-no_611.jpg,True,False,40,2.2296699420508945,provavel_duplicata_visual,inspecao_visual_e_comparacao_de_pixels_rgb,pendente

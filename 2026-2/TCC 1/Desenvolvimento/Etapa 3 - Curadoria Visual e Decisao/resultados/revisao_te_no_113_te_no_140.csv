@@ -1,0 +1,2 @@
+﻿component_id,relative_path_a,relative_path_b,transformation_tested,mean_difference_original,mean_difference_rotated,identical_rgb_after_rotation,visual_assessment,review_basis,observation,decision
+t0_0134,Testing/notumor/Te-no_113.jpg,Testing/notumor/Te-no_140.jpg,rotacao_180_graus_em_b,26.208454320987656,4.345027160493827,False,provavel_duplicata_visual_com_rotacao,inspecao_visual_e_comparacao_rgb,Forte alinhamento visual apos rotacao de 180 graus. Persistem diferencas nos pixels.,pendente

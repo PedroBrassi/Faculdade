@@ -1,0 +1,12 @@
+Estes arquivos foram substituidos pelo pacote unico em Desenvolvimento/curadoria_mri/.
+
+Etapa 2 - Deduplicacao e Sensibilidade:
+- componentes_conexos.py, deduplicacao_exata.py -> logica agora em curadoria/detect.py + curadoria/cluster.py
+
+Etapa 3 - Curadoria Visual e Decisao:
+- agrupar_pixels_rgb.py, comparar_rotacoes.py -> curadoria/detect.py (canonicalizacao diedrica ja cobre isso, com mais rigor)
+- controle_curadoria.py, registrar_decisao.py -> curadoria/decisao.py (a versao antiga marcava exclusao sem confirmacao humana real)
+- inspecao_componentes.py, inspecao_visual.py -> inspecao_visual.py em especial escrevia avaliacao sem nunca abrir a imagem; nao tem substituto direto porque nao devia existir assim
+
+Revisado e confirmado que nao ha nada aqui que nao esteja coberto (ou corrigido) no pacote novo.
+Pedro: confira e pode apagar esta pasta "_to_delete" quando quiser.
