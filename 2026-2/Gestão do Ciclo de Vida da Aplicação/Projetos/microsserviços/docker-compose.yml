@@ -1,0 +1,14 @@
+services:
+  catalogo:
+    build: ./catalogo
+    ports:
+      - "8081:8081"
+
+  pedidos:
+    build: ./pedidos
+    ports:
+      - "8082:8082"
+    environment:
+      CATALOGO_URL: http://catalogo:8081
+    depends_on:
+      - catalogo

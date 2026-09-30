@@ -1,0 +1,47 @@
+@model Pedidos.Models.PaginaModel
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>RetroGames MVC</title>
+  <style>
+    body { font: 16px/1.5 system-ui, sans-serif; max-width: 760px; margin: 2rem auto; padding: 0 1rem; }
+    section { border: 1px solid #ddd; border-radius: 8px; padding: 1rem; margin: 1rem 0; }
+    label { display: block; margin: .6rem 0; }
+    input, select, button { padding: .4rem; font: inherit; }
+    table { border-collapse: collapse; width: 100%; } td, th { border-bottom: 1px solid #ddd; padding: .4rem; text-align: left; }
+  </style>
+</head>
+<body>
+  <h1>RetroGames MVC</h1>
+  <p>Nesta prática, catálogo e pedidos fazem parte do mesmo aplicativo MVC.</p>
+  @if (Model.Mensagem is not null) { <p role="alert">@Model.Mensagem</p> }
+
+  <section>
+    <h2>Catálogo</h2>
+    <p>Os jogos estão na memória do aplicativo. <a href="/">Atualizar</a></p>
+    <ul>@foreach (var jogo in Model.Jogos) { <li>@jogo.Id — @jogo.Titulo</li> }</ul>
+  </section>
+
+  <section>
+    <h2>Criar pedido</h2>
+    <form method="post" action="/pedidos">
+      @Html.AntiForgeryToken()
+      <label>Cliente <input name="cliente" value="Ana" required></label>
+      <label>Jogo <select name="jogoId" required>
+        @foreach (var jogo in Model.Jogos) { <option value="@jogo.Id">@jogo.Titulo</option> }
+      </select></label>
+      <label>Quantidade <input name="quantidade" type="number" min="1" value="1" required></label>
+      <button type="submit">Criar pedido</button>
+    </form>
+  </section>
+
+  <section>
+    <h2>Pedidos criados</h2>
+    <table><thead><tr><th>ID</th><th>Cliente</th><th>Jogo</th><th>Quantidade</th></tr></thead><tbody>
+      @foreach (var pedido in Model.Pedidos) { <tr><td>@pedido.Id</td><td>@pedido.Cliente</td><td>@pedido.Jogo</td><td>@pedido.Quantidade</td></tr> }
+    </tbody></table>
+  </section>
+</body>
+</html>

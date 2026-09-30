@@ -1,0 +1,16 @@
+-- Esquema do banco de dados
+-- Para criar/recriar o bd, digitar no diretório db:
+--   rm jogos.db
+--   sqlite3 jogos.db < jogos.schema
+
+create table jogos (
+  id         integer primary key,
+  titulo     text    not null,
+  franquia   text    not null,
+  plataforma text    not null,
+  ano        integer not null
+);
+
+insert into jogos values (1, 'Super Mario World',                    'Mario',               'SNES',        1990);
+insert into jogos values (2, 'The Legend of Zelda: Ocarina of Time', 'The Legend of Zelda', 'Nintendo 64', 1998);
+insert into jogos values (3, 'Super Metroid',                        'Metroid',             'SNES',        1994);
