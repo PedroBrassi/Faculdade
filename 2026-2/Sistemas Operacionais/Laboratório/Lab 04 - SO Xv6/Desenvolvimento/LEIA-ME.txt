@@ -1,0 +1,12 @@
+AMBIENTE xv6 - LINUX  (versao 2)
+================================
+1. Deixe esta pasta xv6 onde voce quiser (Documentos, Downloads, home...).
+   O script descobre sozinho onde ela esta.
+2. Coloque DENTRO desta pasta o arquivo  so-xv6-2024.tar  (so na 1a vez).
+3. Kits dos laboratorios: extraia DENTRO desta pasta (fica xv6/kit-lab01/ ...).
+4. Para abrir o ambiente: abra um terminal DENTRO desta pasta
+   (botao direito num espaco vazio -> "Abrir no Terminal") e rode:
+        bash xv6.sh
+   NUNCA use sudo.
+5. Seu codigo fica em  xv6/xv6-labs-2024  (no container: /lab/xv6-labs-2024).
+6. Deu erro?   bash xv6.sh --diagnostico

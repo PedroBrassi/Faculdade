@@ -1,0 +1,59 @@
+@model PaginaModel
+@{
+    ViewData["Title"] = "Catálogo e pedidos";
+}
+
+<h1>RetroGames MVC</h1>
+<p>Catálogo e pedidos fazem parte do mesmo aplicativo MVC. Os dados ficam em memória.</p>
+
+@if (Model.Mensagem is not null)
+{
+    <p class="alert alert-info" role="alert">@Model.Mensagem</p>
+}
+
+<section class="mb-4">
+    <h2>Catálogo</h2>
+    <ul>
+        @foreach (var jogo in Model.Jogos)
+        {
+            <li>@jogo.Id - @jogo.Titulo</li>
+        }
+    </ul>
+</section>
+
+<section class="mb-4">
+    <h2>Criar pedido</h2>
+    <form asp-controller="Home" asp-action="Criar" method="post">
+        <div class="mb-2">
+            <label for="cliente" class="form-label">Cliente</label>
+            <input id="cliente" name="cliente" value="Ana" required class="form-control" />
+        </div>
+        <div class="mb-2">
+            <label for="jogoId" class="form-label">Jogo</label>
+            <select id="jogoId" name="jogoId" required class="form-select">
+                @foreach (var jogo in Model.Jogos)
+                {
+                    <option value="@jogo.Id">@jogo.Titulo</option>
+                }
+            </select>
+        </div>
+        <div class="mb-2">
+            <label for="quantidade" class="form-label">Quantidade</label>
+            <input id="quantidade" name="quantidade" type="number" min="1" value="1" required class="form-control" />
+        </div>
+        <button type="submit" class="btn btn-primary">Criar pedido</button>
+    </form>
+</section>
+
+<section>
+    <h2>Pedidos criados</h2>
+    <table class="table">
+        <thead><tr><th>ID</th><th>Cliente</th><th>Jogo</th><th>Quantidade</th></tr></thead>
+        <tbody>
+            @foreach (var pedido in Model.Pedidos)
+            {
+                <tr><td>@pedido.Id</td><td>@pedido.Cliente</td><td>@pedido.Jogo</td><td>@pedido.Quantidade</td></tr>
+            }
+        </tbody>
+    </table>
+</section>

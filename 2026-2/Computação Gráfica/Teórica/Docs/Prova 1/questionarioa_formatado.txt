@@ -1,0 +1,372 @@
+================================================================================
+02 FUNDAMENTOS DA COMPUTAÇÃO GRÁFICA
+================================================================================
+
+Questão 1
+No pipeline gráfico clássico, qual é a ordem correta das etapas?
+Respostas:
+a. Modelagem → Transformações → Shading → Clipping → Rasterização → Exibição
+b. Transformações → Modelagem → Rasterização → Clipping → Shading → Exibição
+c. Modelagem → Clipping → Transformações → Shading → Rasterização → Exibição
+d. Rasterização → Modelagem → Transformações → Clipping → Shading → Exibição
+e. Modelagem → Transformações → Clipping → Rasterização → Shading → Exibição [Correta]
+Feedback: A resposta correta é: Modelagem → Transformações → Clipping → Rasterização → Shading → Exibição.
+
+Questão 2
+Qual é a principal função do Z-Buffer (Depth Buffer) no processo de renderização?
+Respostas:
+a. Calcular a cor final de cada pixel com base na iluminação
+b. Suavizar bordas serrilhadas em imagens digitais
+c. Armazenar a profundidade de cada pixel para garantir que apenas a superfície mais próxima da câmera seja desenhada [Correta]
+d. Converter texturas para resoluções menores conforme a distância
+e. Descartar faces voltadas para longe da câmera antes do processamento
+Feedback: A resposta correta é: Armazenar a profundidade de cada pixel para garantir que apenas a superfície mais próxima da câmera seja desenhada.
+
+Questão 3
+Por que o modelo RGB é usado em telas e o CMYK em impressão?
+Respostas:
+a. Porque RGB representa apenas tons de cinza e CMYK representa cores
+b. Não há diferença real entre os dois, apenas convenção histórica
+c. Porque RGB é um modelo aditivo (luz) e CMYK é um modelo subtrativo (tinta/pigmento) [Correta]
+d. Porque o CMYK é mais rápido de processar computacionalmente
+e. Porque CMYK tem mais canais de cor do que RGB
+Feedback: A resposta correta é: Porque RGB é um modelo aditivo (luz) e CMYK é um modelo subtrativo (tinta/pigmento).
+
+Questão 4
+Qual das opções abaixo é um exemplo de técnica de iluminação global, e não local?
+Respostas:
+a. Nenhuma das anteriores calcula iluminação
+b. Z-Buffer
+c. Blinn-Phong
+d. Modelo de Phong
+e. Ray Tracing [Correta]
+Feedback: A resposta correta é: Ray Tracing.
+
+Questão 5
+Qual das afirmações a seguir melhor caracteriza a rasterização, em comparação ao ray tracing?
+Respostas:
+a. É usada exclusivamente em renderizações offline para filmes
+b. É mais lenta, porém fisicamente mais precisa
+c. Simula o comportamento físico da luz através de raios
+d. Não é utilizada em jogos digitais modernos
+e. É mais rápida e é a base das APIs gráficas como OpenGL e DirectX, sendo ideal para tempo real [Correta]
+Feedback: A resposta correta é: É mais rápida e é a base das APIs gráficas como OpenGL e DirectX, sendo ideal para tempo real.
+
+Questão 6
+O pipeline gráfico clássico é composto por seis etapas principais: Modelagem, Transformações, Clipping, Rasterização, Shading e Exibição.
+Resposta: Verdadeiro [Correta] | Falso
+Feedback: A resposta correta é 'Verdadeiro'.
+
+Questão 7
+A etapa de Clipping é responsável por recortar (descartar) partes da geometria que estão fora do campo de visão da câmera.
+Resposta: Verdadeiro [Correta] | Falso
+Feedback: A resposta correta é 'Verdadeiro'.
+
+Questão 8
+Malhas poligonais são geralmente formadas por triângulos conectados e são a representação mais comum de objetos 3D.
+Resposta: Verdadeiro [Correta] | Falso
+Feedback: A resposta correta é 'Verdadeiro'.
+
+Questão 9
+O modelo de cor CMYK é aditivo, assim como o RGB.
+Resposta: Verdadeiro | Falso [Correta]
+Feedback: A resposta correta é 'Falso'.
+
+Questão 10
+A correção gamma ajusta os valores de cor para compensar a forma não linear como o olho humano percebe a luz.
+Resposta: Verdadeiro [Correta] | Falso
+Feedback: A resposta correta é 'Verdadeiro'.
+
+Questão 11
+Back-face Culling é uma técnica que descarta faces voltadas para longe da câmera antes de serem processadas.
+Resposta: Verdadeiro [Correta] | Falso
+Feedback: A resposta correta é 'Verdadeiro'.
+
+Questão 12
+Historicamente, o Ray Tracing foi mais utilizado em renderização offline (como em filmes) do que em aplicações de tempo real.
+Resposta: Verdadeiro [Correta] | Falso
+Feedback: A resposta correta é 'Verdadeiro'.
+
+Questão 13
+O Mipmapping tem como objetivo pré-calcular versões reduzidas de texturas para melhorar o desempenho e reduzir aliasing.
+Resposta: Verdadeiro [Correta] | Falso
+Feedback: A resposta correta é 'Verdadeiro'.
+
+Questão 14
+CSG (Constructive Solid Geometry) representa objetos por meio de uma grade de voxels.
+Resposta: Verdadeiro | Falso [Correta]
+Feedback: A resposta correta é 'Falso'.
+
+Questão 15
+A GPU (Graphics Processing Unit) possui uma arquitetura massivamente paralela, otimizada para operações vetoriais e matriciais.
+Resposta: Verdadeiro [Correta] | Falso
+Feedback: A resposta correta é 'Verdadeiro'.
+
+
+================================================================================
+04 TRANSFORMAÇÕES GEOMÉTRICAS
+================================================================================
+
+Questão 1
+No pipeline gráfico, qual matriz é responsável por levar um ponto do espaço do objeto para o espaço do mundo?
+Respostas:
+a. Viewport Transform
+b. Model Matrix [Correta] (Posiciona, rotaciona e escala o objeto dentro do referencial global da cena)
+c. Matriz NDC
+d. View Matrix
+e. Projection Matrix
+Feedback: A resposta correta é: Model Matrix.
+
+Questão 2
+Em coordenadas homogêneas, qual é o papel da quarta coordenada w quando w = 0?
+Respostas:
+- Representa um vetor de direção, que não é afetado pela translação.
+- A matriz de translação não tem efeito sobre as coordenadas, por isso vetores de direção usam w = 0.
+- Não tem relação com a posição do ponto, mas sim com sua natureza (ponto ou vetor).
+- É um valor válido e intencional em coordenadas homogêneas, não um erro.
+Feedback: A resposta correta abrange que w = 0 define a natureza de vetor de direção, tornando-o imune à translação.
+
+Questão 3
+Qual sistema de coordenadas é mais indicado para posicionar uma câmera orbital (orbit camera) que gira ao redor de um objeto?
+Respostas:
+a. Coordenadas de tela (screen space)
+b. Cartesiano
+c. Polar
+d. Cilíndrico
+e. Esférico [Correta] (Descreve naturalmente a posição da câmera a uma distância fixa r variando dois ângulos)
+Feedback: A resposta correta é: Esférico.
+
+Questão 4
+Segundo a convenção da "regra da mão direita" usada pelo OpenGL, se o polegar aponta para +x e o indicador aponta para +y, para onde aponta o dedo médio (+z)?
+Respostas:
+a. Para fora da tela, em direção ao observador [Correta]
+b. Para baixo, no sentido oposto ao eixo y
+c. Não há uma convenção definida para o eixo z
+d. Para a esquerda, no sentido oposto ao eixo x
+e. Para dentro da tela, se afastando do observador
+Feedback: A resposta correta é: Para fora da tela, em direção ao observador.
+
+Questão 5
+Quem foi o responsável por formalizar matematicamente o modelo heliocêntrico, publicando a obra "De revolutionibus orbium coelestium" em 1543?
+Respostas:
+a. Aristarco de Samos
+b. Cláudio Ptolomeu
+c. Galileu Galilei
+d. Johannes Kepler
+e. Nicolau Copérnico [Correta]
+Feedback: A resposta correta é: Nicolau Copérnico.
+
+Questão 6
+O modelo geocêntrico foi proposto e formalizado inteiramente por uma única pessoa, Ptolomeu.
+Resposta: Falso [Correta]
+Feedback: O modelo foi construído ao longo de séculos (Eudoxo, Aristóteles e Ptolomeu).
+
+Questão 7
+Em coordenadas esféricas, se o ângulo polar $\phi$ for igual a 0, o ponto estará necessariamente sobre o eixo z, independentemente do valor de $\theta$.
+Resposta: Verdadeiro [Correta] | Falso
+Feedback: Com $\phi = 0$, $\text{sen}(\phi) = 0$, resultando em $x = 0$, $y = 0$ e $z = r$.
+
+Questão 8
+A multiplicação de matrizes de transformação é comutativa; portanto, aplicar rotação e depois translação produz o mesmo resultado que aplicar translação e depois rotação.
+Resposta: Verdadeiro | Falso [Correta]
+Feedback: Multiplicação de matrizes não é comutativa; a ordem altera o resultado geométrico.
+
+Questão 9
+Um vetor de direção (diferente de um ponto) deve ter w = 1 em coordenadas homogêneas, para que seja corretamente afetado pela translação.
+Resposta: Verdadeiro | Falso [Correta]
+Feedback: Vetores de direção usam w = 0 para NÃO serem afetados pela translação.
+
+Questão 10
+O produto vetorial entre dois vetores paralelos entre si resulta sempre no vetor nulo, independentemente das magnitudes desses vetores.
+Resposta: Verdadeiro [Correta] | Falso
+Feedback: Como $\text{sen}(\theta) = 0$ para vetores paralelos, o produto vetorial zera.
+
+Questão 11
+Em um sistema de mão esquerda, se o eixo x aponta para a direita e o eixo y aponta para cima, então o eixo z positivo aponta para fora da tela, em direção ao observador — o mesmo que ocorre num sistema de mão direita.
+Resposta: Verdadeiro | Falso [Correta]
+Feedback: Mão direita tem +z saindo da tela, mão esquerda tem +z entrando na tela.
+
+Questão 12
+Em coordenadas polares, um ponto é definido por uma distância r até a origem e um ângulo $\theta$ em relação a um eixo de referência.
+Resposta: Verdadeiro [Correta] | Falso
+Feedback: Definição correta de coordenadas polares $(r, \theta)$.
+
+Questão 13
+Coordenadas cilíndricas são uma extensão das coordenadas cartesianas 3D, substituindo x e y por r e $\theta$, mantendo z inalterado.
+Resposta: Verdadeiro [Correta] | Falso
+Feedback: Lógica correta das coordenadas cilíndricas.
+
+Questão 14
+Em Computação Gráfica, a câmera se move fisicamente pela cena durante a renderização, assim como os demais objetos.
+Resposta: Verdadeiro | Falso [Correta]
+Feedback: É o mundo que se move para o referencial da câmera via View Matrix.
+
+Questão 15
+Kepler descobriu que as órbitas planetárias são elipses, o que eliminou a necessidade de epiciclos no modelo heliocêntrico.
+Resposta: Verdadeiro [Correta] | Falso
+Feedback: As órbitas elípticas de Kepler eliminaram os epiciclos.
+
+Questão 16
+A projeção perspectiva utiliza a divisão por w ($x/w, y/w, z/w$) para produzir o efeito de profundidade.
+Resposta: Verdadeiro [Correta] | Falso
+Feedback: A divisão por w gera o efeito de perspectiva.
+
+Questão 17
+O espaço de recorte (clip space) vem depois do espaço de tela (screen space) no pipeline gráfico.
+Resposta: Verdadeiro | Falso [Correta]
+Feedback: A ordem correta é: câmera → clip space → NDC → espaço de tela.
+
+Questão 18
+As coordenadas normalizadas de dispositivo (NDC) normalmente ficam no intervalo de -1 a 1.
+Resposta: Verdadeiro [Correta] | Falso
+Feedback: O intervalo padrão de NDC é $[-1, 1]$.
+
+Questão 19
+O DirectX tradicionalmente utiliza a convenção de mão direita, assim como o OpenGL.
+Resposta: Verdadeiro | Falso [Correta]
+Feedback: OpenGL usa mão direita e DirectX usa mão esquerda.
+
+Questão 20
+Coordenadas homogêneas permitem representar translação, rotação e escala numa única matriz de multiplicação $4 \times 4$.
+Resposta: Verdadeiro [Correta] | Falso
+Feedback: Essa é a principal utilidade das coordenadas homogêneas.
+
+
+================================================================================
+05 PIPELINE GRÁFICO E PROJEÇÕES
+================================================================================
+
+Questão 1
+A translação em coordenadas homogêneas desloca um ponto somando um vetor $(t_x, t_y)$ às suas coordenadas.
+Resposta: Verdadeiro [Correta] | Falso
+Feedback: Em coordenadas homogêneas, a translação opera como soma aplicada via multiplicação matricial.
+
+Questão 2
+A matriz de rotação $R(\theta)$ gira o objeto sempre em torno da origem do sistema de coordenadas.
+Resposta: Verdadeiro [Correta] | Falso
+Feedback: Para girar em torno de outro ponto, compõe-se com translações.
+
+Questão 3
+A escala com $s_x = s_y = 1$ não produz nenhum efeito visual sobre o objeto.
+Resposta: Verdadeiro [Correta] | Falso
+Feedback: Trata-se da matriz identidade.
+
+Questão 4
+Em uma câmera alinhada aos eixos do mundo (sem rotação), a matriz de visualização V se reduz a uma simples translação.
+Resposta: Verdadeiro [Correta] | Falso
+Feedback: Sem mudança de base necessária, apenas translada-se a câmera para a origem.
+
+Questão 5
+A projeção ortográfica faz objetos distantes parecerem menores do que objetos próximos, exatamente como a projeção perspectiva.
+Resposta: Verdadeiro | Falso [Correta]
+Feedback: Apenas a projeção em perspectiva reduz objetos distantes.
+
+Questão 6
+A divisão por $z_c$ (ou pela coordenada w) é a etapa do pipeline gráfico responsável por criar o efeito de profundidade da perspectiva.
+Resposta: Verdadeiro [Correta] | Falso
+Feedback: A divisão homogênea projeta objetos distantes menores.
+
+Questão 7
+As coordenadas NDC variam sempre no intervalo $[0, 800]$, dependendo da resolução da tela em pixels.
+Resposta: Verdadeiro | Falso [Correta]
+Feedback: O intervalo de NDC é sempre $[-1, 1]$, independente da resolução.
+
+Questão 8
+No algoritmo de Cohen-Sutherland, um código de região 0000 indica que o ponto está fora da janela de recorte.
+Resposta: Verdadeiro | Falso [Correta]
+Feedback: Código 0000 indica que o ponto está dentro da janela de recorte.
+
+Questão 9
+A transformação de viewport é a última etapa do pipeline antes da rasterização.
+Resposta: Verdadeiro [Correta] | Falso
+Feedback: As coordenadas passam a estar em pixels reais da tela.
+
+Questão 10
+A ordem de multiplicação das matrizes de transformação não influencia o resultado final.
+Resposta: Verdadeiro | Falso [Correta]
+Feedback: A multiplicação de matrizes não é comutativa ($T \cdot R \neq R \cdot T$).
+
+Questão 11
+Transformações geométricas básicas
+Considere:
+I. Translação por matriz $2 \times 2$ sem homogêneas. (Falsa)
+II. Escala uniforme preserva ângulos. (Verdadeira)
+III. Matriz de rotação é ortogonal. (Verdadeira)
+IV. Cisalhamento altera a área 2D. (Falsa)
+Resposta correta: Apenas II e III são verdadeiras.
+
+Questão 12
+Coordenadas homogêneas e composição
+Considere:
+I. Ponto 2D como $(x, y, 1)$. (Verdadeira)
+II. $T \cdot R = R \cdot T$. (Falsa)
+III. Vetor de direção com $w = 0$. (Verdadeira)
+IV. Rotação em torno de pivô arbitrário usa matriz padrão direta. (Falsa)
+Resposta correta: Apenas I e III são verdadeiras.
+
+Questão 13
+Visualização (câmera) e projeção
+Considere:
+I. Matriz V transforma mundo para câmera. (Verdadeira)
+II. Na perspectiva, ponto distante aparece maior. (Falsa)
+III. Base ortonormal $(f, r, u)$. (Verdadeira)
+IV. Projeção ortográfica preserva paralelismo. (Verdadeira)
+Resposta correta: Apenas II é falsa; as demais são verdadeiras.
+
+Questão 14
+Frustum, NDC e recorte
+Considere:
+I. Frustum delimitado por near, far e FOV. (Verdadeira)
+II. NDC varia em $[0, 1]$. (Falsa)
+III. Recorte no espaço homogêneo antes da divisão por w. (Verdadeira)
+IV. Teste de rejeição trivial de Cohen-Sutherland via AND. (Verdadeira)
+Resposta correta: Apenas II é falsa; as demais são verdadeiras.
+
+Questão 15
+Viewport e pipeline geral
+Considere:
+I. Viewport mapeia NDC para pixels. (Verdadeira)
+II. Eixo Y não precisa ser invertido. (Falsa)
+III. Matrizes combinadas em matriz M única por quadro. (Verdadeira)
+IV. Rasterização antes do clipping. (Falsa)
+Resposta correta: Apenas I e III são verdadeiras.
+
+Questão 16
+Translação com coordenadas homogêneas (vetor-linha, $P' = P \cdot M$)
+Ponto $P = (2, 3)$, $t_x = 4$, $t_y = -1$.
+Matriz de translação:
+[ 1   0   0 ]
+[ 0   1   0 ]
+[ 4  -1   1 ]
+Ponto resultante: $P' = (6, 2, 1)$.
+
+Questão 17
+Escala em torno da origem (vetor-linha, $P' = P \cdot S$)
+Ponto $P = (3, -2)$, $s_x = 2$, $s_y = 4$.
+Matriz de escala:
+[ 2   0 ]
+[ 0   4 ]
+Ponto resultante: $P' = (6, -8)$.
+
+Questão 18
+Rotação de 90° em torno da origem (vetor-linha, $\theta = 90^\circ$)
+Ponto $P = (1, 0)$.
+Matriz de rotação:
+[  0   1 ]
+[ -1   0 ]
+Ponto resultante: $P' = (0, 1)$.
+
+Questão 19
+Projeção perspectiva
+$P_{\text{câmera}} = (6, 3, 12)$, $n = 2$.
+Cálculo:
+$x_p = \frac{n \cdot x_c}{z_c} = \frac{2 \cdot 6}{12} = 1$
+$y_p = \frac{n \cdot y_c}{z_c} = \frac{2 \cdot 3}{12} = 0.5$
+
+Questão 20
+Transformação de viewport
+$P_{\text{ndc}} = (0.5, -0.5)$, Janela: $640 \times 480$.
+Cálculo:
+$x_{\text{tela}} = \frac{x_{\text{ndc}} + 1}{2} \cdot \text{largura} = \frac{0.5 + 1}{2} \cdot 640 = 480$
+$y_{\text{tela}} = \frac{1 - y_{\text{ndc}}}{2} \cdot \text{altura} = \frac{1 - (-0.5)}{2} \cdot 480 = 360$
+Posição final em pixels: $(480, 360)$.

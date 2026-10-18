@@ -1,0 +1,315 @@
+Lista 1 - Processos, Escalonamento e Deadlocks -
+
+Questão 1) Os primeiros sistemas de computação executavam apenas um programa por vez e exigiam grande intervenção dos operadores. Explique quais problemas motivaram o desenvolvimento do processamento em lote, da multiprogramação e dos sistemas de tempo compartilhado.
+Reposta: 
+Os primeiros sistemas executavam um programa por vez e dependiam do operador para carregar cada job, montar fitas e recolher a saída, o que deixava uma máquina caríssima parada durante a preparação entre um programa e outro. O processamento em lote surgiu para eliminar esse desperdício: os jobs passaram a ser agrupados e um programa monitor residente fazia a transição automática entre eles, reduzindo o tempo de preparação e a intervenção humana. Restou, porém, outro problema: com apenas um job na memória, a CPU ficava ociosa sempre que o programa esperava uma operação de entrada e saída, muito mais lenta que o processador. A multiprogramação resolveu isso mantendo vários jobs na memória e entregando a CPU a outro sempre que um deles bloqueava, o que aumentou a utilização do processador e a quantidade de trabalho concluído, e exigiu do sistema operacional gerência de memória, escalonamento, proteção e tratamento de interrupções. Ainda assim, o usuário continuava sem interagir com seu programa e esperava horas pelo resultado, de modo que um erro simples custava um ciclo inteiro de submissão. Os sistemas de tempo compartilhado atacaram essa falta de interatividade ao dividir a CPU em pequenas fatias de tempo alternadas entre vários usuários conectados por terminais, dando a cada um a impressão de uso exclusivo da máquina e trocando o objetivo de maximizar o uso da CPU pelo de minimizar o tempo de resposta.
+
+
+Questão 2) Analise o sistema operacional sob dois pontos de vista:
+	a) como alocador de recursos;
+	b) como programa de controle.
+	Explique a diferença entre esses papéis e apresente um exemplo de cada um.
+Resposta:
+a) Como alocador de recursos, o sistema operacional decide como CPU, memória, disco e dispositivos de entrada e saída são distribuídos entre programas e usuários concorrentes, buscando eficiência e justiça. Exemplo: o escalonador de CPU escolhe qual processo executa e por quanto tempo. 
+b) Como programa de controle, ele supervisiona a execução dos programas e a operação dos dispositivos para evitar erros e uso indevido. Exemplo: a proteção de memória encerra um processo que tenta acessar um endereço fora do seu espaço.
+A diferença é que o primeiro papel trata de repartir recursos, enquanto o segundo trata de fiscalizar o que é feito com eles.
+
+
+Questão 3) Por que os sistemas operacionais modernos utilizam pelo menos dois modos de execução, modo usuário e modo kernel? Explique como uma chamada de sistema permite a transição controlada entre esses modos.
+Resposta:
+Os dois modos existem para proteção: em modo usuário, o programa não pode executar instruções privilegiadas nem acessar memória fora do seu espaço, o que impede que um erro ou código malicioso comprometa o sistema; em modo kernel, reservado ao sistema operacional, tudo é permitido. Para obter um serviço privilegiado, o programa faz uma chamada de sistema: executa uma instrução de trap que muda o processador para modo kernel e desvia para um ponto de entrada fixo definido pelo sistema operacional, que valida o pedido, executa o serviço e retorna ao modo usuário. A transição é controlada porque o programa apenas solicita o serviço, sem escolher qual código roda no kernel.
+
+
+Questão 4) Diferencie programa e processo. Dois usuários podem executar o mesmo programa e originar processos distintos? Justifique considerando espaço de endereçamento, registradores e estado de execução.
+Resposta:
+Programa é uma entidade passiva: um arquivo em disco com instruções e dados.
+Processo é uma entidade ativa: o programa em execução, com os recursos e o contexto que o sistema operacional associa a ele.
+Sim, dois usuários que executam o mesmo programa originam processos distintos. Cada processo tem seu próprio espaço de endereçamento, com pilha, heap e dados separados, de modo que as variáveis de um não afetam as do outro, ainda que o código possa ser compartilhado em memória apenas para leitura. Cada um tem também seus próprios valores de registradores, incluindo o contador de programa, e por isso podem estar em instruções diferentes. Por fim, cada um tem seu próprio estado de execução (pronto, executando ou bloqueado), registrado em um bloco de controle de processo separado e com identificador próprio.
+
+
+Questão 5) Descreva os possíveis estados de um processo: novo, pronto, executando, bloqueado e terminado.
+Para cada transição abaixo, indique um evento que poderia provocá-la:
+	a) pronto → executando;
+	b) executando → pronto;
+	c) executando → bloqueado;
+	d) bloqueado → pronto.
+Resposta:
+No estado novo, o processo está sendo criado e ainda não foi admitido na fila de prontos. Em pronto, ele tem tudo de que precisa para executar e aguarda apenas a CPU. Em executando, suas instruções estão sendo executadas pelo processador. Em bloqueado, ele não pode prosseguir porque espera um evento, como o fim de uma operação de entrada e saída. Em terminado, ele concluiu a execução ou foi encerrado, e o sistema libera seus recursos.
+Quanto às transições:
+a) o escalonador seleciona o processo e o despachante lhe entrega a CPU.
+b) o quantum do processo expira e uma interrupção do temporizador o devolve à fila de prontos, ou chega um processo de maior prioridade que o preempta.
+c) o processo faz uma chamada de sistema que exige espera, como ler dados do disco.
+d) o evento esperado ocorre, por exemplo a interrupção do disco que sinaliza o fim da leitura.
+
+
+Questão 6) Explique a função do bloco de controle de processo — PCB. Cite pelo menos cinco informações que o sistema operacional precisa manter nesse bloco e explique por que elas são necessárias em uma troca de contexto.
+Resposta:
+O PCB é a estrutura em que o sistema operacional guarda tudo o que precisa para gerenciar um processo, interrompê-lo e retomá-lo depois. Ele mantém, entre outras informações, o identificador do processo, o estado, o contador de programa, os registradores da CPU, as informações de gerência de memória e as de escalonamento. Na troca de contexto, a CPU passa a outro processo e seus registradores são sobrescritos; por isso esses dados são salvos no PCB do processo que sai e carregados do PCB do que entra, para que cada um continue da instrução em que parou, com seus valores e seu espaço de endereçamento corretos.
+
+
+Questão 7) Em sistemas Unix, um processo pode criar outro por meio de fork(). Explique:
+	a) o que é criado;
+	b) como pai e filho são diferenciados;
+	c) o que ocorre com seus espaços de endereçamento;
+	d) como exec() modifica o processo que o chama.
+Resposta:
+a) Um novo processo, o filho, cópia quase idêntica do pai (mesmo código, dados, pilha e arquivos abertos), mas com PID e PCB próprios.
+b) Pelo valor de retorno do fork(): zero para o filho e o PID do filho para o pai.
+c) São separados: o filho recebe uma cópia do espaço do pai, e alterações em um não afetam o outro. Na prática usa-se cópia na escrita, compartilhando as páginas até que um deles as modifique.
+d) Não cria processo novo: substitui o código, os dados, a pilha e o heap do processo pelo conteúdo de outro programa, que executa do início com o mesmo PID.
+
+
+Questão 8) Compare processos independentes e processos cooperativos. Apresente duas vantagens da cooperação e dois riscos que surgem quando processos trocam ou compartilham informações.
+Resposta:
+Processos independentes não afetam nem são afetados por outros processos e não compartilham dados.
+Processos cooperativos podem afetar ou ser afetados por outros, pois trocam ou compartilham informações.
+A cooperação traz como vantagens o compartilhamento de informações, que permite a vários processos acessar os mesmos dados, e o ganho de desempenho, já que uma tarefa pode ser dividida em partes executadas em paralelo.
+Os riscos são a condição de corrida, em que o resultado depende da ordem de acesso aos dados compartilhados e pode deixá-los inconsistentes, e o deadlock, em que processos ficam bloqueados para sempre, cada um esperando um recurso retido pelo outro.
+
+
+Questão 9) Compare os modelos de comunicação por memória compartilhada e por troca de mensagens quanto a:
+	a) desempenho;
+	b) proteção;
+	c) necessidade de sincronização;
+	d) utilização em uma mesma máquina ou em máquinas diferentes.
+Resposta:
+a) A memória compartilhada é mais rápida, pois depois de criada a região os acessos são leituras e escritas comuns, sem intervenção do kernel. A troca de mensagens é mais lenta, porque cada envio e recebimento exige chamada de sistema e cópia de dados.
+b) A troca de mensagens oferece mais proteção, pois os processos mantêm espaços de endereçamento isolados e o kernel intermedeia a comunicação. Na memória compartilhada, um processo pode corromper os dados usados pelo outro.
+c) Na memória compartilhada, a sincronização é responsabilidade dos próprios processos, que precisam usar semáforos ou mutexes para evitar condições de corrida. Na troca de mensagens, o sistema operacional sincroniza implicitamente por meio das operações de envio e recebimento.
+d) A memória compartilhada serve a processos na mesma máquina, pois exige memória física comum. A troca de mensagens funciona tanto na mesma máquina quanto entre máquinas diferentes, pela rede, sendo o modelo natural para sistemas distribuídos.
+
+
+Questão 10) Um produtor e um consumidor compartilham um buffer limitado. Explique por que são necessários mecanismos separados para:
+	a) impedir acesso simultâneo à região crítica;
+	b) bloquear o produtor quando o buffer estiver cheio;
+	c) bloquear o consumidor quando o buffer estiver vazio.
+Resposta:
+São necessários mecanismos separados porque há dois problemas distintos: exclusão mútua, que protege o acesso ao buffer, e sincronização por condição, que depende de quantas posições estão livres ou ocupadas. Um único mecanismo não resolve os dois.
+a) Produtor e consumidor alteram o buffer e seus índices; se o fizerem ao mesmo tempo, ocorre condição de corrida e os dados ficam inconsistentes. Usa-se um mutex (semáforo binário iniciado em 1), que garante apenas um processo por vez na região crítica, mas não informa se o buffer está cheio ou vazio.
+b) Inserir em buffer cheio sobrescreveria itens ainda não consumidos. Usa-se um semáforo contador de posições livres, iniciado em N: o produtor o decrementa antes de inserir e bloqueia quando ele chega a zero, sendo acordado quando o consumidor retira um item.
+c) Retirar de buffer vazio leria dados inválidos. Usa-se um semáforo contador de itens disponíveis, iniciado em 0: o consumidor o decrementa antes de retirar e bloqueia quando ele é zero, sendo acordado quando o produtor insere um item.
+
+
+Questão 11) Diferencie processo e thread. Indique quais recursos são normalmente compartilhados pelas threads de um processo e quais informações permanecem privadas para cada thread.
+Resposta:
+Processo é um programa em execução, com espaço de endereçamento e recursos próprios; thread é uma linha de execução dentro de um processo, a unidade básica de uso da CPU. Um processo pode ter várias threads, e criar ou trocar de thread é mais barato do que fazer o mesmo com processos, porque elas compartilham o mesmo espaço de endereçamento. As threads de um processo compartilham o código, os dados globais, o heap, os arquivos abertos e os demais recursos do processo, como sinais e identificador do processo. Permanecem privados de cada thread o identificador da thread, o contador de programa, os registradores, a pilha, com suas variáveis locais, e o estado de execução.
+
+
+Questão 12) Cite e explique três benefícios do uso de múltiplas threads. Em seguida, descreva uma situação em que a utilização de vários processos seria mais adequada que várias threads.
+Resposta:
+O primeiro benefício é a capacidade de resposta: uma aplicação continua atendendo ao usuário mesmo que uma de suas threads esteja bloqueada ou ocupada em uma operação demorada. 
+O segundo é o compartilhamento de recursos e a economia: as threads usam o mesmo espaço de endereçamento, de modo que se comunicam sem mecanismos extras e são mais baratas de criar e de trocar do que processos. 
+O terceiro é a escalabilidade: em máquinas com vários núcleos, as threads podem executar em paralelo, reduzindo o tempo total da tarefa.
+Vários processos são mais adequados quando se exige isolamento e tolerância a falhas. É o caso de um navegador que executa cada aba em um processo separado: se uma página travar ou for comprometida por código malicioso, apenas aquele processo é afetado, enquanto com threads a falha de uma derrubaria todo o navegador e daria acesso à memória das demais.
+
+
+Questão 13) Compare os modelos:
+	a) muitos-para-um;
+	b) um-para-um;
+	c) muitos-para-muitos.
+Analise paralelismo, bloqueio e custo de gerenciamento em cada modelo.
+Resposta:
+a) Muitos-para-um: várias threads de usuário são mapeadas em uma única thread de kernel. Não há paralelismo, pois só uma thread executa por vez, mesmo com vários núcleos. Uma chamada bloqueante de uma thread bloqueia o processo inteiro. O custo de gerenciamento é o menor, porque criação e troca de threads ocorrem em espaço de usuário, sem chamadas de sistema.
+b) Um-para-um: cada thread de usuário corresponde a uma thread de kernel. Há paralelismo real em vários núcleos. O bloqueio de uma thread não afeta as demais. O custo é o maior, pois cada thread criada exige uma thread de kernel, o que consome recursos e leva o sistema a limitar o número de threads. É o modelo usado por Linux e Windows.
+c) Muitos-para-muitos: várias threads de usuário são multiplexadas sobre um número menor ou igual de threads de kernel. Há paralelismo, limitado pela quantidade de threads de kernel. Quando uma thread bloqueia, o kernel pode escalonar outra thread do mesmo processo. O custo por thread é intermediário, pois é possível criar muitas threads de usuário sem uma thread de kernel para cada, mas a implementação é a mais complexa.
+
+
+Questão 14) Defina condição de corrida e região crítica. Explique os três requisitos que uma solução correta para o problema da seção crítica deve atender:
+	a) exclusão mútua;
+	b) progresso;
+	c) espera limitada.
+Resposta:
+Condição de corrida é a situação em que dois ou mais processos ou threads acessam e alteram dados compartilhados ao mesmo tempo, e o resultado depende da ordem em que as instruções se intercalam. Região crítica é o trecho de código em que esses dados compartilhados são acessados e que, por isso, não pode ser executado por mais de um processo ao mesmo tempo.
+a) Exclusão mútua: se um processo está executando em sua região crítica, nenhum outro pode executar na sua.
+b) Progresso: se nenhum processo está na região crítica e há processos querendo entrar, a escolha do próximo é feita apenas entre esses interessados e não pode ser adiada indefinidamente; um processo fora da região crítica não pode impedir a entrada dos outros.
+c) Espera limitada: depois que um processo pede para entrar, há um limite para o número de vezes que outros processos entram antes dele, o que evita a inanição.
+
+
+Questão 15) Um semáforo contador foi inicializado com o valor 3. Explique o que esse valor representa.
+Depois de cinco operações wait() e duas operações signal(), quantos processos, no máximo, podem estar bloqueados? Considere que nenhuma outra operação ocorreu e justifique.
+Resposta:
+O valor 3 indica que há três instâncias do recurso disponíveis, ou seja, até três processos podem executar wait() e prosseguir sem bloquear.
+Ao final das sete operações, nenhum processo está bloqueado. Cada wait() decrementa e cada signal() incrementa o semáforo, logo o valor final é 3 − 5 + 2 = 0, o que significa nenhum recurso livre e nenhum processo em espera, qualquer que seja a ordem das operações. O máximo de bloqueados ocorre apenas em um momento intermediário: se as cinco operações wait() acontecerem antes das signal(), as três primeiras passam e as duas últimas bloqueiam, totalizando 2 processos bloqueados, que são acordados em seguida pelas duas operações signal().
+
+
+Questão 16) Compare mutex e semáforo. Embora ambos possam controlar acesso a uma região crítica, por que não devem ser tratados como mecanismos completamente equivalentes?
+Resposta:
+O mutex é uma trava com dois estados, livre ou ocupado, usada para garantir exclusão mútua: apenas uma thread por vez entra na região crítica. O semáforo é um contador inteiro manipulado por wait() e signal(), que pode permitir o acesso simultâneo de várias threads a um conjunto de recursos e também serve para sincronizar a ordem de execução entre processos.
+Eles não são equivalentes porque o mutex tem dono: só a thread que o adquiriu pode liberá-lo, o que permite ao sistema detectar erros de uso e aplicar herança de prioridade. O semáforo não tem dono: qualquer processo pode executar signal(), mesmo sem ter feito wait(), e é isso que o torna útil para sinalização, como um produtor acordando um consumidor. Além disso, o semáforo contador admite valores maiores que 1 e controla várias instâncias de um recurso, o que o mutex não faz. Assim, um semáforo binário pode imitar um mutex, mas sem as garantias de posse, e um mutex não substitui o semáforo em contagem de recursos nem em sinalização entre processos.
+
+
+Questão 17) Explique o conceito de monitor. Como o encapsulamento dos dados, a exclusão mútua automática e as variáveis de condição tornam o monitor menos sujeito a erros do que o uso direto de semáforos?
+Resposta:
+Monitor é uma construção de alto nível de sincronização, oferecida pela linguagem de programação, que reúne em um único módulo os dados compartilhados e os procedimentos que operam sobre eles, garantindo que apenas um processo por vez esteja ativo em seu interior.
+O encapsulamento impede o acesso direto aos dados compartilhados: eles só podem ser manipulados pelos procedimentos do monitor, de modo que nenhum trecho do programa os altera sem proteção. A exclusão mútua automática é inserida pelo compilador na entrada e na saída de cada procedimento, o que elimina erros comuns com semáforos, como esquecer um wait() ou um signal(), invertê-los ou executá-los na ordem errada, falhas que causam condição de corrida ou deadlock. As variáveis de condição, com as operações wait e signal, permitem que um processo suspenda sua execução dentro do monitor até que uma condição seja satisfeita, liberando automaticamente o monitor enquanto espera; assim, a espera por condição fica separada da exclusão mútua e expressa de forma explícita, em vez de depender de semáforos de uso genérico cuja finalidade o programador precisa controlar manualmente.
+
+
+Questão 18) No problema do jantar dos filósofos, todos os filósofos pegam primeiro o garfo à esquerda e depois tentam pegar o garfo à direita. Explique:
+	a) por que pode ocorrer deadlock;
+	b) qual das quatro condições de deadlock aparece em cada parte do problema;
+	c) uma possível modificação que evite o bloqueio.
+Resposta:
+a) Se todos os filósofos pegarem o garfo à esquerda ao mesmo tempo, cada um fica com um garfo e espera o da direita, que está com o vizinho. Como ninguém solta o garfo que tem, todos esperam para sempre.
+b) Exclusão mútua: cada garfo só pode ser usado por um filósofo por vez. Posse e espera: cada filósofo segura o garfo esquerdo enquanto espera o direito. Não preempção: um garfo não pode ser tomado à força, só é liberado voluntariamente após comer. Espera circular: cada filósofo espera o garfo retido pelo vizinho à direita, formando um ciclo fechado em torno da mesa.
+c) Fazer um dos filósofos pegar primeiro o garfo à direita e depois o da esquerda, o que quebra a espera circular. Outras opções são permitir no máximo quatro filósofos à mesa ao mesmo tempo ou só permitir pegar os garfos se ambos estiverem livres.
+
+
+Questão 19) Considere cinco processos com os seguintes tempos de CPU:
+	P1 = 8
+	P2 = 4
+	P3 = 2
+	P4 = 1
+	P5 = 3
+Todos chegam no instante 0.
+Determine a ordem de execução e o tempo médio de espera utilizando:
+	a) FCFS;
+	b) SJF não preemptivo.
+Resposta:
+a) FCFS: a ordem é a de chegada, P1, P2, P3, P4, P5. Os tempos de espera são P1 = 0, P2 = 8, P3 = 12, P4 = 14 e P5 = 15. Tempo médio de espera = (0 + 8 + 12 + 14 + 15) / 5 = 49 / 5 = 9,8.
+b) SJF não preemptivo: a ordem é do menor para o maior tempo de CPU, P4, P3, P5, P2, P1. Os tempos de espera são P4 = 0, P3 = 1, P5 = 3, P2 = 6 e P1 = 10. Tempo médio de espera = (0 + 1 + 3 + 6 + 10) / 5 = 20 / 5 = 4.
+
+
+Questão 20) Explique a diferença entre:
+	a) escalonamento preemptivo e não preemptivo;
+	b) tempo de espera, tempo de retorno e tempo de resposta;
+	c) starvation e deadlock.
+Apresente um algoritmo de escalonamento em que starvation possa ocorrer e uma técnica para reduzi-la.
+Resposta:
+a) No escalonamento não preemptivo, o processo que recebe a CPU fica com ela até terminar ou bloquear voluntariamente. No preemptivo, o sistema operacional pode retirar a CPU do processo em execução, por exemplo quando o quantum expira ou chega um processo de maior prioridade.
+b) Tempo de espera é o total que o processo passa na fila de prontos. Tempo de retorno (turnaround) é o intervalo entre a chegada do processo e sua conclusão, incluindo espera, execução e entrada e saída. Tempo de resposta é o intervalo entre a chegada e a primeira vez que o processo recebe a CPU ou produz a primeira resposta.
+c) Na starvation, um processo fica esperando indefinidamente porque outros são sempre escolhidos antes dele, mas o sistema continua funcionando e ele poderia executar se fosse escolhido. No deadlock, um conjunto de processos fica bloqueado permanentemente, cada um esperando um recurso retido por outro do conjunto, e nenhum deles pode prosseguir.
+A starvation pode ocorrer no escalonamento por prioridades, em que processos de baixa prioridade nunca executam enquanto chegam processos de prioridade maior, e também no SJF, com processos longos. Uma técnica para reduzi-la é o envelhecimento (aging), que aumenta gradualmente a prioridade dos processos conforme o tempo de espera cresce.
+
+
+Questão 21) Considere os processos:
+	P1: chegada 0, tempo de CPU 9
+	P2: chegada 1, tempo de CPU 5
+	P3: chegada 2, tempo de CPU 3
+	P4: chegada 4, tempo de CPU 2
+Considere a utilização dos algoritmos SJF preemptivo e Round Robin com quantum 2.
+Sem construir um diagrama de Gantt completo, responda:
+	a) Qual processo inicia a execução em cada algoritmo?
+	b) Em qual algoritmo o processo P4 tende a terminar primeiro? Justifique.
+	c) Qual algoritmo tende a realizar mais trocas de contexto?
+	d) Qual dos algoritmos favorece mais os processos com menor tempo de CPU?
+	e) Explique como os tempos de chegada influenciam as decisões do SJF preemptivo.
+	f) O Round Robin garante que todos os processos recebam tempo de CPU? Explique a função do quantum nessa garantia.
+Resposta:
+a) P1 nos dois algoritmos, pois é o único processo presente no instante 0.
+b) No SJF preemptivo. Como P4 tem o menor tempo de CPU, ele executa logo depois de P3, que tinha apenas 1 unidade restante, e termina no instante 7. No Round Robin, P4 entra no fim da fila e precisa aguardar a vez de P3 e P1, terminando no instante 10.
+c) O Round Robin, porque interrompe o processo a cada quantum de 2 unidades, mesmo sem necessidade (cerca de 9 trocas, contra 5 no SJF preemptivo, que só troca quando chega um processo mais curto ou quando um processo termina).
+d) O SJF preemptivo, que sempre escolhe o processo com menor tempo restante. O Round Robin trata todos igualmente, sem considerar o tempo de CPU.
+e) A cada chegada, o escalonador compara o tempo de CPU do novo processo com o tempo restante do que está executando e preempta se o novo for menor. Assim, P2 (5) preempta P1 no instante 1, quando P1 ainda tem 8; P3 (3) preempta P2 no instante 2, quando P2 tem 4; e P4 (2) não preempta P3 no instante 4, pois P3 tem apenas 1 restante.
+f) Sim. O quantum limita o tempo máximo que cada processo ocupa a CPU antes de voltar ao fim da fila, de modo que, com n processos, cada um espera no máximo (n − 1) × quantum para executar novamente. Isso impede que um processo monopolize a CPU e evita starvation.
+
+
+Questão 22)Analise a solução conceitual abaixo.
+
+Semáforos inicialmente definidos como:
+	mutex = 1
+	vazias = N
+	ocupadas = 0
+
+Produtor:
+	while (verdadeiro) {
+	produzir_item();
+
+	wait(vazias);
+	wait(mutex);
+
+	inserir_item_no_buffer();
+
+	signal(mutex);
+	signal(ocupadas);
+	}
+
+Consumidor:
+	while (verdadeiro) {
+	wait(ocupadas);
+	wait(mutex);
+
+	remover_item_do_buffer();
+
+	signal(mutex);
+	signal(vazias);
+
+	consumir_item();
+	}
+
+Responda:
+	a) Qual é a finalidade do semáforo mutex?
+	b) Por que o semáforo vazias é inicializado com N?
+	c) Por que o semáforo ocupadas é inicializado com 0?
+	d) O que ocorre com o produtor quando o buffer está cheio?
+	e) O que ocorre com o consumidor quando o buffer está vazio?
+	f) Por que wait(vazias) deve ocorrer antes de wait(mutex) no produtor?
+	g) Que problema poderia ocorrer se o produtor bloqueasse mutex e depois ficasse esperando por uma posição vazia?
+	h) Explique por que essa solução trata tanto a exclusão mútua quanto a sincronização entre produtor e consumidor.
+
+Resposta:
+a) Garantir exclusão mútua no acesso ao buffer: apenas um processo por vez insere ou remove itens, evitando condição de corrida.
+b) Porque ele conta as posições livres, e no início o buffer está vazio, com todas as N posições disponíveis. Assim, o produtor pode inserir até N itens sem bloquear.
+c) Porque ele conta os itens disponíveis, e no início não há nenhum. Assim, o consumidor bloqueia até que o produtor insira o primeiro item.
+d) O valor de vazias é 0, então o produtor bloqueia em wait(vazias) até que o consumidor remova um item e execute signal(vazias).
+e) O valor de ocupadas é 0, então o consumidor bloqueia em wait(ocupadas) até que o produtor insira um item e execute signal(ocupadas).
+f) Para que o produtor só entre na região crítica quando houver posição livre garantida. Se precisar esperar, ele bloqueia fora da região crítica, sem reter o mutex, e o consumidor continua podendo acessar o buffer.
+g) Deadlock. Com o buffer cheio, o produtor ficaria bloqueado em wait(vazias) segurando o mutex; o consumidor, que liberaria uma posição, ficaria bloqueado em wait(mutex). Cada um esperaria pelo outro para sempre.
+h) Porque usa mecanismos distintos para cada problema. O mutex trata a exclusão mútua, protegendo a manipulação do buffer. Os semáforos vazias e ocupadas tratam a sincronização, bloqueando o produtor com buffer cheio e o consumidor com buffer vazio, e cada processo acorda o outro ao sinalizar o semáforo de que o outro depende.
+
+
+Questão 23) Considere três possíveis soluções para o problema do jantar dos filósofos:
+Solução A:
+Todos os filósofos pegam primeiro o garfo da esquerda e depois o da direita.
+Solução B:
+No máximo quatro dos cinco filósofos podem tentar pegar os garfos ao mesmo tempo.
+Solução C:
+Os filósofos de número par pegam primeiro o garfo da direita, enquanto os filósofos de número ímpar pegam primeiro o garfo da esquerda.
+Responda:
+	a) Por que a Solução A pode produzir deadlock?
+	b) Qual condição necessária para o deadlock é quebrada pela Solução B?
+	c) Como a Solução C reduz a possibilidade de espera circular?
+	d) As soluções B e C garantem que nenhum filósofo sofrerá starvation? Justifique.
+	e) Qual solução você considera mais simples de implementar usando semáforos?
+	f) Qual solução oferece maior possibilidade de concorrência?
+	g) Explique por que impedir deadlock não significa necessariamente garantir justiça entre os filósofos.
+	h) Proponha uma regra adicional para reduzir o risco de starvation, sem escrever código.
+
+Resposta:
+a) Se todos pegarem o garfo da esquerda ao mesmo tempo, cada um fica com um garfo e espera o da direita, que está com o vizinho. Ninguém solta o que tem, formando um ciclo de espera sem fim.
+b) A espera circular. Com no máximo quatro filósofos disputando cinco garfos, pelo menos um deles consegue os dois garfos, come e os libera, de modo que o ciclo nunca se fecha.
+c) Ela torna a ordem de aquisição assimétrica: vizinhos de paridades diferentes disputam primeiro o mesmo garfo, e quem perde essa disputa fica esperando sem segurar nenhum garfo. Assim, não é possível que todos retenham um garfo ao mesmo tempo, e o ciclo de espera não se forma.
+d) Não. Elas impedem o deadlock, mas não controlam a ordem em que os filósofos são atendidos. Um filósofo pode ser repetidamente ultrapassado pelos vizinhos, que se alternam comendo, a menos que os semáforos usem fila justa (FIFO) ou haja outra regra de justiça.
+e) A Solução B: basta acrescentar um semáforo contador inicializado com 4, com wait() antes de pegar os garfos e signal() depois de devolvê-los, mantendo o mesmo código para todos os filósofos.
+f) A Solução C, pois os cinco filósofos podem tentar pegar os garfos ao mesmo tempo, sem a limitação de quatro imposta pela Solução B.
+g) Porque a ausência de deadlock garante apenas que o sistema como um todo continua avançando, isto é, que algum filósofo sempre consegue comer. Não garante que cada filósofo, individualmente, conseguirá comer em tempo limitado.
+h) Um filósofo que acabou de comer não pode pegar os garfos novamente enquanto um vizinho faminto estiver esperando há mais tempo, ou seja, atender os filósofos famintos por ordem de espera (fila ou envelhecimento).
+
+
+Questão 24) Um sistema possui os recursos R1 e R2, cada um com uma única instância.
+P1 mantém R1 e solicita R2.
+P2 mantém R2 e solicita R1.
+	a) Demonstre as quatro condições necessárias para o deadlock.
+	b) Proponha uma estratégia de prevenção baseada em ordenação de recursos.
+	c) Proponha uma estratégia baseada em preempção.
+	d) Discuta uma desvantagem prática de cada estratégia.
+Resposta:
+a) Exclusão mútua: R1 e R2 têm uma única instância, e cada um só pode ser usado por um processo por vez. Posse e espera: P1 mantém R1 enquanto solicita R2, e P2 mantém R2 enquanto solicita R1. Não preempção: nenhum recurso é retirado à força, e cada processo só o libera voluntariamente. Espera circular: P1 espera R2, retido por P2, que espera R1, retido por P1, formando um ciclo. Como as quatro condições ocorrem ao mesmo tempo, há deadlock.
+b) Numerar os recursos (R1 = 1, R2 = 2) e exigir que todo processo os solicite em ordem crescente. Assim, P2 teria de pedir R1 antes de R2; se P1 já tem R1, P2 espera sem reter nada, P1 obtém R2, termina e libera ambos. A espera circular torna-se impossível.
+c) Se um processo que retém recursos solicita outro que não está disponível, ele é obrigado a liberar tudo o que tem e pedir novamente depois. Por exemplo, P2, ao não conseguir R1, libera R2; P1 então obtém R2, conclui e libera os dois recursos, e P2 recomeça.
+d) Ordenação: obriga a solicitar os recursos em uma ordem que pode não ser a natural do programa, levando a adquiri-los antes do necessário e mantê-los ociosos; também é difícil definir e impor uma ordem em sistemas grandes. Preempção: o trabalho feito com o recurso retirado pode ser perdido e precisa ser desfeito ou refeito, nem todo recurso pode ser preemptado com segurança (como uma impressora em uso), e um processo preemptado repetidamente pode sofrer starvation.
+
+
+Questão 25) Considere um sistema que não tenta impedir deadlocks, mas executa periodicamente um algoritmo de detecção.
+Elabore uma política completa que determine:
+	a) com que frequência a detecção deve ser executada;
+	b) como escolher os processos que serão encerrados;
+	c) como tratar recursos já modificados;
+	d) como evitar que o mesmo processo seja sempre escolhido como vítima;
+	e) quando rollback seria preferível ao encerramento.
+Relacione suas escolhas a custo, prioridade, quantidade de recursos utilizados e risco de starvation.
+Resposta:
+a) Frequência: executar a detecção em intervalos fixos (por exemplo, a cada poucos minutos) e também quando a utilização da CPU cair abaixo de um limite, pois isso indica processos parados. Executá-la a cada pedido de recurso negado detectaria o deadlock imediatamente, mas o custo do algoritmo seria alto demais; executá-la raramente é barato, mas deixa processos e recursos presos por mais tempo. O intervalo deve ser menor quanto mais frequentes forem os deadlocks no sistema.
+b) Escolha da vítima: encerrar um processo por vez, reexecutando a detecção após cada encerramento, até quebrar o ciclo. A vítima é a de menor custo, calculado a partir de: menor prioridade, menor tempo de CPU já consumido (menos trabalho perdido), maior tempo restante estimado, maior quantidade de recursos retidos (libera mais e resolve o ciclo mais rápido) e tipo do processo, preferindo encerrar processos em lote a interativos.
+c) Recursos já modificados: antes de liberar os recursos da vítima, restaurá-los a um estado consistente, desfazendo as alterações incompletas com base em registros (logs) ou pontos de verificação. Sem isso, arquivos ou dados parcialmente atualizados ficariam corrompidos para os demais processos.
+d) Prevenção de starvation: incluir no cálculo de custo o número de vezes que o processo já foi escolhido como vítima, aumentando seu custo a cada escolha, e fixar um limite máximo de escolhas, após o qual ele não pode mais ser vítima. É uma forma de envelhecimento aplicada à seleção.
+e) Rollback: é preferível quando o processo já consumiu muito tempo de CPU ou tem prioridade alta, de modo que reiniciá-lo do zero sairia caro, e quando existem pontos de verificação que permitem recuar apenas até o ponto anterior à aquisição do recurso disputado. O encerramento é preferível para processos curtos, baratos de reexecutar ou sem pontos de verificação, já que o rollback exige manter esses registros durante toda a execução, o que tem custo permanente.
