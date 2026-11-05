@@ -1,0 +1,321 @@
+\documentclass[aspectratio=169]{beamer}
+
+% ---------- Codificação e idioma ----------
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+% ---------- Tema ----------
+\usetheme{Madrid}
+\usecolortheme{default}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{footline}[frame number]
+
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{tikz}
+\usepackage[table]{xcolor}
+
+\definecolor{ufalblue}{RGB}{0,51,102}
+\setbeamercolor{structure}{fg=ufalblue}
+\setbeamercolor{title}{fg=white,bg=ufalblue}
+\setbeamercolor{frametitle}{fg=white,bg=ufalblue}
+
+% ---------- Dados da capa ----------
+\title[Classificação de Tumores Cerebrais em RM]{Classificação de Tumores Cerebrais em Imagens de\\ Ressonância Magnética Utilizando Transferência de Aprendizado}
+\subtitle{Uma análise comparativa de desempenho, eficiência computacional e explicabilidade}
+\author{Pedro Brassi Luccas}
+\institute[UNIFAL]{Universidade Federal de Alfenas -- UNIFAL \\ Ciência da Computação \\[4pt] \small Orientador: Professor Doutor Luiz Eduardo da Silva}
+\date{2026}
+
+\begin{document}
+
+% ===================== CAPA =====================
+\begin{frame}
+  \titlepage
+\end{frame}
+
+% ===================== SUMÁRIO =====================
+\begin{frame}{Sumário}
+  \tableofcontents
+\end{frame}
+
+% ===================== RESUMO =====================
+\section{Resumo}
+\begin{frame}{Resumo da proposta}
+  \begin{itemize}
+    \item Classificação de tumores cerebrais em RM: \textbf{glioma, meningioma, tumor hipofisário, ausência de tumor}
+    \item Transferência de aprendizado com \textbf{ResNet50, EfficientNet-B0 e MobileNetV3}
+    \item \textbf{Auditoria e deduplicação} da base antes do treinamento (SHA-256 + pHash/dHash)
+    \item Avaliação por acurácia, Macro F1-Score, AUC-ROC \textit{one-vs-rest} e matriz de confusão, além de parâmetros, tamanho e tempo de inferência
+    \item Explicabilidade exploratória via \textbf{Grad-CAM}
+    \item[\(\to\)] Objetivo: efeito da deduplicação sobre o desempenho e melhor equilíbrio entre arquiteturas
+  \end{itemize}
+  \vfill
+  {\footnotesize Finalidade acadêmica -- não pretende validar ferramenta de diagnóstico clínico.}
+\end{frame}
+
+% ===================== PROBLEMÁTICA =====================
+\section{Problemática}
+
+\begin{frame}{Contexto e delimitação do tema}
+  \begin{itemize}
+    \item RM detalha tecidos cerebrais, mas a análise exige conhecimento especializado e grande volume de imagens
+    \item CNNs aprendem características visuais automaticamente, porém exigem grandes bases de treino
+    \item Transferência de aprendizado reduz essa demanda, adaptando modelos pré-treinados (ImageNet)
+  \end{itemize}
+  \vspace{4pt}
+  \begin{block}{Delimitação}
+    Classificação multiclasse 2D em 4 categorias, comparando ResNet50, EfficientNet-B0 e MobileNetV3, avaliando desempenho, custo computacional, efeito da deduplicação e interpretabilidade (Grad-CAM).
+  \end{block}
+\end{frame}
+
+\begin{frame}{O problema: vazamento de dados}
+  \begin{alertblock}{Risco metodológico}
+    Duplicatas, versões modificadas da mesma imagem ou cortes do mesmo paciente distribuídos entre treino e teste podem causar \textbf{vazamento de dados} -- a acurácia isolada não descreve adequadamente um classificador médico multiclasse.
+  \end{alertblock}
+  \begin{block}{Problema de pesquisa}
+    Como a deduplicação da base e a escolha da arquitetura de transferência de aprendizado influenciam o desempenho, a eficiência computacional e a interpretabilidade de modelos para classificação de tumores cerebrais em RM?
+  \end{block}
+\end{frame}
+
+\begin{frame}{Questão principal e questões secundárias}
+  \textbf{Questão principal:} qual arquitetura (ResNet50, EfficientNet-B0, MobileNetV3) apresenta o melhor equilíbrio entre desempenho, eficiência computacional e interpretabilidade?
+  \vspace{6pt}
+  \textbf{Questões secundárias:}
+  \begin{itemize}
+    \item A remoção de duplicatas/similares modifica significativamente o desempenho?
+    \item Qual arquitetura apresenta o melhor Macro F1-Score?
+    \item Quais classes apresentam maior frequência de confusão?
+    \item Modelos compactos mantêm desempenho competitivo frente a modelos maiores?
+    \item As regiões do Grad-CAM são visualmente coerentes com as áreas relevantes?
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Hipóteses}
+  \textbf{Hipótese principal:} a transferência de aprendizado permite desempenho satisfatório mesmo com base de tamanho limitado.
+  \begin{itemize}
+    \item[\textbf{H1}] Remoção de duplicatas/similares reduz métricas artificialmente elevadas
+    \item[\textbf{H2}] Trade-off desempenho \(\times\) custo: EfficientNet-B0 com melhor equilíbrio geral; ResNet50 competitiva, maior custo; MobileNetV3 compacta e próxima às demais
+    \item[\textbf{H3}] Aumento de dados (apenas no treino) reduz o sobreajuste
+    \item[\textbf{H4}] Grad-CAM revela decisões baseadas em regiões irrelevantes ou artefatos
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Lacuna de pesquisa}
+  \begin{itemize}
+    \item Base \textit{Brain Tumor MRI Dataset} já relatou 98,73\%--99,96\% de acurácia em estudos recentes (DISCI; GURCAN; SOYLU, 2025; RASA et al., 2024)
+    \item \textbf{Yagis et al. (2021)}: divisão em nível de fatia 2D pode inflar artificialmente a acurácia entre \textbf{29 e 55 pontos percentuais}, a depender da base neurológica (OASIS, ADNI, PPMI, base local de Parkinson)
+    \item \textbf{Fateh et al. (2026)}: ao reconstruir a mesma base, apontam remoção de duplicatas/quase-duplicatas como etapa necessária contra vazamento
+  \end{itemize}
+  \begin{alertblock}{Lacuna}
+    Não há, até o momento, trabalhos que apliquem essa auditoria diretamente sobre a base original combinada às três arquiteturas propostas.
+  \end{alertblock}
+\end{frame}
+
+% ===================== JUSTIFICATIVA =====================
+\section{Justificativa}
+\begin{frame}{Justificativa}
+  \begin{columns}[T]
+    \begin{column}{0.33\textwidth}
+      \textbf{Teórica}
+      \small Metodologia precisa considerar qualidade dos dados e risco de vazamento, não só acurácia final. Auditoria de duplicatas é o principal diferencial metodológico.
+    \end{column}
+    \begin{column}{0.33\textwidth}
+      \textbf{Social}
+      \small Diagnóstico precoce melhora sobrevida. Contribui ao apoio computacional ao diagnóstico por imagem, com potencial benefício indireto futuro.
+    \end{column}
+    \begin{column}{0.33\textwidth}
+      \textbf{Tecnológica}
+      \small Bases públicas viabilizam estudo sem coleta clínica direta; produz pipeline reprodutível (auditoria, treino, explicabilidade).
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ===================== OBJETIVOS =====================
+\section{Objetivos}
+\begin{frame}{Objetivo geral}
+  \begin{block}{}
+    Desenvolver e avaliar modelos de classificação de tumores cerebrais em RM utilizando transferência de aprendizado, comparando desempenho preditivo, eficiência computacional, influência da deduplicação e explicabilidade.
+  \end{block}
+\end{frame}
+
+\begin{frame}{Objetivos específicos}
+  \begin{itemize}
+    \item Selecionar e documentar uma base pública de ressonâncias magnéticas
+    \item Analisar distribuição, origem, licença, formatos e qualidade das imagens
+    \item Detectar duplicatas exatas (hash criptográfico) e similares (hash perceptual)
+    \item Definir divisões de treino/validação/teste sem vazamento conhecido
+    \item Implementar uma CNN simples como \textit{baseline}
+    \item Aplicar ResNet50, EfficientNet-B0 e MobileNetV3 com transferência de aprendizado
+    \item Comparar métricas preditivas e computacionais, com e sem deduplicação
+    \item Analisar erros e matrizes de confusão por classe
+    \item Aplicar Grad-CAM e discutir limitações, vieses e generalização
+  \end{itemize}
+\end{frame}
+
+% ===================== METODOLOGIA =====================
+\section{Metodologia}
+\begin{frame}{Natureza da pesquisa e base de dados}
+  \textbf{Natureza:} pesquisa aplicada, quantitativa, experimental e exploratória.
+  \vspace{6pt}
+  \textbf{Base de dados:} \textit{Brain Tumor MRI Dataset} (Nickparvar, 2021, Kaggle) -- 4 classes (glioma, meningioma, tumor hipofisário, ausência de tumor).
+  \begin{itemize}
+    \item Registro de quantidade por classe, formato, resolução, licença e fontes primárias
+    \item Kaggle tratado como plataforma de redistribuição (citação da origem original)
+    \item Inclusão: arquivos legíveis, rótulos válidos, licença compatível
+    \item Exclusão/análise à parte: corrompidos, rótulos ausentes/ambíguos, duplicatas confirmadas, origem inadequada
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Auditoria, deduplicação e divisão dos dados}
+  \begin{itemize}
+    \item Auditoria \textbf{antes} da divisão dos dados
+    \item \textbf{SHA-256}: identifica arquivos exatamente iguais
+    \item \textbf{pHash/dHash} (distância de Hamming): sinaliza similaridade visual
+    \item Pares registrados, agrupados e inspecionados por amostragem -- sem exclusão automática (podem ser cortes distintos de um mesmo exame)
+  \end{itemize}
+  \begin{alertblock}{Divisão dos dados}
+    Base não disponibiliza identificadores de paciente \(\Rightarrow\) divisão \textbf{estratificada por classe}: 70\% treino / 15\% validação / 15\% teste. Duplicatas de um mesmo grupo ficam em uma única partição; teste isolado até a definição final.
+  \end{alertblock}
+\end{frame}
+
+\begin{frame}{Pré-processamento, modelos e treinamento}
+  \begin{itemize}
+    \item Conversão de canais, redimensionamento com preservação de proporção, normalização específica do modelo
+    \item Aumento de dados (treino apenas): rotações, translações, zoom, ajustes leves de brilho/contraste
+    \item CNN simples como \textit{baseline}
+    \item Redes pré-treinadas: extratores congelados \(\to\) nova cabeça de classificação \(\to\) \textbf{fine-tuning parcial} com taxa de aprendizado menor
+    \item Condições equivalentes entre experimentos: divisão, transformações, épocas, \textit{early stopping}, seleção de checkpoint
+  \end{itemize}
+  \begin{block}{Desequilíbrio de classes}
+    Se a auditoria revelar desequilíbrio relevante: \textit{class weighting} ou reamostragem.
+  \end{block}
+\end{frame}
+
+\begin{frame}{Plano experimental}
+  \begin{table}
+    \centering
+    \small
+    \begin{tabular}{@{}cll@{}}
+      \toprule
+      \textbf{Exp.} & \textbf{Modelo} & \textbf{Base} \\
+      \midrule
+      E1 & CNN \textit{baseline} & sem deduplicação \\
+      E2 & EfficientNet-B0 pré-treinada\textsuperscript{*} & sem deduplicação \\
+      E3 & CNN \textit{baseline} & deduplicada \\
+      E4 & ResNet50 & deduplicada \\
+      E5 & EfficientNet-B0 & deduplicada \\
+      E6 & MobileNetV3 & deduplicada \\
+      E7 & Grad-CAM + análise de erros & melhor modelo \\
+      \bottomrule
+    \end{tabular}
+  \end{table}
+  {\footnotesize \textsuperscript{*}Representa as arquiteturas em E2 por H2 indicar seu melhor equilíbrio geral.}
+  \vspace{6pt}
+  \begin{itemize}
+    \item \textbf{H1 (dedup.)}: medida de forma completa em E1 vs.\ E3; representativa em E2 vs.\ E5
+    \item Extensão a ResNet50/MobileNetV3: conforme cronograma
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Métricas e determinação do "melhor equilíbrio"}
+  \textbf{Métricas preditivas:} acurácia, precisão, sensibilidade, especificidade, F1 por classe, Macro F1, Macro AUC, AUC-ROC \textit{one-vs-rest}, matriz de confusão
+  \vspace{4pt}
+  \textbf{Métricas computacionais:} parâmetros totais/treináveis, tamanho (MB), tempo de inferência
+  \vspace{10pt}
+  \begin{alertblock}{Melhor equilíbrio}
+    Determinado de forma \textbf{qualitativa e discursiva}, comparando métricas e resultados do Grad-CAM -- sem fórmula de ponderação formal única.
+  \end{alertblock}
+\end{frame}
+
+\begin{frame}{Explicabilidade e tecnologias}
+  \textbf{Explicabilidade:} Grad-CAM (Selvaraju et al., 2017) em amostra de acertos de alta confiança e erros mais frequentes da matriz de confusão.
+  \vspace{10pt}
+  \begin{table}
+    \centering
+    \small
+    \begin{tabular}{@{}ll@{}}
+      \toprule
+      \textbf{Categoria} & \textbf{Ferramentas possíveis} \\
+      \midrule
+      Linguagem e IA & Python; PyTorch ou TensorFlow/Keras; scikit-learn \\
+      Imagem e dados & OpenCV; Pillow; ImageHash; NumPy; Pandas \\
+      Visualização & Matplotlib; Seaborn \\
+      Ambiente & Jupyter; Google Colab; Kaggle \\
+      Versionamento & Git e GitHub \\
+      \bottomrule
+    \end{tabular}
+  \end{table}
+  {\footnotesize Extensões (se o cronograma permitir): testes estatísticos formais, FLOPs/MACs, validação externa.}
+\end{frame}
+
+% ===================== CRONOGRAMA =====================
+\section{Cronograma}
+\begin{frame}{Cronograma da pesquisa}
+  {\footnotesize Indicativo para dez meses -- ajustado em conjunto com o orientador.}
+  \vspace{6pt}
+  \begin{table}
+    \centering
+    \tiny
+    \begin{tabular}{@{}l*{10}{c}@{}}
+      \toprule
+      \textbf{Atividade} & 1&2&3&4&5&6&7&8&9&10 \\
+      \midrule
+      Tema e problema          & \cellcolor{green!30}C &&&&&&&&& \\
+      Revisão bibliográfica    & &\cellcolor{yellow!40}P&\cellcolor{yellow!40}P&&&&&&& \\
+      Base e documentação      & &\cellcolor{green!30}C&&&&&&&& \\
+      Auditoria/deduplicação   & &&&&&&&&& \\
+      Pré-processamento        & &&&&&&&&& \\
+      Baseline                 & &&&&&&&&& \\
+      Treinamento (E1--E6)     & &&&&&&&&& \\
+      Ajustes                  & &&&&&&&&& \\
+      Avaliação                & &&&&&&&&& \\
+      Grad-CAM (E7)            & &&&&&&&&& \\
+      Extensões (se houver tempo) & &&&&&&&&& \\
+      Redação                  & &\cellcolor{yellow!40}P&\cellcolor{yellow!40}P&&&&&&& \\
+      Revisão/apresentação     & &&&&&&&&& \\
+      \bottomrule
+    \end{tabular}
+  \end{table}
+  {\footnotesize C: concluído. P: parcialmente realizado.}
+\end{frame}
+
+% ===================== BIBLIOGRAFIA =====================
+\section{Bibliografia}
+\begin{frame}[allowframebreaks]{Bibliografia principal}
+  \footnotesize
+  \begin{itemize}
+    \item DISCI, R.; GURCAN, F.; SOYLU, A. Advanced brain tumor classification in MR images using transfer learning and pre-trained deep CNN models. \textit{Cancers}, v.~17, n.~1, p.~121, 2025.
+    \item FATEH, A. et al. BRISC: annotated dataset for brain tumor segmentation and classification. \textit{Scientific Data}, 2026.
+    \item HE, K.; ZHANG, X.; REN, S.; SUN, J. Deep residual learning for image recognition. In: \textit{CVPR}, 2016, Las Vegas. p.~770--778.
+    \item HOWARD, A. et al. Searching for MobileNetV3. In: \textit{ICCV}, 2019, Seoul. p.~1314--1324.
+    \item NICKPARVAR, M. Brain Tumor MRI Dataset. \textit{Kaggle}, 2021.
+    \item SELVARAJU, R. R. et al. Grad-CAM: visual explanations from deep networks via gradient-based localization. In: \textit{ICCV}, 2017, Venice. p.~618--626.
+    \item TAN, M.; LE, Q. V. EfficientNet: rethinking model scaling for convolutional neural networks. In: \textit{ICML}, 36., 2019, Long Beach. p.~6105--6114.
+    \item YAGIS, E. et al. Effect of data leakage in brain MRI classification using 2D convolutional neural networks. \textit{Scientific Reports}, v.~11, n.~22544, 2021.
+  \end{itemize}
+  \vspace{6pt}
+  \textbf{Bibliografia complementar}
+  \begin{itemize}
+    \item RASA, S. M. et al. Brain tumor classification using fine-tuned transfer learning models on MRI images. \textit{Digital Health}, v.~10, 2024.
+  \end{itemize}
+\end{frame}
+
+% ===================== ENCERRAMENTO =====================
+\begin{frame}
+  \centering
+  \vfill
+  \begin{block}{Tese}
+    \centering
+    \large A transferência de aprendizado permite classificar tumores cerebrais em RM com desempenho satisfatório mesmo em uma base de tamanho limitado -- mas apenas uma auditoria rigorosa de duplicatas revela se esse desempenho é real ou artificialmente inflado por vazamento de dados entre treino e teste.
+  \end{block}
+  \vspace{24pt}
+
+  {\Huge Obrigado!}
+  \vspace{20pt}
+
+  {\large Perguntas?}
+  \vfill
+\end{frame}
+
+\end{document}
