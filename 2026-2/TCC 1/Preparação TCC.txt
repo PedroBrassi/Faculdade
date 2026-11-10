@@ -1,0 +1,154 @@
+Simulado 1 — Fundamentos: (4,8/10)
+1) Qual é o problema central que seu TCC pretende investigar? (6,0/10)
+- Minha resposta: 
+	O desenvolvimento desse projeto, se dá pela necessidade de se verificar se as acurácias apontadas pelos usados como referencia, realmente condiz com a realidade no que diz respeito à verificação e audição da base de dados utilizadas. Além disso, na literatura já consta artigos dizendo que por se tratar de imagens de ressnancia magnética, que não possui uma qualidade/brilho variados, além de ser para verificação de tumores cerebrais, os quais se aparentam iguais. O treinamento de uma rede neural pode ser alterada, não necessariamente para melhor ou para pior. Logo, a metodologia que será aplicada ao desenvolver do projeto se diz necessária.
+
+- Resposta esperada:
+	Meu projeto busca investigar como a qualidade da base de dados, especialmente a presença de imagens duplicadas ou muito semelhantes, pode influenciar o desempenho de redes neurais na classificação de tumores cerebrais. Além disso, pretendo comparar três arquiteturas pré-treinadas — ResNet50, EfficientNet-B0 e MobileNetV3 — para identificar suas diferenças em desempenho preditivo, eficiência computacional e explicabilidade. A principal motivação é verificar se resultados muito elevados encontrados na literatura podem estar associados a vazamentos de dados e compreender qual arquitetura oferece o melhor equilíbrio entre desempenho e custo computacional.
+
+OBS: O conceito que precisa dominar: uma métrica elevada não significa necessariamente que o modelo aprendeu características capazes de generalizar para dados independentes.
+
+
+2) Por que você escolheu trabalhar com transferência de aprendizado em vez de treinar uma rede neural completamente do zero? (4,5/10)
+- Minha resposta:
+	Pois no Kaglle, local onde eu peguei meu banco de dados, já apresentavam diversos projetos de treino de redes neurais. Logo, treinar ou criar seria apenas mais um. Então o uso da transferência de aprendizado, além de usar ferramentas já disposta gratuitamente na internet, possibilita ver de que maneira as possíveis fugas entre treino e teste, além de imagens ditas como iguais, influenciam na acurácia citadas.
+
+- Resposta esperada:
+	Escolhi a transferência de aprendizado porque ela permite aproveitar características visuais aprendidas anteriormente por redes treinadas em grandes conjuntos de imagens, como o ImageNet.Como minha base de ressonâncias possui tamanho limitado, essa abordagem pode reduzir a necessidade de treinar todos os parâmetros desde o início e facilitar a adaptação dos modelos à tarefa específica. Além disso, utilizar arquiteturas consolidadas permite realizar uma comparação experimental entre modelos com diferentes características de desempenho e custo computacional. Para isso, também utilizarei uma CNN simples como baseline.
+
+
+3) Se um modelo apresentar 99% de acurácia, isso significa que ele é confiável para diagnosticar tumores cerebrais? Justifique. (4,0/10)
+- Minha resposta:
+	Como já dito no texto do projeto, esse trabalho visa apenas realizar uma análise do que já está presente na literatura, além de mensurar a computabilidade, explicabilidade e desempenho de cada umas das ferramentas que serão utilizadas no desenvolver do projeto. Porém, nada impede que os resultados dessa pesquisa/revisão, seja utilizada para desenvolver projetos, acompanhado de professionais experiente em realizar tumores cerebrais, que no futuro possa sim ser confiável para realizar esses diagnósticos.
+
+- Resposta esperada:
+	Não. Uma acurácia de 99% não garante que o modelo seja confiável para diagnóstico clínico. Primeiramente, é necessário verificar se existe vazamento de dados entre treinamento e teste, pois isso pode gerar resultados artificialmente elevados. Além disso, a acurácia geral não mostra o desempenho individual de cada classe. Por isso, meu projeto também utilizará métricas como Macro F1-Score, sensibilidade, especificidade e matriz de confusão. Por fim, mesmo que o modelo apresente bom desempenho em uma base pública, seria necessária validação externa e clínica antes de considerar sua aplicação em pacientes reais. Meu projeto possui finalidade acadêmica, não diagnóstica.
+
+
+4) Imagine que sua base possui 7.000 imagens de ressonância magnética. Durante a auditoria, você encontra 500 imagens duplicadas. Você remove essas duplicatas e realiza o treinamento. Depois, a acurácia do modelo cai de 99% para 94%. O que essa redução pode indicar? E como você explicaria para a banca que essa queda não significa necessariamente que o trabalho fracassou? (8,0/10)
+- Minha reposta:
+	Essa redução pode ser explicada pela fuga de imagens ocorrida entre o banco de dados de treino e teste. Logo, essas imagens haviam inflado a acurácia por conta de caractericias muito semelhante. Portanto, essa redução pode indicar que a classificação passou de apenas reproduzir o que já estava previamente classificado e passou a classificar, de fato, o que esta representado na imagem.
+
+- Resposta esperada:
+	Essa redução pode indicar que a acurácia anterior estava artificialmente elevada devido à presença de imagens duplicadas ou muito semelhantes entre treinamento e teste. Nesse caso, o modelo poderia estar se beneficiando de informações já presentes no treinamento, em vez de demonstrar sua capacidade de generalização para imagens independentes. Portanto, uma acurácia menor não significa necessariamente que o modelo piorou ou que a pesquisa fracassou. Ela pode representar uma avaliação mais realista. Entretanto, é necessário analisar as condições experimentais para verificar se essa redução realmente está associada ao vazamento de dados.
+
+
+
+Simulado 2 — Aplicando os conceitos (3/3)
+1. Durante o treinamento, seu modelo alcança 99% de acurácia, mas na validação obtém apenas 72%. Qual problema pode estar ocorrendo?) 
+A)Data leakage, obrigatoriamente.
+B) Overfitting, como uma possível explicação.
+C) Transfer learning.
+D) A deduplicação necessariamente falhou.
+Resposta: B - Uma diferença grande entre treinamento e validação é compatível com sobreajuste, embora também seja necessário investigar outras causas.
+
+2. Você encontra duas imagens com mesmo conteúdo visual, mas tamanhos de arquivo diferentes. Qual abordagem é mais adequada para identificar essa similaridade?
+A) Somente SHA-256.
+B) pHash ou dHash, seguido de análise dos candidatos.
+C) Comparar apenas o nome dos arquivos.
+D) Excluir automaticamente todas as imagens da mesma classe.
+Resposta: B - Hashes perceptuais podem detectar semelhança visual mesmo quando os arquivos não são binariamente idênticos.
+
+3. Por que o conjunto de teste deve permanecer isolado até a avaliação final?
+A) Para impedir que seus resultados influenciem ajustes e a escolha do modelo.
+B) Porque as imagens de teste não precisam de pré-processamento.
+C) Para garantir acurácia de 100%.
+D) Porque o teste deve conter somente imagens sem tumor.
+Resposta: A - Usar repetidamente o teste para decidir hiperparâmetros ou modelos contamina a avaliação final.
+
+
+
+Simulado 3 — Arquiteturas e aprendizado (6,0/10)
+1) O que é uma Rede Neural Convolucional e por que ela é adequada para classificar imagens de ressonância magnética? (6,0/10)
+- Minha resposta:
+	Rede Neural Convolucional é uma arquitetura de aprendizado que possui o melhor desempenho ao trabalhar com imagens. Isso se dá pela habilidade dela reconhecer padrões espaciais. Logo, como o projeto será realizado em um banco de dados que contém imagens de ressonância magnética, através dos resultados de suas convolações matemáticas, que ao ocorrer passagens de filtros kernels, que já estão ou serão desenvolvidos ao decorrer do seu uso, consegue gerar um pixel central que dita suas características mais marcantes.
+
+- Resposta esperada:
+	Uma Rede Neural Convolucional é uma arquitetura de aprendizado profundo adequada ao processamento de imagens porque utiliza operações de convolução para aprender padrões espaciais. Essas operações aplicam filtros sobre regiões da imagem, permitindo identificar características como bordas, texturas e padrões progressivamente mais complexos. No meu projeto, essa capacidade será utilizada para extrair características das imagens de ressonância magnética e classificá-las em quatro categorias: glioma, meningioma, tumor hipofisário e ausência de tumor.
+
+
+2) Qual é a diferença entre feature extraction e fine-tuning? Como essas etapas serão utilizadas no seu TCC? (4,0/10)
+- Minha resposta:
+	O feature extraction será utilizado nas ferramentas de transferência de aprendizado que serão utilizadas nesse projeto (ResNet, EfficientNet, MobileNet), a fim de congelar as características que ela já adquiriu no seu pré-treinamento no ImageNet. Com isso vai possibilitar que novas características, como a classificação dos tumores nas quatro classes mencionadas. possa ser aprendida, sem levar resíduos de treinamentos anteriores.
+	O fine-tuning será utilizado para reconhecer se alguma das características do treinamento anterior é válido para esse novo.
+
+- Resposta esperada:
+	No feature extraction, utilizo uma rede previamente treinada no ImageNet e congelo os pesos de seu extrator de características. Em seguida, treino uma nova camada de classificação adaptada às quatro classes do meu projeto. Já no fine-tuning, descongelo parte das camadas da rede e permito que seus pesos sejam atualizados com uma taxa de aprendizado menor. Isso possibilita adaptar as características previamente aprendidas às particularidades das imagens de ressonância magnética. No meu TCC, utilizarei inicialmente o feature extraction e depois o fine-tuning parcial, conforme previsto na metodologia.
+
+
+3) Por que você escolheu ResNet50, EfficientNet-B0 e MobileNetV3? O que diferencia essas arquiteturas? (8,0/10)
+- Minha resposta:
+	A escolha se dá pela análise proposta por esse projeto. Na literatura, cada uma dessas ferramentas possuem um computabilidade, eficiência e explicalidade diferentes. Por exemplo, quando buscamos uma rede neural que consiga rodar em ambientes com arquitetura compactas, como celulares, podemos utilizar a MobileNet. A EfficientNet, buscar utilizar a arquitetura de forma mais eficiente possível, procurando um equilíbrio entre desempenho e custo. Já a ResNet, é mais utilizada para redes profundas, ela possibilita que a rede percorra caminhos alternativos de aprendizado. Apesar de isso gerar uma inferência mais alta, ela, na literatura, apresenta o melhor desempenho. 
+	Essas informações serão tratadas ao decorrer desse projeto, mas vale lembrar que iremos realizar experimentos comparativos entre cada uma dessas ferramentas, que comprovem ou não, o que a literatura já propõe.
+
+- Resposta esperada:
+	Escolhi essas arquiteturas porque apresentam estratégias diferentes para alcançar bom desempenho em tarefas de classificação de imagens. A ResNet50 utiliza conexões residuais, que facilitam o treinamento de redes profundas. A EfficientNet-B0 foi projetada para obter boa eficiência na relação entre desempenho e recursos computacionais. Já a MobileNetV3 prioriza arquiteturas compactas, adequadas a ambientes com recursos limitados. A comparação permitirá investigar como essas diferenças influenciam o Macro F1-Score, o tamanho dos modelos, o número de parâmetros e o tempo de inferência. Minha hipótese é que haverá um compromisso entre desempenho e custo computacional, mas a superioridade de qualquer arquitetura dependerá dos resultados experimentais.
+
+
+4) Se a MobileNetV3 apresentar Macro F1 de 0,94 e a ResNet50 apresentar 0,96, mas a MobileNetV3 for quatro vezes mais rápida, qual seria o melhor modelo? (6,0/10)
+- Minha resposta:
+	Irá depender do propósito que está sendo construída essa rede, além de saber qual foi a sua profundidade e a sua estruturação. Uma CNN não deve ser medida apenas pelas suas métricas.
+
+- Resposta esperada:
+	A escolha dependeria dos critérios de prioridade do estudo. A ResNet50 apresenta maior Macro F1, com 0,96, enquanto a MobileNetV3 apresenta 0,94. Porém, a MobileNetV3 é quatro vezes mais rápida. Se priorizarmos eficiência computacional, a MobileNetV3 pode representar uma alternativa mais interessante. Entretanto, seria necessário avaliar o comportamento por classe, especialmente os erros associados à classificação de tumores, antes de considerar essa pequena diferença de desempenho aceitável. No meu projeto, essa comparação será realizada considerando conjuntamente desempenho preditivo e custo computacional, sem pressupor que o modelo mais preciso será necessariamente o melhor.
+
+
+
+Simulado 4 — Avaliação experimental (5,5/10)
+1) Um classificador apresenta 95% de acurácia, mas identifica corretamente apenas 50% das imagens de glioma. Esse modelo pode ser considerado satisfatório? Justifique. (6/10)
+- Minha resposta:
+	Não, pois para um modelo ser considerado satisfatório ele deve conseguir identificar corretamente as 4 classes presentes.
+
+- Resposta esperada:
+	Não consideraria esse desempenho satisfatório sem uma investigação adicional. Apesar da acurácia global de 95%, uma sensibilidade de 50% para glioma significa que o modelo deixa de identificar corretamente metade das imagens dessa classe. Isso mostra que a acurácia isolada pode esconder dificuldades importantes de classificação. Por esse motivo, meu projeto também utilizará sensibilidade e F1-Score por classe, Macro F1 e matriz de confusão, permitindo analisar o comportamento individual das quatro categorias.
+
+Aprendizado: acurácia alta não garante desempenho satisfatório em todas as classes.
+
+2) Explique a diferença entre precisão e sensibilidade utilizando um exemplo relacionado à classificação de tumores cerebrais. (8/10)
+- Minha resposta:
+	A precisão leva em consideração a quantidade de imagens que foram classificadas como um tipo de tumor e que realmente pertenciam a esse tipo. Já a sensibilidade verifica a quantidade de imagens que previamente já possuíam uma classificação e que foram classificadas corretamente.
+
+- Resposta esperada:
+	A precisão verifica, entre todas as imagens que o modelo classificou como glioma, quantas realmente pertenciam a essa classe. Já a sensibilidade verifica, entre todas as imagens que realmente eram de glioma, quantas o modelo conseguiu identificar corretamente. Portanto, a precisão avalia a confiabilidade das previsões positivas, enquanto a sensibilidade avalia a capacidade de encontrar os casos positivos existentes.
+	Dica para a banca: precisão começa pelas previsões do modelo; sensibilidade começa pelos casos reais.
+
+
+3) Por que o Macro F1-Score é uma métrica importante para seu projeto, considerando quatro classes? (5/10)
+- Minha resposta:
+	Como o F1 combina precisão e sensibilidade, cada uma das classes irão possuir uma métrica especifica. Logo, fazendo a utilização do Macro, que será a media harmônica (sem peso), poderemos verificar o desempenho/acurácia do conjunto completo.
+
+- Resposta esperada:
+	O Macro F1-Score é importante porque meu projeto possui quatro classes que podem apresentar quantidades diferentes de imagens. Primeiramente, calculamos o F1-Score de cada classe, combinando sua precisão e sensibilidade por meio de uma média harmônica. Em seguida, o Macro F1 calcula a média aritmética dos quatro valores, atribuindo o mesmo peso a cada classe. Dessa forma, consigo avaliar o desempenho de maneira mais equilibrada e identificar situações em que uma acurácia global elevada esconde resultados insatisfatórios em determinadas categorias.
+
+
+4) Na matriz de confusão, o modelo frequentemente classifica gliomas como meningiomas. O que esse resultado representa e como você investigaria esse comportamento? (3/10)
+- Minha resposta:
+	Pode representar diversas situações adversas, como por exemplo: Auditoria realizada de maneira errônea, haver um overlift na classificação de gliomas, não ter realizado o feature extraction e fine-tunning de maneira correta.
+
+- Resposta esperada:
+	Esse resultado indica que o modelo apresenta dificuldade em distinguir imagens de glioma e meningioma, gerando falsos negativos para glioma e falsos positivos para meningioma nessa confusão específica. Para investigar o problema, analisaria as imagens classificadas incorretamente, verificando sua qualidade, rótulos e possíveis semelhanças visuais. Também compararia o comportamento das três arquiteturas para verificar se essa dificuldade ocorre de forma semelhante entre elas. Por fim, utilizaria o Grad-CAM para explorar quais regiões das imagens influenciaram as classificações incorretas, sem assumir que esses mapas comprovam a correção clínica das decisões.
+
+
+Simulado 5 — Recuperação técnica (6,3/10)
+1) Explique, com suas próprias palavras, por que o Macro F1 utiliza uma média aritmética entre os F1 das quatro classes e qual vantagem isso oferece em relação à acurácia global. (7/10)
+- Minha resposta:
+	O uso do Macro F1 com média aritmética, torna-se necessário para que não ocorra uma inflação/deflação do resultado obtido a decorrer de uma única métrica de uma classe. E em relação a acurácia global, ela não iria levar em consideração métricas relevantes como sensibilidade/precisão.
+
+- Resposta esperada:
+	O Macro F1 é importante porque calcula a média aritmética dos F1-Scores individuais, atribuindo o mesmo peso a cada uma das quatro classes. Diferentemente da acurácia global, que considera a proporção total de acertos, o Macro F1 permite avaliar o desempenho de maneira mais equilibrada quando existem diferenças na quantidade de imagens por classe. Dessa forma, o desempenho ruim em uma categoria, como glioma, não fica tão facilmente mascarado pelos bons resultados das demais.
+
+
+2) Imagine que seu modelo classifique 40 imagens reais de glioma como meningioma. O que isso significa na matriz de confusão? Quais duas análises você realizaria para investigar o erro? (7/10)
+- Minha resposta:
+	Significa que o modelo não está sendo totalmente capaz de distinguir imagens de glioma e meningioma, gerando falso positivos para glioma e falso positivos para meningioma. Iria verificar expecificamentes as imagens que foram classificadas de forma incorreta e faria nova auditoria em cima dos metados. Além disso, caso fosse uma situação recorrente e que transitasse entre as ferramentas utilizadas, iria usar o Grad-CAM para explorar as regiões que estavam influenciando nessa classificação falsa.
+
+- Resposta esperada:
+	Isso significa que o modelo classificou incorretamente 40 imagens que realmente eram de glioma como meningioma. Portanto, esses erros representam falsos negativos para glioma e falsos positivos para meningioma. Para investigar o problema, analisaria as imagens incorretamente classificadas, verificando características visuais, possíveis erros de rotulagem e problemas identificáveis na auditoria. Além disso, compararia os resultados das diferentes arquiteturas e utilizaria o Grad-CAM, conforme o escopo previsto, para explorar quais regiões das imagens influenciaram as decisões.
+
+
+3) Explique como você diferenciaria overfitting, vazamento de dados e uma dificuldade real de distinguir duas classes em seus resultados experimentais.
+- Minha resposta:
+	O vazamento de dados seria verificado no momento da auditoria do dataset e possivelmente as imagens iguais e/ou muito semelhantes, já estariam com um "PIN". O overfitting iria causar uma oscilação em determinadas classes. A dificuldade real poderia ser notada ao ver que as experimentações estão enfrentando problemas semelhantes e pontuais.
+
+- Resposta esperada:
+	Para identificar possível overfitting, compararia as curvas de treinamento e validação. Caso o desempenho no treinamento continue melhorando enquanto a validação piora, isso pode indicar sobreajuste. Para investigar vazamento de dados, utilizaria a auditoria com SHA-256 e hashes perceptuais, verificando se existem imagens duplicadas ou altamente semelhantes distribuídas entre as partições. Já para investigar uma dificuldade de classificação entre glioma e meningioma, analisaria a matriz de confusão e verificaria se diferentes arquiteturas apresentam erros semelhantes. Entretanto, nenhuma dessas observações isoladas comprova completamente a causa do problema. Seria necessário investigar os dados, os rótulos e as condições experimentais.

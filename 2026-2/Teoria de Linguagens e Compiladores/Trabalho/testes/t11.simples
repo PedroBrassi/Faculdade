@@ -1,0 +1,11 @@
+programa teste11
+  fn inteiro foo(inteiro a logico b)
+  inicio
+     se b 
+       entao retorne a
+       senao retorne 0
+     fimse
+  fimfn
+inicio
+   escreva foo(100 200)
+fimprograma

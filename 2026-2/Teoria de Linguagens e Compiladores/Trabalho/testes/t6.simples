@@ -1,0 +1,8 @@
+programa teste6
+  fn inteiro f()
+  inicio
+     retorne 10
+  fimfn
+inicio
+  escreva f()
+fimprograma

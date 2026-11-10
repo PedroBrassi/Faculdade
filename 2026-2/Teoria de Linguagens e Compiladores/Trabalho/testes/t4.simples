@@ -1,0 +1,13 @@
+programa teste4
+inteiro x
+fn inteiro fatorial(inteiro a)
+inicio
+  se a > 0
+     entao retorne a * fatorial(a - 1)
+     senao retorne 1
+  fimse
+fimfn
+inicio 
+  leia x
+  escreva fatorial(x)
+fimprograma
