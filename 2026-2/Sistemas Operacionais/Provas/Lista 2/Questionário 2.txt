@@ -1,0 +1,269 @@
+Questão 1) Diferencie endereço lógico, também chamado de endereço virtual, de endereço físico.
+Explique o papel da Unidade de Gerenciamento de Memória — MMU — na tradução desses endereços.
+
+
+Questão 2) Explique em que momentos a vinculação de instruções e dados a endereços de memória pode ocorrer:
+a) em tempo de compilação;
+b) em tempo de carga;
+c) em tempo de execução.
+Indique qual alternativa oferece maior flexibilidade e justifique.
+
+
+Questão 3) Diferencie:
+a) fragmentação interna;
+b) fragmentação externa.
+Associe cada tipo aos mecanismos de alocação de memória em que costuma aparecer e apresente um exemplo de cada situação.
+
+
+Questão 4) Considere os seguintes blocos livres de memória:
+	100 KB, 500 KB, 200 KB, 300 KB e 600 KB.
+
+Os processos solicitam, nesta ordem:
+	212 KB, 417 KB, 112 KB e 426 KB.
+
+Indique como as solicitações serão atendidas pelos algoritmos:
+a) first fit;
+b) best fit;
+c) worst fit.
+Apresente, ao final de cada método, os blocos livres restantes.
+
+
+Questão 5) Um sistema utiliza páginas de 4.096 bytes.
+Para o endereço virtual 18.500, determine:
+a) o número da página;
+b) o deslocamento dentro da página;
+c) os cálculos utilizados para chegar ao resultado.
+
+
+Questão 6) Explique a função de uma tabela de páginas.
+Cite pelo menos quatro informações ou bits que uma entrada dessa tabela pode armazenar e explique a finalidade de cada um.
+
+
+Questão 7) O que é uma TLB e por que ela melhora o desempenho de um sistema que utiliza paginação?
+Explique o que acontece:
+a) quando ocorre um acerto na TLB;
+b) quando ocorre uma falta na TLB;
+c) quando a página também não está presente na memória física.
+
+
+Questão 8) Compare paginação e segmentação quanto a:
+a) forma de divisão da memória;
+b) visibilidade para o programador;
+c) tipos de fragmentação;
+d) proteção e compartilhamento;
+e) tamanho das unidades utilizadas.
+
+
+Questão 9) Explique como a memória virtual permite executar um programa maior do que a memória física disponível.
+Por que isso não significa que todo o espaço de memória virtual esteja simultaneamente carregado na memória RAM?
+
+
+Questão 10) Descreva as etapas executadas pelo sistema operacional quando ocorre uma falta de página, desde a interrupção ou exceção gerada pelo hardware até a retomada da instrução que provocou a falta.
+Inclua em sua resposta:
+a) verificação da validade do endereço;
+b) localização da página no armazenamento secundário;
+c) escolha de um quadro;
+d) atualização da tabela de páginas;
+e) reinício da instrução
+
+
+Questão 11) Explique o mecanismo de cópia após gravação — copy-on-write.
+Por que esse mecanismo torna mais eficiente a criação de processos por meio de operações semelhantes a fork()?
+
+
+Questão 12) Considere a sequência de referências:
+	1, 2, 3, 4, 1, 2, 5, 1, 2, 3, 4, 5
+Utilizando três quadros inicialmente vazios:
+a) simule o algoritmo FIFO;
+b) mostre o conteúdo dos quadros depois de cada referência;
+c) identifique cada acerto e cada falta;
+d) informe o total de faltas de página.
+
+
+Questão 13) Compare os algoritmos FIFO, LRU e Ótimo.
+Para cada um, informe:
+a) o critério utilizado para escolher a página vítima;
+b) quais informações precisam ser conhecidas;
+c) o custo ou dificuldade de implementação;
+d) a principal vantagem;
+e) a principal limitação.
+
+
+Questão 14) O que é thrashing?
+Explique a relação entre:
+a) quantidade de quadros atribuídos a um processo;
+b) conjunto de trabalho;
+c) taxa de faltas de página;
+d) grau de multiprogramação;
+e) utilização da CPU.
+Por que aumentar o número de processos na memória pode, em determinadas situações, reduzir a utilização da CPU?
+
+
+Questão 15) Defina arquivo de acordo com a abstração fornecida pelo sistema operacional.
+Diferencie:
+a) atributos de um arquivo;
+b) operações sobre arquivos;
+c) métodos de acesso;
+d) conteúdo e metadados.
+
+
+Questão 16) Compare as seguintes estruturas de diretórios:
+a) diretório de nível único;
+b) diretório de dois níveis;
+c) diretório em árvore;
+d) diretório em grafo acíclico.
+Para cada estrutura, indique vantagens, limitações, possibilidade de arquivos com nomes iguais e formas de compartilhamento.
+
+
+Questão 17) Diferencie caminho absoluto e caminho relativo.
+Explique como os seguintes elementos participam da resolução de um caminho:
+a) diretório raiz;
+b) diretório atual;
+c) diretório pai;
+d) entradas de diretório;
+e) nome do arquivo.
+
+
+Questão 18) Compare os seguintes métodos:
+a) alocação contígua;
+b) alocação encadeada;
+c) alocação indexada.
+Analise cada método quanto a acesso sequencial, acesso direto, crescimento do arquivo, fragmentação, espaço gasto com ponteiros e risco de perda de partes do arquivo
+
+
+Questão 19) Considere duas formas de controlar blocos livres.
+Método A — bitmap:
+	Bloco: 0 1 2 3 4 5 6 7 8 9 10 11
+	Estado: 1 1 0 0 1 0 1 1 0 0 0 1
+
+Considere:
+	1 = bloco ocupado
+	0 = bloco livre
+
+Método B — lista encadeada:
+	2 → 3 → 5 → 8 → 9 → 10 → fim
+
+Responda:
+a) Quais blocos estão livres segundo o bitmap?
+b) A lista encadeada representa os mesmos blocos livres?
+c) Qual estrutura facilita a procura por vários blocos contíguos?
+d) Qual estrutura pode ser percorrida sem manter um bit para cada bloco?
+e) Que inconsistência existiria caso o bitmap e a lista fossem usados ao mesmo tempo e apresentassem valores diferentes?
+f) Compare o custo de atualização e o consumo de memória dos dois métodos.
+
+
+Questão 20) Compare:
+a) E/S programada com espera ocupada;
+b) E/S dirigida por interrupções;
+c) acesso direto à memória — DMA.
+Explique em cada método o papel da CPU, como os dados são transferidos, quando são geradas interrupções, o impacto sobre o desempenho e o tipo de operação para o qual o método é mais adequado.
+
+
+Questão 21) Um sistema possui:
+- espaço de endereçamento virtual de 32 bits;
+- páginas de 4 KB;
+- entradas da tabela de páginas com 4 bytes.
+
+Determine:
+a) quantos bits são utilizados para o deslocamento;
+b) quantos bits identificam a página virtual;
+c) a quantidade de páginas virtuais;
+d) a quantidade de entradas da tabela de páginas;
+e) o tamanho total de uma tabela de páginas de nível único;
+f) por que uma tabela multinível pode economizar memória;
+g) em qual situação essa economia seria pequena.
+
+
+Questão 22) Considere a sequência:
+	7, 0, 1, 2, 0, 3, 0, 4, 2, 3, 0, 3, 2
+O pseudocódigo abaixo representa uma forma simplificada de escolher uma página vítima:
+	se existir quadro vazio:
+	utilizar o quadro vazio
+	senão:
+	selecionar a página que está há mais tempo na memória
+	substituir a página selecionada
+
+Responda:
+a) Qual algoritmo está representado pelo pseudocódigo?
+b) Qual informação deve ser mantida para que ele funcione?
+c) Esse algoritmo considera a frequência ou a recência dos acessos?
+d) Simule sua execução com três quadros.
+e) Informe o total de faltas de página.
+f) Compare conceitualmente seu resultado com LRU e Ótimo.
+g) Em que situações ele pode remover uma página que ainda será muito utilizada?
+h) Que alteração conceitual seria necessária para que o código representasse LRU?
+
+
+Questão 23) Considere a sequência:
+	1, 2, 3, 4, 1, 2, 5, 1, 2, 3, 4, 5
+O sistema utiliza o algoritmo FIFO.
+
+Responda:
+a) Quantas faltas de página ocorrem com três quadros?
+b) Quantas faltas de página ocorrem com quatro quadros?
+c) O aumento da quantidade de quadros melhorou o resultado?
+d) Qual fenômeno é observado?
+e) Por que esse resultado contraria a expectativa de que mais memória sempre reduz a quantidade de faltas?
+f) Por que algoritmos classificados como algoritmos de pilha, como LRU e Ótimo, não apresentam o mesmo fenômeno?
+
+
+Questão 24) Um sistema de arquivos utiliza:
+- blocos de 4 KB;
+- ponteiros de 4 bytes;
+- 10 ponteiros diretos;
+- 1 ponteiro indireto simples;
+- 1 ponteiro indireto duplo.
+
+Considere a seguinte lógica conceitual:
+	se o número do bloco lógico for menor que 10:
+	utilizar um ponteiro direto
+	senão se o bloco estiver dentro da capacidade do indireto simples:
+	consultar o bloco de ponteiros indiretos
+	senão:
+	consultar primeiro o indireto duplo
+	depois consultar o bloco indireto correspondente
+
+Responda:
+a) Quantos ponteiros cabem em um bloco indireto?
+b) Quantos bytes podem ser acessados pelos ponteiros diretos?
+c) Quantos bytes podem ser acessados pelo indireto simples?
+d) Quantos blocos de dados podem ser acessados pelo indireto duplo?
+e) Qual é o tamanho máximo aproximado do arquivo?
+f) Quantos blocos de índices precisam ser consultados para acessar um bloco por ponteiro direto, indireto simples e indireto duplo?
+g) Por que essa estrutura é eficiente para arquivos pequenos?
+h) Qual é o custo adicional para acessar partes muito distantes de arquivos grandes?
+
+
+Questão 25) Considere o seguinte projeto conceitual para um dispositivo com 1.024 blocos:
+- bloco 0: setor de inicialização;
+- bloco 1: superbloco;
+- blocos 2 a 5: bitmap de espaço livre;
+- blocos 6 a 15: tabela de inodes;
+- blocos 16 a 1.023: dados e diretórios.
+
+Cada inode possui:
+- tipo do arquivo;
+- tamanho;
+- permissões;
+- datas;
+- oito ponteiros diretos;
+- um ponteiro indireto simples.
+
+Cada entrada de diretório possui:
+- nome;
+- número do inode;
+- indicador de entrada ativa.
+
+Analise o projeto e responda:
+a) Qual é a função do setor de inicialização?
+b) Quais informações essenciais devem estar no superbloco?
+c) Como o bitmap identifica um bloco disponível?
+d) Como o nome de um arquivo é relacionado ao seu inode?
+e) Como o inode localiza os blocos de dados?
+f) O que deve ocorrer ao criar um arquivo?
+g) O que deve ocorrer quando o arquivo cresce além dos oito blocos diretos?
+h) O que deve ocorrer ao remover o arquivo?
+i) Que inconsistências podem surgir se o sistema falhar durante uma criação ou remoção?
+j) Como journaling, checkpoints ou uma verificação de consistência poderiam reduzir esses problemas?
+k) Como cache, interrupções e DMA participariam da leitura de um bloco?
+l) Indique duas vantagens e duas limitações desse projeto.
